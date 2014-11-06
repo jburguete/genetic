@@ -117,7 +117,9 @@ To build this algorithm in other programs:
 
 3) Include the genetic object files in your compilation instruction i.e.
 > $ gcc YOUR_CODE.c genetic/entity.o genetic/population.o \
+>
 > $ genetic/reproduction.o genetic/selection.o genetic/evolution.o \
+>
 > $ genetic/genetic.o
 
 USING THE ALGORITHM IN OTHER PROGRAMS
