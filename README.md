@@ -146,7 +146,7 @@ The algorithm function prototype is:
 >>
 >>	unsigned int type_selection_reproduction,
 >>
->>	double (*simulate_entity)(Entity*),
+>>	double (\*simulate_entity)(Entity\*),
 >>
 >>	char **best_genome,
 >>
@@ -156,7 +156,24 @@ The algorithm function prototype is:
 
 Where the parameters are:
 * nvariables: variables number
-* genetic_variable: array of data to define each variable
+* genetic_variable: array of data to define each variable. The prototype of
+every element is:
+> typedef struct
+>
+> {
+>
+>> double maximum, minimum;
+>>
+>> unsigned int nbits, location;
+>>
+> } GeneticVariable;
+
+where the fields are:
+- maximum: maximum value
+- minimum: minimum value
+- nbits: number of bits to encode
+- location: this number is calculated by the algorithm
+
 * population: population size
 * ngenerations: number of generations
 * mutation_ration: mutation probability
