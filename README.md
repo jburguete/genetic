@@ -19,6 +19,7 @@ REQUIRED
 * gsl (the GNU scientific library to generate random numbers)
 * gthreads (to use multicores in shared memory machines)
 * glib (extended utilities of C to work with data, lists, random numbers, ...)
+* openmpi or mpich (optional: to parallelize executions in a computers cluster)
 * doxygen (optional: standard comments format to generate documentation)
 * latex (optional: to build the PDF manual)
 

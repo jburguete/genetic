@@ -1,7 +1,7 @@
-CC = gcc
-CFLAGS = -g -march=native -Wall -O3 `pkg-config --cflags glib-2.0 gsl`
-LIBS = -lm `pkg-config --libs glib-2.0 gsl`
-DEP = makefile
+CC = @CC@ @ARCH@ @LTO@ @STD@ -g
+CFLAGS = @MPI@ @CFLAGS@ @GSL_CFLAGS@ @GLIB_CFLAGS@ @GTHREAD_CFLAGS@ -Wall -O3
+LIBS = @LDFLAGS@ @LIBS@ @GSL_LIBS@ @GLIB_LIBS@ @GTHREAD_LIBS@
+DEP = Makefile
 OBJ = entity.o population.o reproduction.o selection.o evolution.o genetic.o
 
 all: test_genetic
