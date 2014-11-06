@@ -40,6 +40,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #define GENETIC_RANDOM_GENERATOR gsl_rng_mt19937
 
+#include "entity.h"
+#include "population.h"
+
 /**
  * \struct GeneticThreadData
  * \brief Structure to define the parallel data needed on each thread.

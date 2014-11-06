@@ -29,12 +29,12 @@ FILES
 * configure.ac: configure generator.
 * Makefile.in: Makefile generator.
 * TODO: List of tasks TO DO (in spanish)
-* src/*.h: Header files.
-* src/*.c: Source files.
+* *.h: Header files.
+* *.c: Source files.
 * Doxyfile: configuration file to generate doxygen documentation.
 
-BUILDING INSTRUCTIONS
----------------------
+BUILDING THE BINARY FILES
+-------------------------
 
 This software has been built and tested in the following operative systems:
 
@@ -89,7 +89,7 @@ utilities. You can follow detailed instructions in
 * configure --host=x86_64-w64-mingw32
 * make
 
-OpenBSD 5.5
+OpenBSD 5.6
 ___________
 
 * export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.14
@@ -99,6 +99,73 @@ ___________
 * automake --add-missing
 * ./configure
 * make
+
+BUILDING IN OTHER PROGRAMS
+--------------------------
+
+To build this algorithm in other programs:
+
+1) Build the binary code (follows the former section steps)
+
+2) Link in your source directory the latest code version i.e.
+> $ cd YOUR_PROGRAM_PATH
+>
+> $ ln -s PATH_TO_GENETIC/0.1.0 genetic
+
+2) Include the genetic header in your source code files:
+> #include <genetic/genetic.h>
+
+3) Include the genetic object files in your compilation instruction i.e.
+> $ gcc YOUR_CODE.c genetic/entity.o genetic/population.o \
+> $ genetic/reproduction.o genetic/selection.o genetic/evolution.o \
+> $ genetic/genetic.o
+
+USING THE ALGORITHM IN OTHER PROGRAMS
+-------------------------------------
+
+The algorithm function prototype is:
+> int genetic_algorithm(
+>
+>>	unsigned int nvariables,
+>>
+>>	GeneticVariable *variable,
+>>
+>>	unsigned int population,
+>>
+>>	unsigned int ngenerations,
+>>
+>>	double mutation_ratio,
+>>
+>>	double reproduction_ratio,
+>>
+>>	unsigned int type_reproduction,
+>>
+>>	unsigned int type_selection_mutation,
+>>
+>>	unsigned int type_selection_reproduction,
+>>
+>>	double (*simulate_entity)(Entity*),
+>>
+>>	char **best_genome,
+>>
+>>	double **best_variables,
+>>
+>>	double *best_objective);
+
+Where the parameters are:
+* nvariables: variables number
+* genetic_variable: array of data to define each variable
+* population: population size
+* ngenerations: number of generations
+* mutation_ration: mutation probability
+* reproduction_ration: reproduction probability
+* type_reproduction: type of reproduction
+* type_selection_mutation: type of mother selection to mutate
+* type_selection_reproduction: type of selection parents to reproduce
+* simulate_entity: pointer to the function to perform each simulation
+* best_genome: new generated best genome
+* best_variables: new generated best variables array
+* best_objective: obtained best objective function value
 
 MAKING REFERENCE MANUAL INSTRUCTIONS
 ------------------------------------

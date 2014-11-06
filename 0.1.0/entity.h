@@ -43,14 +43,15 @@ typedef struct
 /**
  * \var genome
  * \brief Genome data.
- * \var evaluated
- * \brief 1 on evaluated entities, 0 on otherwise.
+ * \var id
+ * \brief Identifier number.
  */
 	char *genome;
-	int evaluated;
+	unsigned int id;
 } Entity;
 
-void entity_new(Entity *entity, unsigned int genome_nbytes, gsl_rng *rng);
+void entity_new
+(Entity *entity, unsigned int genome_nbytes, unsigned int id, gsl_rng *rng);
 void entity_free(Entity *entity);
 
 #endif

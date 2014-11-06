@@ -44,13 +44,17 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief Entity struct.
  * \param genome_nbytes
  * \brief Number of bytes of the entity genome.
+ * \param id
+ * \brief Identifier number.
  * \param rng
  * \brief GSL random numbers generator.
  */
-void entity_new(Entity *entity, unsigned int genome_nbytes, gsl_rng *rng)
+void entity_new
+(Entity *entity, unsigned int genome_nbytes, unsigned int id, gsl_rng *rng)
 {
 	unsigned int i;
 	// Aligning in 4 bytes
+	entity->id = id;
 	i = ((genome_nbytes + 3) / 4) * 4;
 	entity->genome = (char*)g_malloc(i);
 	for (i = 0; i < genome_nbytes; ++i)
