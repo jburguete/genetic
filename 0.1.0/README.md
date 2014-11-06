@@ -113,7 +113,7 @@ To build this algorithm in other programs:
 > $ ln -s PATH_TO_GENETIC/0.1.0 genetic
 
 2) Include the genetic header in your source code files:
-> \#include <genetic/genetic.h>
+> \#include \<genetic/genetic.h\>
 
 3) Include the genetic object files in your compilation instruction i.e.
 > $ gcc YOUR_CODE.c genetic/entity.o genetic/population.o \
