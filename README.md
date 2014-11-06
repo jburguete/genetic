@@ -171,10 +171,10 @@ every element is:
 > } GeneticVariable;
 
 where the fields are:
-- maximum: maximum value
-- minimum: minimum value
-- nbits: number of bits to encode
-- location: this number is calculated by the algorithm
+-- maximum: maximum value
+-- minimum: minimum value
+-- nbits: number of bits to encode
+-- location: this number is calculated by the algorithm
 
 * population: population size
 * ngenerations: number of generations
