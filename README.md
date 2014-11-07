@@ -190,8 +190,29 @@ where the fields are:
 * adaptation_ratio: adaptation probability
 * type_random: type of GSL random numbers generator algorithm. See the
 [GSL documentation]
-(https://www.gnu.org/software/gsl/manual/html_node/index.html)
-* type_reproduction: type of reproduction algorithm
+(https://www.gnu.org/software/gsl/manual/html_node/index.html).
+Valid algorithms are:
+	* gsl_rgn_mt19937 (default value)
+	* gsl_rng_taus
+	* gsl_rgn_gfsr4
+	* gsl_rgn_ranlxs0
+	* gsl_rgn_ranlxs1
+	* gsl_rgn_mrg
+	* gsl_rgn_ranlux
+	* gsl_rgn_ranlxd1
+	* gsl_rgn_ranlxs2
+	* gsl_rgn_cmrg
+	* gsl_rgn_ranlux389
+	* gsl_rgn_ranlxd2
+* random_seed: seed to the GSL random numbers generator algorithm (0 uses the
+default GSL seed)
+* type_reproduction: type of reproduction algorithm. Valid values are:
+	* REPRODUCTION_TYPE_MIXING (default value): the son genome is a random
+		mixing between mother and father genomes in each bit.
+	* REPRODUCTION_TYPE_SINGLEPOINTS: the son genome is equal to mother genome
+		previous to a random point and next it is equal to the father genome.
+	* REPRODUCTION_TYPE_DOUBLEPOINTS: the son genome is equal to father genome
+		between two random points and equal to the mother genome in the rest.
 * type_selection_mutation: type of algorithm to select the mothers to create
 sons with a mutation
 * type_selection_reproduction: type of algorithm to select the parents to
