@@ -125,7 +125,7 @@ To build this algorithm in other programs:
 USING THE ALGORITHM IN OTHER PROGRAMS
 -------------------------------------
 
-Main function
+MAIN FUNCTION
 _____________
 
 The prototype of the main function is:
@@ -235,8 +235,35 @@ significative bits. Valid values are:
 * best_variables: new generated best variables array
 * best_objective: obtained best objective function value
 
-Convenient function
-___________________
+CONVENIENT FUNCTION USING DEFAULT ALGORITHMS
+____________________________________________
+
+If the default algorithms are considered, the following convenient simplified
+function can be used:
+> int genetic_algorithm_default(
+>
+>>	unsigned int nvariables,
+>>
+>>	GeneticVariable *variable,
+>>
+>>	unsigned int population,
+>>
+>>	unsigned int ngenerations,
+>>
+>>	double mutation_ratio,
+>>
+>>	double reproduction_ratio,
+>>
+>>  double adaptation_ratio,
+>>
+>>	double (\*simulate_entity)(Entity\*),
+>>
+>>	char **best_genome,
+>>
+>>	double **best_variables,
+>>
+>>	double *best_objective);
+
 
 MAKING REFERENCE MANUAL INSTRUCTIONS
 ------------------------------------
