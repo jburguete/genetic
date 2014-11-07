@@ -126,7 +126,7 @@ USING THE ALGORITHM IN OTHER PROGRAMS
 -------------------------------------
 
 Main function
-.............
+_____________
 
 The prototype of the main function is:
 > int genetic_algorithm(
@@ -236,7 +236,7 @@ significative bits. Valid values are:
 * best_objective: obtained best objective function value
 
 Convenient function
-...................
+___________________
 
 MAKING REFERENCE MANUAL INSTRUCTIONS
 ------------------------------------
