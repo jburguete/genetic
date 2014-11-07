@@ -174,6 +174,7 @@ Where the parameters are:
 >>
 > } GeneticVariable;
 >
+
 where the fields are:
 	* maximum: maximum value
 	* minimum: minimum value
