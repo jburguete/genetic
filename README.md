@@ -164,7 +164,6 @@ Where the parameters are:
 * nvariables: variables number
 * genetic_variable: array of data to define each variable. The prototype of
 	every element is:
->
 > typedef struct
 >
 > {
