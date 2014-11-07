@@ -177,6 +177,7 @@ Where the parameters are:
 >
 
 where the fields are:
+
 	* maximum: maximum value
 	* minimum: minimum value
 	* nbits: number of bits to encode
