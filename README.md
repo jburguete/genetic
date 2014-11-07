@@ -162,26 +162,11 @@ The algorithm function prototype is:
 
 Where the parameters are:
 * nvariables: variables number
-* genetic_variable: array of data to define each variable. The prototype of
-	every element is:
-
-> typedef struct
->
-> {
->
->> double maximum, minimum;
->>
->> unsigned int nbits, location;
->>
-> } GeneticVariable;
->
-
-where the fields are:
-
+* genetic_variable: array of data to define each variable. The fields of the
+	data structure are:
 	* maximum: maximum value
 	* minimum: minimum value
 	* nbits: number of bits to encode
-	* location: this number is calculated by the algorithm
 * population: population size
 * ngenerations: number of generations
 * mutation_ratio: mutation probability
@@ -213,11 +198,33 @@ default GSL seed)
 	* REPRODUCTION_TYPE_DOUBLEPOINTS: the son genome is equal to father genome
 		between two random points and equal to the mother genome in the rest.
 * type_selection_mutation: type of algorithm to select the mothers to create
-sons with a mutation
+sons with a mutation. Valid values are:
+	* SELECTION_MUTATION_TYPE_LINEARRANK (default value): the mother is selected
+		randomly between the survival entities assigning a linear probabiltiy
+		higher for better entities.
+	* SELECTION_MUTATION_TYPE_RANDOM: the mother is selected randomly between
+		the survival entities
+	* SELECTION_MUTATION_TYPE_BESTOF2: the mother is the best of two randomly
+		selected between the survival entities
+	* SELECTION_MUTATION_TYPE_BESTOF3: the mother is the best of three randomly
+		selected between the survival entities
+	* SELECTION_MUTATION_TYPE_BEST: the mother is the best of the survival
+		entities
 * type_selection_reproduction: type of algorithm to select the parents to
 reproduce
 * type_selection_adaptation: type of algorithm to select the mothers to create
-sons with an adaptation
+sons with a adaptation. Valid values are:
+	* SELECTION_ADAPTATION_TYPE_LINEARRANK (default value): the mother is
+		selected randomly between the survival entities assigning a linear
+		probabiltiy higher for better entities.
+	* SELECTION_ADAPTATION_TYPE_RANDOM: the mother is selected randomly between
+		the survival entities
+	* SELECTION_ADAPTATION_TYPE_BESTOF2: the mother is the best of two randomly
+		selected between the survival entities
+	* SELECTION_ADAPTATION_TYPE_BESTOF3: the mother is the best of three
+		randomly selected between the survival entities
+	* SELECTION_ADAPTATION_TYPE_BEST: the mother is the best of the survival
+		entities
 * simulate_entity: pointer to the function to perform each simulation
 * best_genome: new generated best genome
 * best_variables: new generated best variables array
@@ -226,7 +233,7 @@ sons with an adaptation
 MAKING REFERENCE MANUAL INSTRUCTIONS
 ------------------------------------
 
-* cd 0.1.0
+* cd 0.2.0
 * doxygen
 * cd doc/latex
 * make
