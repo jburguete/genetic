@@ -37,6 +37,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 #include <gsl/gsl_rng.h>
 #include <glib.h>
+#if HAVE_MPI
+	#include <mpi.h>
+#endif
 #include "entity.h"
 #include "population.h"
 #include "reproduction.h"
@@ -52,7 +55,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \var v
  * \brief Array of variables to optimize.
  */
-unsigned int ntasks = 1;
+int ntasks = 1;
 unsigned int nthreads = 1;
 GeneticVariable v[2];
 
@@ -75,30 +78,37 @@ double evaluate(Entity *entity)
 }
 
 /**
- * \fn int main()
+ * \fn int main(int argn, char **argc)
  * \brief Main function.
+ * \param argn
+ * \brief Number of arguments.
+ * \param argc
+ * \brief Array of argument strings.
  * \return 0 always.
  */
-int main()
+int main(int argn, char **argc)
 {
 	char *best_genome;
 	double *best_variables, best_objective;
+#if HAVE_MPI
+	MPI_Init(&argn, &argc);
+	MPI_Comm_size(MPI_COMM_WORLD, &ntasks);
+#endif
+	nthreads = 4;
 	v[0].maximum = 10.;
 	v[0].minimum = -10.;
-	v[0].nbits = 7;
+	v[0].nbits = 11;
 	v[1].maximum = 10.;
 	v[1].minimum = -10.;
-	v[1].nbits = 7;
-	genetic_algorithm(
+	v[1].nbits = 11;
+	genetic_algorithm_default(
 		2,
 		v,
 		129,
-		10,
+		20,
 		0.4,
 		0.4,
-		0,
-		0,
-		0,
+		0.,
 		&evaluate,
 		&best_genome,
 		&best_variables,
@@ -107,17 +117,14 @@ int main()
 		best_variables[0], best_variables[1], best_objective);
 	g_free(best_genome);
 	g_free(best_variables);
-	nthreads = 4;
-	genetic_algorithm(
+	genetic_algorithm_default(
 		2,
 		v,
 		129,
-		10,
-		0.4,
-		0.4,
-		0,
-		0,
-		0,
+		20,
+		0.3,
+		0.3,
+		0.1,
 		&evaluate,
 		&best_genome,
 		&best_variables,
@@ -126,5 +133,24 @@ int main()
 		best_variables[0], best_variables[1], best_objective);
 	g_free(best_genome);
 	g_free(best_variables);
+	genetic_algorithm_default(
+		2,
+		v,
+		129,
+		20,
+		0.4,
+		0.4,
+		0.1,
+		&evaluate,
+		&best_genome,
+		&best_variables,
+		&best_objective);
+	printf("x=%lg y=%lg error=%lg\n",
+		best_variables[0], best_variables[1], best_objective);
+	g_free(best_genome);
+	g_free(best_variables);
+#if HAVE_MPI
+	MPI_Finalize();
+#endif
 	return 0;
 }

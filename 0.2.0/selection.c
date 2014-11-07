@@ -44,9 +44,12 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief Pointer to the function to apply mutation selection operations.
  * \var selection_reproduction
  * \brief Pointer to the function to apply reproduction selection operations.
+ * \var selection_adaptation
+ * \brief Pointer to the function to apply adaptation selection operations.
  */
 void (*selection_mutation)(Population*, Entity**, gsl_rng*);
 void (*selection_reproduction)(Population*, Entity**, Entity**, gsl_rng*);
+void (*selection_adaptation)(Population*, Entity**, gsl_rng*);
 
 /**
  * \fn void selection_mutation_random(Population *population, Entity **mother, \
@@ -281,14 +284,17 @@ void selection_reproduction_linearrank
 
 /**
  * \fn void selection_init(unsigned int mutation_type, \
- *   unsigned int reproduction_type)
+ *   unsigned int reproduction_type, unsigned int adaptation_type)
  * \brief Function to select the selection operations.
  * \param mutation_type
  * \brief Type of mutation selection operations.
  * \param reproduction_type
  * \brief Type of reproduction selection operations.
+ * \param adaptation_type
+ * \brief Type of adaptation selection operations.
  */
-void selection_init(unsigned int mutation_type, unsigned int reproduction_type)
+void selection_init(unsigned int mutation_type, unsigned int reproduction_type,
+	unsigned int adaptation_type)
 {
 	switch (mutation_type)
 	{
@@ -323,5 +329,22 @@ void selection_init(unsigned int mutation_type, unsigned int reproduction_type)
 			break;
 		default:
 			selection_reproduction = &selection_reproduction_linearrank;
+	}
+	switch (adaptation_type)
+	{
+		case SELECTION_ADAPTATION_TYPE_RANDOM:
+			selection_adaptation = &selection_mutation_random;
+			break;
+		case SELECTION_ADAPTATION_TYPE_BESTOF2:
+			selection_adaptation = &selection_mutation_bestof2;
+			break;
+		case SELECTION_ADAPTATION_TYPE_BESTOF3:
+			selection_adaptation = &selection_mutation_bestof3;
+			break;
+		case SELECTION_ADAPTATION_TYPE_BEST:
+			selection_adaptation = &selection_mutation_best;
+			break;
+		default:
+			selection_adaptation = &selection_mutation_linearrank;
 	}
 }

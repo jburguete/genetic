@@ -42,6 +42,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "population.h"
 #include "mutation.h"
 #include "reproduction.h"
+#include "adaptation.h"
 #include "selection.h"
 #include "evolution.h"
 
@@ -131,5 +132,38 @@ i, population->index[i]);
 	}
 #if DEBUG_EVOLUTION
 fprintf(stderr, "evolution_reproduction: end\n");
+#endif
+}
+
+/**
+ * \fn void evolution_adaptation(Population *population, gsl_rng *rng)
+ * \brief Funtion to apply the adaptation evolution.
+ * \param population
+ * \brief Population
+ * \param rng
+ * \brief GSL random numbers generator.
+ */
+void evolution_adaptation(Population *population, gsl_rng *rng)
+{
+	unsigned int i;
+	Entity *mother, *son;
+#if DEBUG_EVOLUTION
+fprintf(stderr, "evolution_adaptation: start\n");
+#endif
+	for (i = population->adaptation_max; i > population->adaptation_min;)
+	{
+#if DEBUG_EVOLUTION
+fprintf(stderr, "evolution_adaptation: selection\n");
+#endif
+		selection_adaptation(population, &mother, rng);
+		son = population->entity + population->index[--i];
+#if DEBUG_EVOLUTION
+fprintf(stderr, "evolution_adaptation: adaptation in %u-%u\n",
+i, population->index[i]);
+#endif
+		adaptation(population, mother, son, rng);
+	}
+#if DEBUG_EVOLUTION
+fprintf(stderr, "evolution_adaptation: end\n");
 #endif
 }

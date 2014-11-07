@@ -1,4 +1,4 @@
-GENETIC (0.1.0 version)
+GENETIC (0.2.0 version)
 =======================
 
 A simple genetic algorithm.
@@ -51,7 +51,7 @@ ____________
 NetBSD 6.1.5 (with modular xorg)
 ________________________________
 
-* cd 0.1.0
+* cd 0.2.0
 * aclocal
 * autoconf
 * automake --add-missing
@@ -93,7 +93,7 @@ OpenBSD 5.6
 ___________
 
 * export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.14
-* cd 0.1.0
+* cd 0.2.0
 * aclocal
 * autoconf
 * automake --add-missing
@@ -110,7 +110,7 @@ To build this algorithm in other programs:
 2) Link in your source directory the latest code version i.e.
 > $ cd YOUR_PROGRAM_PATH
 >
-> $ ln -s PATH_TO_GENETIC/0.1.0 genetic
+> $ ln -s PATH_TO_GENETIC/0.2.0 genetic
 
 2) Include the genetic header in your source code files:
 > \#include \<genetic/genetic.h\>
@@ -139,6 +139,12 @@ The algorithm function prototype is:
 >>	double mutation_ratio,
 >>
 >>	double reproduction_ratio,
+>>
+>>  double adaptation_ratio,
+>>
+>>  const gsl_rng_type *type_random,
+>>
+>>	unsigned long random_seed,
 >>
 >>	unsigned int type_reproduction,
 >>
@@ -179,11 +185,19 @@ where the fields are:
 
 * population: population size
 * ngenerations: number of generations
-* mutation_ration: mutation probability
-* reproduction_ration: reproduction probability
-* type_reproduction: type of reproduction
-* type_selection_mutation: type of mother selection to mutate
-* type_selection_reproduction: type of selection parents to reproduce
+* mutation_ratio: mutation probability
+* reproduction_ratio: reproduction probability
+* adaptation_ratio: adaptation probability
+* type_random: type of GSL random numbers generator algorithm. See the
+[GSL documentation]
+(https://www.gnu.org/software/gsl/manual/html_node/index.html)
+* type_reproduction: type of reproduction algorithm
+* type_selection_mutation: type of algorithm to select the mothers to create
+sons with a mutation
+* type_selection_reproduction: type of algorithm to select the parents to
+reproduce
+* type_selection_adaptation: type of algorithm to select the mothers to create
+sons with an adaptation
 * simulate_entity: pointer to the function to perform each simulation
 * best_genome: new generated best genome
 * best_variables: new generated best variables array

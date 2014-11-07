@@ -86,8 +86,36 @@ enum SelectionReproductionType
 	SELECTION_REPRODUCTION_TYPE_LINEARRANK = 5
 };
 
+/**
+ * \enum SelectionAdaptationType
+ * \brief Enumeration to define the types of adaptation selection operations.
+ */
+enum SelectionAdaptationType
+{
+/**
+ * \var SELECTION_ADAPTATION_TYPE_RANDOM
+ * \brief Random adaptation selection operation type.
+ * \var SELECTION_ADAPTATION_TYPE_BESTOF2
+ * \brief Best of two random adaptation selection operation type.
+ * \var SELECTION_ADAPTATION_TYPE_BESTOF3
+ * \brief Best of three random adaptation selection operation type.
+ * \var SELECTION_ADAPTATION_TYPE_BEST
+ * \brief Best adaptation selection operation type.
+ * \var SELECTION_ADAPTATION_TYPE_LINEARRANK
+ * \brief Adaptation selection operation type based on linear probability
+ *   distribution with respect to rank.
+ */
+	SELECTION_ADAPTATION_TYPE_RANDOM = 1,
+	SELECTION_ADAPTATION_TYPE_BESTOF2 = 2,
+	SELECTION_ADAPTATION_TYPE_BESTOF3 = 3,
+	SELECTION_ADAPTATION_TYPE_BEST = 4,
+	SELECTION_ADAPTATION_TYPE_LINEARRANK = 5
+};
+
 extern void (*selection_mutation)(Population*, Entity**, gsl_rng*);
-extern void (*selection_reproduction)(Population*, Entity**, Entity**, gsl_rng*);
+extern void (*selection_reproduction)
+	(Population*, Entity**, Entity**, gsl_rng*);
+extern void (*selection_adaptation)(Population*, Entity**, gsl_rng*);
 
 void selection_mutation_random
 (Population *population, Entity **mother, gsl_rng *rng);
@@ -111,6 +139,7 @@ void selection_reproduction_best
 void selection_reproduction_linearrank
 (Population *population, Entity **mother, Entity **father, gsl_rng *rng);
 
-void selection_init(unsigned int mutation_type, unsigned int reproduction_type);
+void selection_init(unsigned int mutation_type, unsigned int reproduction_type,
+	unsigned int adaptation_type);
 
 #endif

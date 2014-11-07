@@ -37,6 +37,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <math.h>
 #include <gsl/gsl_rng.h>
 #include <glib.h>
+#if HAVE_MPI
+	#include <mpi.h>
+#endif
 #include "bits.h"
 #include "entity.h"
 #include "population.h"
@@ -106,31 +109,40 @@ fprintf(stderr, "genetic_simulation_thread: end\n");
 }
 
 /**
- * \fn void genetic_simulation_population(unsigned int nsurvival)
- * \brief Function to perform all simulations of new entities.
+ * \fn void genetic_simulation_task(unsigned int nsurvival, int rank)
+ * \brief Function to perform the simulations on a task.
  * \param nsurvival
  * \brief Number of survival entities already simulated.
+ * \param rank
+ * \brief Number of task.
  */
-void genetic_simulation_population(unsigned int nsurvival)
+void genetic_simulation_task(unsigned int nsurvival, int rank)
 {
-	unsigned int j, nsimulate;
+	unsigned int j, nsimulate, nmin, nmax;
 	GThread *thread[nthreads];
 	GeneticThreadData thread_data[nthreads];
 #if DEBUG_GENETIC
-fprintf(stderr, "genetic_simulation_population: start\n");
+fprintf(stderr, "genetic_simulation_task: start\n");
 #endif
-	nsimulate = genetic_population->nentities - nsurvival;
-	thread_data[0].nmin = nsurvival;
+	nmax = genetic_population->nentities;
+	nsimulate = nmax - nsurvival;
+	nmin = nsurvival;
+#if HAVE_MPI
+	nmax = nmin + (rank + 1) * nsimulate / ntasks;
+	nmin += rank * nsimulate / ntasks;
+	nsimulate = nmax - nmin;
+#endif
+	thread_data[0].nmin = nmin;
 	for (j = 0; ++j < nthreads;)
 		thread_data[j - 1].nmax = thread_data[j].nmin
-			= nsurvival + j * nsimulate / nthreads;
-	thread_data[j - 1].nmax = genetic_population->nentities;
+			= nmin + j * nsimulate / nthreads;
+	thread_data[j - 1].nmax = nmax;
 	for (j = 0; j < nthreads; ++j)
 		thread[j] = g_thread_new
 			(NULL, (void(*))genetic_simulation_thread, thread_data + j);
 	for (j = 0; j < nthreads; ++j) g_thread_join(thread[j]);
 #if DEBUG_GENETIC
-fprintf(stderr, "genetic_simulation_population: end\n");
+fprintf(stderr, "genetic_simulation_task: end\n");
 #endif
 }
 
@@ -138,9 +150,11 @@ fprintf(stderr, "genetic_simulation_population: end\n");
  * \fn int genetic_algorithm(unsigned int nvariables, \
  *   GeneticVariable *variable, unsigned int nentities, \
  *   unsigned int ngenerations, double mutation_ratio, \
- *   double reproduction_ratio, unsigned int type_reproduction, \
- *   unsigned int type_selection_mutation, \
+ *   double reproduction_ratio, double adaptation_ratio, \
+ *   const gsl_rng_type *type_random, unsigned long random_seed, \
+ *   unsigned int type_reproduction, unsigned int type_selection_mutation, \
  *   unsigned int type_selection_reproduction, \
+ *   unsigned int type_selection_adaptation, \
  *   double (*simulate_entity)(Entity*), char **best_genome, \
  *   double **best_variables, double *best_objective)
  * \brief Function to perform the genetic algorithm.
@@ -156,12 +170,20 @@ fprintf(stderr, "genetic_simulation_population: end\n");
  * \brief Mutation ratio.
  * \param reproduction_ratio
  * \brief Reproduction ratio.
+ * \param adaptation_ratio
+ * \brief Adaptation ratio.
+ * \param type_random
+ * \brief Type of GSL random numbers generator algorithm.
+ * \param random_seed
+ * \brief Seed of the GSL random numbers generator.
  * \param type_reproduction
  * \brief Type of reproduction algorithm.
  * \param type_selection_mutation
  * \brief Type of mutation selection algorithm.
  * \param type_selection_reproduction
  * \brief Type of reproduction selection algorithm.
+ * \param type_selection_adaptation
+ * \brief Type of adaptation selection algorithm.
  * \param simulate_entity
  * \brief Pointer to the function to perform a simulation of an entity.
  * \param best_genome
@@ -179,15 +201,20 @@ int genetic_algorithm(
 	unsigned int ngenerations,
 	double mutation_ratio,
 	double reproduction_ratio,
+	double adaptation_ratio,
+	const gsl_rng_type *type_random,
+	unsigned long random_seed,
 	unsigned int type_reproduction,
 	unsigned int type_selection_mutation,
 	unsigned int type_selection_reproduction,
+	unsigned int type_selection_adaptation,
 	double (*simulate_entity)(Entity*),
 	char **best_genome,
 	double **best_variables,
 	double *best_objective)
 {
 	unsigned int i, genome_nbits, nprocesses;
+	int rank;
 	double *bv;
 	gsl_rng *rng;
 	Entity *best_entity;
@@ -216,29 +243,45 @@ fprintf(stderr, "genetic_algorithm: start\n");
 		return 0;
 	}
 
-	// Init the GSL random numbers generator
-	rng = gsl_rng_alloc(GENETIC_RANDOM_GENERATOR);
+	// Init the evaluation function
+	genetic_simulation = simulate_entity;
+	
+	// Get the rank
+#if HAVE_MPI
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+#else
+	rank = 0;
+#endif
 
 	// Init the population
 #if DEBUG_GENETIC
 fprintf(stderr, "genetic_algorithm: init the population\n");
 #endif
-	if (!population_new(genetic_population, genome_nbits, nentities,
-		mutation_ratio, reproduction_ratio, rng))
+	if (!population_new(genetic_population, variable, nvariables, genome_nbits,
+		nentities, mutation_ratio, reproduction_ratio, adaptation_ratio))
 			return 0;
 
-	// Init the evaluation function
-	genetic_simulation = simulate_entity;
-	
-	// Init selection, mutation and reproduction algorithms
-	reproduction_init(type_reproduction);
-	selection_init(type_selection_mutation, type_selection_reproduction);
+	// Variables to init only by master task
+	if (rank == 0)
+	{
+		// Init the GSL random numbers generator
+		rng = gsl_rng_alloc(type_random);
+		if (random_seed) gsl_rng_set(rng, random_seed);
+
+		// Init genomes
+		population_init_genomes(genetic_population, rng);
+
+		// Init selection, mutation and reproduction algorithms
+		reproduction_init(type_reproduction);
+		selection_init(type_selection_mutation, type_selection_reproduction,
+			type_selection_adaptation);
+	}
 
 	// First simulation of all entities
 #if DEBUG_GENETIC
 fprintf(stderr, "genetic_algorithm: first simulation of all entities\n");
 #endif
-	genetic_simulation_population(0);
+	genetic_simulation_task(0, rank);
 
 	// Sorting by objective function results
 #if DEBUG_GENETIC
@@ -261,11 +304,17 @@ fprintf(stderr, "genetic_algorithm: reproduction\n");
 #endif
 		evolution_reproduction(genetic_population, rng);
 
+		// Adaptation
+#if DEBUG_GENETIC
+fprintf(stderr, "genetic_algorithm: adaptation\n");
+#endif
+		evolution_adaptation(genetic_population, rng);
+
 		// Simulation of the new entities
 #if DEBUG_GENETIC
 fprintf(stderr, "genetic_algorithm: simulation of the new entities\n");
 #endif
-		genetic_simulation_population(genetic_population->nsurvival);
+		genetic_simulation_task(genetic_population->nsurvival, rank);
 
 		// Sorting by objective function results
 #if DEBUG_GENETIC
@@ -299,4 +348,70 @@ fprintf(stderr, "genetic_algorithm: freeing memory\n");
 fprintf(stderr, "genetic_algorithm: end\n");
 #endif
 	return 1;
+}
+
+/**
+ * \fn int genetic_algorithm_default(unsigned int nvariables, \
+ *   GeneticVariable *variable, unsigned int nentities, \
+ *   unsigned int ngenerations, double mutation_ratio, \
+ *   double reproduction_ratio, double adaptation_ratio, \
+ *   double (*simulate_entity)(Entity*), char **best_genome, \
+ *   double **best_variables, double *best_objective)
+ * \brief Function to perform the genetic algorithm with default random and
+ *   evolution algorithms.
+ * \param nvariables
+ * \brief Number of variables.
+ * \param variable
+ * \brief Array of variables data.
+ * \param nentities
+ * \brief Number of entities in each generation.
+ * \param ngenerations
+ * \brief Number of generations.
+ * \param mutation_ratio
+ * \brief Mutation ratio.
+ * \param reproduction_ratio
+ * \brief Reproduction ratio.
+ * \param adaptation_ratio
+ * \brief Adaptation ratio.
+ * \param simulate_entity
+ * \brief Pointer to the function to perform a simulation of an entity.
+ * \param best_genome
+ * \brief Best genome. 
+ * \param best_variables
+ * \brief Best array of variables.
+ * \param best_objective
+ * \brief Best objective function value.
+ * \return 1 on succes, 0 on error.
+ */
+int genetic_algorithm_default(
+	unsigned int nvariables,
+	GeneticVariable *variable,
+	unsigned int nentities,
+	unsigned int ngenerations,
+	double mutation_ratio,
+	double reproduction_ratio,
+	double adaptation_ratio,
+	double (*simulate_entity)(Entity*),
+	char **best_genome,
+	double **best_variables,
+	double *best_objective)
+{
+	return genetic_algorithm(
+		nvariables,
+		variable,
+		nentities,
+		ngenerations,
+		mutation_ratio,
+		reproduction_ratio,
+		adaptation_ratio,
+		gsl_rng_mt19937,
+		0l,
+		0,
+		0,
+		0,
+		0,
+		simulate_entity,
+		best_genome,
+		best_variables,
+		best_objective);
 }

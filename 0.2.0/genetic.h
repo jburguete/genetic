@@ -34,11 +34,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef GENETIC__H
 #define GENETIC__H 1
 
-/**
- * \def GENETIC_RANDOM_GENERATOR
- * \brief Macro to define the GSL random numbers generator algorithm.
- */
-#define GENETIC_RANDOM_GENERATOR gsl_rng_mt19937
 
 #include "entity.h"
 #include "population.h"
@@ -58,34 +53,14 @@ typedef struct
 	unsigned int nmin, nmax;
 } GeneticThreadData;
 
-/**
- * \struct GeneticVariable
- * \brief Structure to define a variable to optimize in a genetic algorithm.
- */
-typedef struct
-{
-/**
- * \var maximum
- * \brief Maximum value allowed.
- * \var minimum
- * \brief Minimum value allowed.
- * \var nbits
- * \brief Number of bits to encode in the genome.
- * \var location
- * \brief Bit posistion in the genome.
- */
-	double maximum, minimum;
-	unsigned int nbits, location;
-} GeneticVariable;
-
-extern unsigned int ntasks;
+extern int ntasks;
 extern unsigned int nthreads;
 extern Population genetic_population[1];
 extern double (*genetic_simulation)(Entity*);
 
 double genetic_get_variable(Entity *entity, GeneticVariable *variable);
 void genetic_simulation_thread(GeneticThreadData *data);
-void genetic_simulation_population(unsigned int nsurvival);
+void genetic_simulation_task(unsigned int nsurvival, int rank);
 int genetic_algorithm(
 	unsigned int nvariables,
 	GeneticVariable *variable,
@@ -93,9 +68,25 @@ int genetic_algorithm(
 	unsigned int ngenerations,
 	double mutation_ratio,
 	double reproduction_ratio,
+	double adaptation_ratio,
+	const gsl_rng_type *type_random,
+	unsigned long random_seed,
 	unsigned int type_reproduction,
 	unsigned int type_selection_mutation,
 	unsigned int type_selection_reproduction,
+	unsigned int type_selection_adaptation,
+	double (*simulate_entity)(Entity*),
+	char **best_genome,
+	double **best_variables,
+	double *best_objective);
+int genetic_algorithm_default(
+	unsigned int nvariables,
+	GeneticVariable *variable,
+	unsigned int nentities,
+	unsigned int ngenerations,
+	double mutation_ratio,
+	double reproduction_ratio,
+	double adaptation_ratio,
 	double (*simulate_entity)(Entity*),
 	char **best_genome,
 	double **best_variables,

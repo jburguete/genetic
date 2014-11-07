@@ -26,54 +26,32 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /**
- * \file population.h
- * \brief Header file to define the population functions and data.
+ * \file adaptation.h
+ * \brief Header file to define the adaptation function.
  * \author Javier Burguete Tolosa.
  * \copyright Copyright 2014 Javier Burguete Tolosa. All rights reserved.
  */
-#ifndef POPULATION__H
-#define POPULATION__H 1
+#ifndef ADAPTATATION__H
+#define ADAPTATATION__H 1
 
 /**
- * \struct Population
- * \brief Population struct.
+ * \fn static inline void adaptation(Population *population, Entity *mother, \
+ *   Entity *son, gsl_rng *rng)
+ * \brief Function to apply an adaptation operation.
+ * \param mother
+ * \brief Mother.
+ * \param son
+ * \brief Son.
+ * \param rng
+ * \brief GSL random number generator.
  */
-typedef struct
+static inline void adaptation
+(Population *population, Entity *mother, Entity *son, gsl_rng *rng)
 {
-/**
- * \var entity
- * \brief Array of entities.
- * \var objective
- * \brief Array ot objective function values.
- * \var index
- * \brief Array of index sorting the entities.
- * \var genome_nbits
- * \brief Number of bits of the genomes.
- * \var genome_nbytes
- * \brief Number of bytes of the genomes.
- * \var nentities
- * \brief Number of entities.
- * \var nsurvival
- * \brief Number of survival entities.
- * \var mutation_min
- * \brief Minimum index to mutation.
- * \var mutation_max
- * \brief Maximum index to mutation.
- * \var reproduction_min
- * \brief Minimum index to reproduction.
- * \var reproduction_max
- * \brief Maximum index to reproduction.
- */
-	Entity *entity;
-	double *objective;
-	unsigned int *index;
-	unsigned int genome_nbits, genome_nbytes, nentities, nsurvival,
-		mutation_min, mutation_max, reproduction_min, reproduction_max;
-} Population;
-
-int population_new(Population *population, unsigned int genome_nbits,
-	unsigned int nentities, double mutation_ratio, double reproduction_ratio,
-	gsl_rng *rng);
-void population_free(Population *population);
+	unsigned int i;
+	memcpy(son->genome, mother->genome, population->genome_nbytes);
+	i = (unsigned int)gsl_rng_uniform_int(rng, population->nvariables);
+	bit_invert(son->genome, population->variable[i].location);
+}
 
 #endif

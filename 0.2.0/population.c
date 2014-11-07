@@ -40,7 +40,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "population.h"
 
 /**
- * \fn int population_new(Population *population, unsigned int genome_nbits, \
+ * \fn int population_new(Population *population, GeneticVariable *variable, \
+ *   unsigned int nvariables, unsigned int genome_nbits, \
  *   unsigned int nentities, double mutation_ratio, double reproduction_ratio, \
  *   gsl_rng *rng)
  * \brief Function to init a population.
@@ -54,18 +55,23 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief Mutation ratio.
  * \param reproduction_ratio
  * \brief Reproduction ratio.
- * \param rng
- * \brief GSL random numbers generator.
  * \return 1 on succes, 0 on error.
  */
-int population_new(Population *population, unsigned int genome_nbits,
-	unsigned int nentities, double mutation_ratio, double reproduction_ratio,
-	gsl_rng *rng)
+int population_new(
+	Population *population,
+	GeneticVariable *variable,
+	unsigned int nvariables,
+	unsigned int genome_nbits,
+	unsigned int nentities,
+	double mutation_ratio,
+	double reproduction_ratio,
+	double adaptation_ratio)
 {
-	unsigned int i, nmutations, nreproductions;
+	unsigned int i, nmutations, nreproductions, nadaptations;
 	nmutations = mutation_ratio * nentities;
 	nreproductions = reproduction_ratio * nentities;
-	i = nmutations + nreproductions;
+	nadaptations = adaptation_ratio * nentities;
+	i = nmutations + nreproductions + nadaptations;
 	if (!i)
 	{
 		fprintf(stderr, "ERROR: no evolution\n");
@@ -82,19 +88,21 @@ int population_new(Population *population, unsigned int genome_nbits,
 		fprintf(stderr, "ERROR: unable to reproduce the entities\n");
 		return 0;
 	}
+	population->variable = variable;
+	population->nvariables = nvariables;
 	population->nentities = nentities;
 	population->mutation_max = nentities;
 	population->mutation_min = population->reproduction_max
 		= nentities - nmutations;
-	population->reproduction_min = population->nsurvival;
+	population->reproduction_min = population->adaptation_max
+		= population->reproduction_max - nreproductions;
+	population->adaptation_min = population->nsurvival;
 	population->genome_nbits = genome_nbits;
 	population->genome_nbytes = bit_sizeof(genome_nbits);
 	population->index
 		= (unsigned int*)g_malloc(nentities * sizeof(unsigned int));
 	population->objective = (double*)g_malloc(nentities * sizeof(double));
 	population->entity = (Entity*)g_malloc(nentities * sizeof(Entity));
-	for (i = 0; i < nentities; ++i)
-		entity_new(population->entity + i, population->genome_nbytes, i, rng);
 	return 1;
 }
 
@@ -112,4 +120,19 @@ void population_free(Population *population)
 	g_free(population->entity);
 	g_free(population->objective);
 	g_free(population->index);
+}
+
+/**
+ * \fn void population_init_genomes(Population *population, gsl_rng *rng)
+ * \brief Function to free the memory allocated in a population.
+ * \param population
+ * \brief Population.
+ * \param rng
+ * \brief GSL random numbers generator.
+ */
+void population_init_genomes(Population *population, gsl_rng *rng)
+{
+	unsigned int i;
+	for (i = 0; i < population->nentities; ++i)
+		entity_new(population->entity + i, population->genome_nbytes, i, rng);
 }

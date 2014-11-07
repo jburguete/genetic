@@ -18,8 +18,8 @@ reproduction.o: reproduction.c reproduction.h entity.h bits.h $(DEP)
 selection.o: selection.c selection.h population.h entity.h $(DEP)
 	$(CC) $(CFLAGS) -c selection.c -o selection.o
 
-evolution.o: evolution.c evolution.h selection.h reproduction.h mutation.h \
-	population.h entity.h sort.h bits.h $(DEP)
+evolution.o: evolution.c evolution.h selection.h adaptation.h reproduction.h \
+	mutation.h population.h entity.h sort.h bits.h $(DEP)
 	$(CC) $(CFLAGS) -c evolution.c -o evolution.o
 
 genetic.o: genetic.c genetic.h evolution.h selection.h reproduction.h \

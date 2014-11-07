@@ -37,5 +37,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 void evolution_sort(Population *population);
 void evolution_mutation(Population *population, gsl_rng *rng);
 void evolution_reproduction(Population *population, gsl_rng *rng);
+void evolution_adaptation(Population *population, gsl_rng *rng);
 
 #endif
