@@ -66,7 +66,7 @@ ____________________________
 * install [MSYS/MinGW](http://www.mingw.org) and the required libraries and
 utilities. You can follow detailed instructions in
 [MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
-* cd 0.1.0
+* cd 0.2.0
 * aclocal
 * autoconf
 * automake --add-missing
@@ -82,7 +82,7 @@ ____________________________
 * install [MSYS/MinGW](http://www.mingw.org) and the required libraries and
 utilities. You can follow detailed instructions in
 [MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
-* cd 0.1.0
+* cd 0.2.0
 * aclocal
 * autoconf
 * automake --add-missing
