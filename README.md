@@ -125,7 +125,10 @@ To build this algorithm in other programs:
 USING THE ALGORITHM IN OTHER PROGRAMS
 -------------------------------------
 
-The algorithm function prototype is:
+Main function
+.............
+
+The prototype of the main function is:
 > int genetic_algorithm(
 >
 >>	unsigned int nvariables,
@@ -231,6 +234,9 @@ significative bits. Valid values are:
 * best_genome: new generated best genome
 * best_variables: new generated best variables array
 * best_objective: obtained best objective function value
+
+Convenient function
+...................
 
 MAKING REFERENCE MANUAL INSTRUCTIONS
 ------------------------------------
