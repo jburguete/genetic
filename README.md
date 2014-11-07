@@ -198,7 +198,8 @@ default GSL seed)
 	* REPRODUCTION_TYPE_DOUBLEPOINTS: the son genome is equal to father genome
 		between two random points and equal to the mother genome in the rest.
 * type_selection_mutation: type of algorithm to select the mothers to create
-sons with a mutation. Valid values are:
+sons with a mutation. A mutation inverts a random bit in the genome. Valid
+values are:
 	* SELECTION_MUTATION_TYPE_LINEARRANK (default value): the mother is selected
 		randomly between the survival entities assigning a linear probabiltiy
 		higher for better entities.
@@ -213,7 +214,8 @@ sons with a mutation. Valid values are:
 * type_selection_reproduction: type of algorithm to select the parents to
 reproduce
 * type_selection_adaptation: type of algorithm to select the mothers to create
-sons with a adaptation. Valid values are:
+sons with a adaptation. An adaption inverts a random bit between the lowest
+significative bits. Valid values are:
 	* SELECTION_ADAPTATION_TYPE_LINEARRANK (default value): the mother is
 		selected randomly between the survival entities assigning a linear
 		probabiltiy higher for better entities.
