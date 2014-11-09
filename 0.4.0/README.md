@@ -51,12 +51,18 @@ ____________
 NetBSD 6.1.5 (with modular xorg)
 ________________________________
 
-* cd 0.4.0
-* aclocal
-* autoconf
-* automake --add-missing
-* ./configure
-* make
+* Download this repository and exec on a terminal
+> $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
+>
+> $ aclocal
+>
+> $ autoconf
+>
+> $ automake --add-missing
+>
+> $ ./configure
+>
+> $ make
 
 Microsoft Windows 7 32 bits
 ___________________________
@@ -66,13 +72,19 @@ ____________________________
 * install [MSYS/MinGW](http://www.mingw.org) and the required libraries and
 utilities. You can follow detailed instructions in
 [MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
-* cd 0.4.0
-* aclocal
-* autoconf
-* automake --add-missing
-* ./configure
-* make
 
+* Then, download this repository and on a MSYS terminal:
+> $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
+>
+> $ aclocal
+>
+> $ autoconf
+>
+> $ automake --add-missing
+>
+> $ ./configure
+>
+> $ make
 
 Microsoft Windows 7 64 bits
 ___________________________
@@ -82,23 +94,37 @@ ____________________________
 * install [MSYS/MinGW](http://www.mingw.org) and the required libraries and
 utilities. You can follow detailed instructions in
 [MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
-* cd 0.4.0
-* aclocal
-* autoconf
-* automake --add-missing
-* configure --host=x86_64-w64-mingw32
-* make
+
+* Then, download this repository and on a MSYS terminal:
+> $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
+>
+> $ aclocal
+>
+> $ autoconf
+>
+> $ automake --add-missing
+>
+> $ ./configure --host=x86_64-w64-mingw32
+>
+> $ make
 
 OpenBSD 5.6
 ___________
 
-* export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.14
-* cd 0.4.0
-* aclocal
-* autoconf
-* automake --add-missing
-* ./configure
-* make
+* Download this repository and exec on a terminal
+> $ export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.14
+>
+> $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
+>
+> $ aclocal
+>
+> $ autoconf
+>
+> $ automake --add-missing
+>
+> $ ./configure
+>
+> $ make
 
 BUILDING IN OTHER PROGRAMS
 --------------------------
@@ -265,8 +291,8 @@ function can be used:
 >>	double *best_objective);
 
 
-MAKING REFERENCE MANUAL INSTRUCTIONS
-------------------------------------
+MAKING REFERENCE MANUAL INSTRUCTIONS (file latex/refman.pdf)
+------------------------------------------------------------
 
 * cd 0.4.0
 * doxygen
