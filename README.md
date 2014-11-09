@@ -74,6 +74,7 @@ utilities. You can follow detailed instructions in
 [MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
 
 * Then, download this repository and on a MSYS terminal:
+
 > $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
 >
 > $ aclocal
@@ -95,7 +96,7 @@ ____________________________
 utilities. You can follow detailed instructions in
 [MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
 
-* Then, download this repository and on a MSYS terminal:
+* Then, download this repository and exec on a MSYS terminal:
 > $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
 >
 > $ aclocal
