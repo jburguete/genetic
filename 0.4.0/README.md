@@ -238,7 +238,7 @@ significative bits. Valid values are:
 CONVENIENT FUNCTION USING DEFAULT ALGORITHMS
 ____________________________________________
 
-If the default algorithms are considered, the following convenient simplified
+If using default algorithms is considered, the following convenient simplified
 function can be used:
 > int genetic_algorithm_default(
 >
@@ -270,5 +270,5 @@ MAKING REFERENCE MANUAL INSTRUCTIONS
 
 * cd 0.4.0
 * doxygen
-* cd doc/latex
+* cd clatex
 * make
