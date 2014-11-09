@@ -270,5 +270,5 @@ MAKING REFERENCE MANUAL INSTRUCTIONS
 
 * cd 0.4.0
 * doxygen
-* cd clatex
+* cd latex
 * make
