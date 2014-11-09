@@ -52,7 +52,6 @@ NetBSD 6.1.5 (with modular xorg)
 ________________________________
 
 * Download this repository and exec on a terminal
->
 > $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
 >
 > $ aclocal
@@ -74,8 +73,7 @@ ____________________________
 utilities. You can follow detailed instructions in
 [MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
 
-* Then, download this repository and on a MSYS terminal:
-
+* Then, download this repository and exec on a MSYS terminal:
 > $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
 >
 > $ aclocal
@@ -133,17 +131,17 @@ BUILDING IN OTHER PROGRAMS
 
 To build this algorithm in other programs:
 
-1) Build the binary code (follows the former section steps)
+1. Build the binary code (follows the former section steps)
 
-2) Link in your source directory the latest code version i.e.
+2. Link in your source directory the latest code version i.e.
 > $ cd YOUR_PROGRAM_PATH
 >
 > $ ln -s PATH_TO_GENETIC/0.4.0 genetic
 
-2) Include the genetic header in your source code files:
+3. Include the genetic header in your source code files:
 > \#include \<genetic/genetic.h\>
 
-3) Include the genetic object files in your compilation instruction i.e.
+4. Include the genetic object files in your compilation instruction i.e.
 > $ gcc YOUR_CODE.c genetic/entity.o genetic/population.o \
 >
 > $ genetic/reproduction.o genetic/selection.o genetic/evolution.o \
@@ -296,7 +294,11 @@ function can be used:
 MAKING REFERENCE MANUAL INSTRUCTIONS (file latex/refman.pdf)
 ------------------------------------------------------------
 
-* cd 0.4.0
-* doxygen
-* cd latex
-* make
+* Exec on a terminal
+> $ cd PATH_TO_THIS_REPOSITORY/0.4.0
+>
+> $ doxygen
+>
+> $ cd latex
+>
+> $ make
