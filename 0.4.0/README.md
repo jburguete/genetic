@@ -51,7 +51,7 @@ ____________
 NetBSD 6.1.5 (with modular xorg)
 ________________________________
 
-* Download this repository and exec on a terminal
+Download this repository and exec on a terminal
 > $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
 >
 > $ aclocal
@@ -69,11 +69,11 @@ ___________________________
 Microsoft Windows XP 32 bits
 ____________________________
 
-* install [MSYS/MinGW](http://www.mingw.org) and the required libraries and
+1. install [MSYS/MinGW](http://www.mingw.org) and the required libraries and
 utilities. You can follow detailed instructions in
 [MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
 
-* Then, download this repository and exec on a MSYS terminal:
+2. Then, download this repository and exec on a MSYS terminal:
 > $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
 >
 > $ aclocal
@@ -91,11 +91,11 @@ ___________________________
 Microsoft Windows XP 64 bits
 ____________________________
 
-* install [MSYS/MinGW](http://www.mingw.org) and the required libraries and
+1. install [MSYS/MinGW](http://www.mingw.org) and the required libraries and
 utilities. You can follow detailed instructions in
 [MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
 
-* Then, download this repository and exec on a MSYS terminal:
+2. Then, download this repository and exec on a MSYS terminal:
 > $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
 >
 > $ aclocal
@@ -111,7 +111,7 @@ utilities. You can follow detailed instructions in
 OpenBSD 5.6
 ___________
 
-* Download this repository and exec on a terminal
+Download this repository and exec on a terminal
 > $ export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.14
 >
 > $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
@@ -294,7 +294,7 @@ function can be used:
 MAKING REFERENCE MANUAL INSTRUCTIONS (file latex/refman.pdf)
 ------------------------------------------------------------
 
-* Exec on a terminal
+Exec on a terminal
 > $ cd PATH_TO_THIS_REPOSITORY/0.4.0
 >
 > $ doxygen
