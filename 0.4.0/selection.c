@@ -66,7 +66,7 @@ void selection_mutation_random
 (Population *population, Entity **mother, gsl_rng *rng)
 {
 	*mother = population->entity
-		+ population->index[gsl_rng_uniform_int(rng, population->nsurvival)];
+		+ gsl_rng_uniform_int(rng, population->nsurvival);
 }
 
 /**
@@ -87,7 +87,7 @@ void selection_mutation_bestof2
 	i = gsl_rng_uniform_int(rng, population->nsurvival);
 	j = gsl_rng_uniform_int(rng, population->nsurvival);
 	if (j < i) i = j;
-	*mother = population->entity + population->index[i];
+	*mother = population->entity + i;
 }
 
 /**
@@ -110,7 +110,7 @@ void selection_mutation_bestof3
 	if (j < i) i = j;
 	j = gsl_rng_uniform_int(rng, population->nsurvival);
 	if (j < i) i = j;
-	*mother = population->entity + population->index[i];
+	*mother = population->entity + i;
 }
 
 /**
@@ -127,7 +127,7 @@ void selection_mutation_bestof3
 void selection_mutation_best
 (Population *population, Entity **mother, gsl_rng *rng)
 {
-	*mother = population->entity + population->index[0];
+	*mother = population->entity;
 }
 
 /**
@@ -147,7 +147,7 @@ void selection_mutation_linearrank
 {
 	unsigned int i;
 	i = (1.0 - sqrt(gsl_rng_uniform(rng))) * population->nsurvival;
-	*mother = population->entity + population->index[i];
+	*mother = population->entity + i;
 }
 
 /**
@@ -167,9 +167,11 @@ void selection_reproduction_random
 (Population *population, Entity **mother, Entity **father, gsl_rng *rng)
 {
 	*mother = population->entity
-		+ population->index[gsl_rng_uniform_int(rng, population->nsurvival)];
-	*father = population->entity
-		+ population->index[gsl_rng_uniform_int(rng, population->nsurvival)];
+		+ gsl_rng_uniform_int(rng, population->nsurvival);
+	do
+		*father = population->entity
+			+ gsl_rng_uniform_int(rng, population->nsurvival);
+	while (father == mother);
 }
 
 /**
@@ -250,8 +252,8 @@ void selection_reproduction_best
 (Population *population, Entity **mother, Entity **father, gsl_rng *rng)
 {
 	*mother = population->entity
-		+ population->index[gsl_rng_uniform_int(rng, population->nsurvival)];
-	*father = population->entity + population->index[0];
+		+ gsl_rng_uniform_int(rng, population->nsurvival);
+	*father = population->entity;
 }
 
 /**
@@ -274,12 +276,12 @@ void selection_reproduction_linearrank
 	unsigned int i, j;
 	i = (unsigned int)((1.0 - sqrt(gsl_rng_uniform(rng)))
 		* population->nsurvival);
-	*mother = population->entity + population->index[i];
+	*mother = population->entity + i;
 	do
 		j = (unsigned int)((1.0 - sqrt(gsl_rng_uniform(rng)))
 			* population->nsurvival);
 	while (i == j);
-	*father = population->entity + population->index[j];
+	*father = population->entity + j;
 }
 
 /**

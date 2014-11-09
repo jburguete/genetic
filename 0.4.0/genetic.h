@@ -60,7 +60,18 @@ extern double (*genetic_simulation)(Entity*);
 
 double genetic_get_variable(Entity *entity, GeneticVariable *variable);
 void genetic_simulation_thread(GeneticThreadData *data);
-void genetic_simulation_task(unsigned int nsurvival, int rank);
+void genetic_simulation_master(unsigned int nsurvival);
+#if HAVE_MPI
+	void genetic_simulation_slave(unsigned int nsurvival, int rank);
+#endif
+int genetic_new(
+	unsigned int nvariables,
+	GeneticVariable *variable,
+	unsigned int nentities,
+	unsigned int ngenerations,
+	double mutation_ratio,
+	double reproduction_ratio,
+	double adaptation_ratio);
 int genetic_algorithm(
 	unsigned int nvariables,
 	GeneticVariable *variable,

@@ -67,8 +67,6 @@ typedef struct
  * \brief Array of variables data.
  * \var objective
  * \brief Array ot objective function values.
- * \var index
- * \brief Array of index sorting the entities.
  * \var nvariables
  * \brief Number of variables.
  * \var genome_nbits
@@ -80,22 +78,21 @@ typedef struct
  * \var nsurvival
  * \brief Number of survival entities.
  * \var mutation_min
- * \brief Minimum index to mutation.
+ * \brief Minimum entity to mutation.
  * \var mutation_max
- * \brief Maximum index to mutation.
+ * \brief Maximum entity to mutation.
  * \var reproduction_min
- * \brief Minimum index to reproduction.
+ * \brief Minimum entity to reproduction.
  * \var reproduction_max
- * \brief Maximum index to reproduction.
+ * \brief Maximum entity to reproduction.
  * \var adaptation_min
- * \brief Minimum index to adaptation.
+ * \brief Minimum entity to adaptation.
  * \var adaptation_max
- * \brief Maximum index to adaptation.
+ * \brief Maximum entity to adaptation.
  */
 	Entity *entity;
 	GeneticVariable *variable;
 	double *objective;
-	unsigned int *index;
 	unsigned int nvariables, genome_nbits, genome_nbytes, nentities, nsurvival,
 		mutation_min, mutation_max, reproduction_min, reproduction_max,
 		adaptation_min, adaptation_max;

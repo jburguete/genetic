@@ -54,16 +54,34 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /**
  * \fn void evolution_sort(Population *population)
- * \brief Function to sort the index of the evaluated population
+ * \brief Function to sort the survivals of the evaluated population
  * \param population
  * \brief Population
  */
 void evolution_sort(Population *population)
 {
+	unsigned int i, j, index[population->nentities];
+	double objective[population->nsurvival];
+	Entity entity[population->nsurvival];
 #if DEBUG_EVOLUTION
 fprintf(stderr, "evolution_sort: start\n");
 #endif
-	index_new(population->objective, population->index, population->nentities);
+	index_new(population->objective, index, population->nentities);
+	for (i = 0; i < population->nsurvival; ++i)
+	{
+		j = index[i];
+		objective[i] = population->objective[j];
+		entity_new(entity + i, population->genome_nbytes);
+		memcpy(entity[i].genome, population->entity[j].genome,
+			population->genome_nbytes);
+	}
+	for (i = 0; i < population->nsurvival; ++i)
+	{
+		population->objective[i] = objective[i];
+		memcpy(population->entity[i].genome, entity[i].genome,
+			population->genome_nbytes);
+		entity_free(entity + i);
+	}
 #if DEBUG_EVOLUTION
 fprintf(stderr, "evolution_sort: end\n");
 #endif
@@ -90,10 +108,9 @@ fprintf(stderr, "evolution_mutation: start\n");
 fprintf(stderr, "evolution_mutation: selection\n");
 #endif
 		selection_mutation(population, &mother, rng);
-		son = population->entity + population->index[--i];
+		son = population->entity + --i;
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_mutation: mutation in %u-%u\n",
-i, population->index[i]);
+fprintf(stderr, "evolution_mutation: mutation in %u\n", i);
 #endif
 		mutation(population, mother, son, rng);
 	}
@@ -123,10 +140,9 @@ fprintf(stderr, "evolution_reproduction: start\n");
 fprintf(stderr, "evolution_reproduction: selection\n");
 #endif
 		selection_reproduction(population, &mother, &father, rng);
-		son = population->entity + population->index[--i];
+		son = population->entity + --i;
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_reproduction: reproduction in %u-%u\n",
-i, population->index[i]);
+fprintf(stderr, "evolution_reproduction: reproduction in %u\n", i);
 #endif
 		reproduction(mother, father, son, population->genome_nbits, rng);
 	}
@@ -156,10 +172,9 @@ fprintf(stderr, "evolution_adaptation: start\n");
 fprintf(stderr, "evolution_adaptation: selection\n");
 #endif
 		selection_adaptation(population, &mother, rng);
-		son = population->entity + population->index[--i];
+		son = population->entity + --i;
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_adaptation: adaptation in %u-%u\n",
-i, population->index[i]);
+fprintf(stderr, "evolution_adaptation: adaptation in %u\n", i);
 #endif
 		adaptation(population, mother, son, rng);
 	}

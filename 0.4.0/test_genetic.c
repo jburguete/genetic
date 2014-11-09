@@ -88,67 +88,42 @@ double evaluate(Entity *entity)
  */
 int main(int argn, char **argc)
 {
+	int rank;
 	char *best_genome;
 	double *best_variables, best_objective;
 #if HAVE_MPI
 	MPI_Init(&argn, &argc);
 	MPI_Comm_size(MPI_COMM_WORLD, &ntasks);
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+#else
+	rank = 0;
 #endif
 	nthreads = 4;
 	v[0].maximum = 10.;
 	v[0].minimum = -10.;
-	v[0].nbits = 11;
+	v[0].nbits = 16;
 	v[1].maximum = 10.;
 	v[1].minimum = -10.;
-	v[1].nbits = 11;
+	v[1].nbits = 16;
 	genetic_algorithm_default(
 		2,
 		v,
-		129,
-		20,
-		0.4,
-		0.4,
-		0.,
-		&evaluate,
-		&best_genome,
-		&best_variables,
-		&best_objective);
-	printf("x=%lg y=%lg error=%lg\n",
-		best_variables[0], best_variables[1], best_objective);
-	g_free(best_genome);
-	g_free(best_variables);
-	genetic_algorithm_default(
-		2,
-		v,
-		129,
+		100,
 		20,
 		0.3,
-		0.3,
-		0.1,
-		&evaluate,
-		&best_genome,
-		&best_variables,
-		&best_objective);
-	printf("x=%lg y=%lg error=%lg\n",
-		best_variables[0], best_variables[1], best_objective);
-	g_free(best_genome);
-	g_free(best_variables);
-	genetic_algorithm_default(
-		2,
-		v,
-		129,
-		20,
-		0.4,
 		0.4,
 		0.1,
 		&evaluate,
 		&best_genome,
 		&best_variables,
 		&best_objective);
-	printf("x=%lg y=%lg error=%lg\n",
-		best_variables[0], best_variables[1], best_objective);
-	g_free(best_genome);
-	g_free(best_variables);
+	if (rank == 0)
+	{
+		printf("x=%lg y=%lg error=%lg\n",
+			best_variables[0], best_variables[1], best_objective);
+		g_free(best_genome);
+		g_free(best_variables);
+	}
 #if HAVE_MPI
 	MPI_Finalize();
 #endif

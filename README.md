@@ -1,4 +1,4 @@
-GENETIC (0.2.0 version)
+GENETIC (0.4.0 version)
 =======================
 
 A simple genetic algorithm.
@@ -51,7 +51,7 @@ ____________
 NetBSD 6.1.5 (with modular xorg)
 ________________________________
 
-* cd 0.2.0
+* cd 0.4.0
 * aclocal
 * autoconf
 * automake --add-missing
@@ -66,7 +66,7 @@ ____________________________
 * install [MSYS/MinGW](http://www.mingw.org) and the required libraries and
 utilities. You can follow detailed instructions in
 [MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
-* cd 0.2.0
+* cd 0.4.0
 * aclocal
 * autoconf
 * automake --add-missing
@@ -82,7 +82,7 @@ ____________________________
 * install [MSYS/MinGW](http://www.mingw.org) and the required libraries and
 utilities. You can follow detailed instructions in
 [MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
-* cd 0.2.0
+* cd 0.4.0
 * aclocal
 * autoconf
 * automake --add-missing
@@ -93,7 +93,7 @@ OpenBSD 5.6
 ___________
 
 * export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.14
-* cd 0.2.0
+* cd 0.4.0
 * aclocal
 * autoconf
 * automake --add-missing
@@ -110,7 +110,7 @@ To build this algorithm in other programs:
 2) Link in your source directory the latest code version i.e.
 > $ cd YOUR_PROGRAM_PATH
 >
-> $ ln -s PATH_TO_GENETIC/0.2.0 genetic
+> $ ln -s PATH_TO_GENETIC/0.4.0 genetic
 
 2) Include the genetic header in your source code files:
 > \#include \<genetic/genetic.h\>
@@ -268,7 +268,7 @@ function can be used:
 MAKING REFERENCE MANUAL INSTRUCTIONS
 ------------------------------------
 
-* cd 0.2.0
+* cd 0.4.0
 * doxygen
 * cd doc/latex
 * make

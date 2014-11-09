@@ -43,10 +43,14 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \fn int population_new(Population *population, GeneticVariable *variable, \
  *   unsigned int nvariables, unsigned int genome_nbits, \
  *   unsigned int nentities, double mutation_ratio, double reproduction_ratio, \
- *   gsl_rng *rng)
+ *   double adaptation_ratio)
  * \brief Function to init a population.
  * \param population
  * \brief Population.
+ * \param variable
+ * \brief Variables data.
+ * \param nvariables
+ * \brief Number of variables.
  * \param genome_nbits
  * \brief Number of bits of each entity genome.
  * \param nentities
@@ -55,6 +59,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief Mutation ratio.
  * \param reproduction_ratio
  * \brief Reproduction ratio.
+ * \param adaptation_ratio
+ * \brief Adaptation ratio.
  * \return 1 on succes, 0 on error.
  */
 int population_new(
@@ -99,11 +105,26 @@ int population_new(
 	population->adaptation_min = population->nsurvival;
 	population->genome_nbits = genome_nbits;
 	population->genome_nbytes = bit_sizeof(genome_nbits);
-	population->index
-		= (unsigned int*)g_malloc(nentities * sizeof(unsigned int));
 	population->objective = (double*)g_malloc(nentities * sizeof(double));
 	population->entity = (Entity*)g_malloc(nentities * sizeof(Entity));
+	for (i = 0; i < population->nentities; ++i)
+		entity_new(population->entity + i, population->genome_nbytes);
 	return 1;
+}
+
+/**
+ * \fn void population_init_genomes(Population *population, gsl_rng *rng)
+ * \brief Function to free the memory allocated in a population.
+ * \param population
+ * \brief Population.
+ * \param rng
+ * \brief GSL random numbers generator.
+ */
+void population_init_genomes(Population *population, gsl_rng *rng)
+{
+	unsigned int i;
+	for (i = 0; i < population->nentities; ++i)
+		entity_init(population->entity + i, population->genome_nbytes, rng);
 }
 
 /**
@@ -119,20 +140,4 @@ void population_free(Population *population)
 		entity_free(population->entity + i);
 	g_free(population->entity);
 	g_free(population->objective);
-	g_free(population->index);
-}
-
-/**
- * \fn void population_init_genomes(Population *population, gsl_rng *rng)
- * \brief Function to free the memory allocated in a population.
- * \param population
- * \brief Population.
- * \param rng
- * \brief GSL random numbers generator.
- */
-void population_init_genomes(Population *population, gsl_rng *rng)
-{
-	unsigned int i;
-	for (i = 0; i < population->nentities; ++i)
-		entity_new(population->entity + i, population->genome_nbytes, i, rng);
 }
