@@ -52,6 +52,7 @@ NetBSD 6.1.5 (with modular xorg)
 ________________________________
 
 * Download this repository and exec on a terminal
+>
 > $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
 >
 > $ aclocal
