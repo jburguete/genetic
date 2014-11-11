@@ -1,4 +1,4 @@
-GENETIC (0.4.0 version)
+GENETIC (0.6.0 version)
 =======================
 
 A simple genetic algorithm.
@@ -52,7 +52,7 @@ NetBSD 6.1.5 (with modular xorg)
 ________________________________
 
 Download this repository and exec on a terminal
-> $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
+> $ cd PATH_TO_GENETIC_REPOSITORY/0.6.0
 >
 > $ aclocal
 >
@@ -74,7 +74,7 @@ utilities. You can follow detailed instructions in
 [MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
 
 2. Then, download this repository and exec on a MSYS terminal:
-> $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
+> $ cd PATH_TO_GENETIC_REPOSITORY/0.6.0
 >
 > $ aclocal
 >
@@ -96,7 +96,7 @@ utilities. You can follow detailed instructions in
 [MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
 
 2. Then, download this repository and exec on a MSYS terminal:
-> $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
+> $ cd PATH_TO_GENETIC_REPOSITORY/0.6.0
 >
 > $ aclocal
 >
@@ -114,7 +114,7 @@ ___________
 Download this repository and exec on a terminal
 > $ export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.14
 >
-> $ cd PATH_TO_GENETIC_REPOSITORY/0.4.0
+> $ cd PATH_TO_GENETIC_REPOSITORY/0.6.0
 >
 > $ aclocal
 >
@@ -136,7 +136,7 @@ To build this algorithm in other programs:
 2. Link in your source directory the latest code version i.e.
 > $ cd YOUR_PROGRAM_PATH
 >
-> $ ln -s PATH_TO_GENETIC/0.4.0 genetic
+> $ ln -s PATH_TO_GENETIC/0.6.0 genetic
 
 3. Include the genetic header in your source code files:
 > \#include \<genetic/genetic.h\>
@@ -295,7 +295,7 @@ MAKING REFERENCE MANUAL INSTRUCTIONS (file latex/refman.pdf)
 ------------------------------------------------------------
 
 Exec on a terminal
-> $ cd PATH_TO_THIS_REPOSITORY/0.4.0
+> $ cd PATH_TO_THIS_REPOSITORY/0.6.0
 >
 > $ doxygen
 >

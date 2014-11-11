@@ -80,7 +80,8 @@ fprintf(stderr, "get variable: start\n");
 #endif
 	x = variable->minimum
 		+ bit_get_value(entity->genome, variable->location, variable->nbits)
-		* (variable->maximum - variable->minimum) / (1 << variable->nbits);
+		* (variable->maximum - variable->minimum)
+		/ ((unsigned long long int)1L << variable->nbits);
 #if DEBUG_GENETIC
 fprintf(stderr, "get variable: value=%lg\n", x);
 fprintf(stderr, "get variable: end\n");
@@ -356,11 +357,18 @@ fprintf(stderr, "genetic_new: start\n");
 		fprintf(stderr, "ERROR: no variables\n");
 		return 0;
 	}
-	variable[0].location = 0;
-	for (i = 0; ++i < nvariables;)
-		variable[i].location = variable[i - 1].location + variable[i - 1].nbits;
-	--i;
-	genome_nbits = variable[i].location + variable[i].nbits;
+
+	// Checking variable bits number
+	for (i = genome_nbits = 0; i < nvariables; ++i)
+	{
+		if (!variable[i].nbits || variable[i].nbits > 32)
+		{
+			fprintf(stderr, "ERROR: bad bits number in variable %u\n", i + 1);
+			return 0;
+		}
+		variable[i].location = genome_nbits;
+		genome_nbits += variable[i].nbits;
+	}
 
 	// Checking processes number
 	nprocesses = ntasks * nthreads;

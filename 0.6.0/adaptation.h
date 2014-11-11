@@ -48,10 +48,11 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 static inline void adaptation
 (Population *population, Entity *mother, Entity *son, gsl_rng *rng)
 {
-	unsigned int i;
+	unsigned int i, j;
 	memcpy(son->genome, mother->genome, population->genome_nbytes);
 	i = (unsigned int)gsl_rng_uniform_int(rng, population->nvariables);
-	bit_invert(son->genome, population->variable[i].location);
+	j = (1. - sqrt(gsl_rng_uniform(rng))) * population->variable[i].nbits;
+	bit_invert(son->genome, population->variable[i].location + j);
 }
 
 #endif
