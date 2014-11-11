@@ -108,7 +108,7 @@ int population_new(
 	population->objective = (double*)g_malloc(nentities * sizeof(double));
 	population->entity = (Entity*)g_malloc(nentities * sizeof(Entity));
 	for (i = 0; i < population->nentities; ++i)
-		entity_new(population->entity + i, population->genome_nbytes);
+		entity_new(population->entity + i, population->genome_nbytes, i);
 	return 1;
 }
 

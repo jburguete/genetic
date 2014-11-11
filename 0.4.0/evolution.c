@@ -71,7 +71,7 @@ fprintf(stderr, "evolution_sort: start\n");
 	{
 		j = index[i];
 		objective[i] = population->objective[j];
-		entity_new(entity + i, population->genome_nbytes);
+		entity_new(entity + i, population->genome_nbytes, i);
 		memcpy(entity[i].genome, population->entity[j].genome,
 			population->genome_nbytes);
 	}

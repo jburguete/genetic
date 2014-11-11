@@ -50,7 +50,7 @@ typedef struct
 	unsigned int id;
 } Entity;
 
-void entity_new(Entity *entity, unsigned int genome_nbytes);
+void entity_new(Entity *entity, unsigned int genome_nbytes, unsigned int id);
 void entity_init(Entity *entity, unsigned int genome_nbytes, gsl_rng *rng);
 void entity_free(Entity *entity);
 

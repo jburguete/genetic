@@ -37,16 +37,20 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "entity.h"
 
 /**
- * \fn void entity_new(Entity *entity, unsigned int genome_nbytes)
+ * \fn void entity_new(Entity *entity, unsigned int genome_nbytes, \
+ *   unsigned int id)
  * \brief Function to create an entity.
  * \param entity
  * \brief Entity struct.
  * \param genome_nbytes
  * \brief Number of bytes of the entity genome.
+ * \param id
+ * \brief Identifier number.
  */
-void entity_new(Entity *entity, unsigned int genome_nbytes)
+void entity_new(Entity *entity, unsigned int genome_nbytes, unsigned int id)
 {
 	unsigned int i;
+	entity->id = id;
 	// Aligning in 4 bytes
 	i = ((genome_nbytes + 3) / 4) * 4;
 	entity->genome = (char*)g_malloc(i);
