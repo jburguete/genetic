@@ -159,6 +159,10 @@ fprintf(stderr, "genetic_simulation_master: start\n");
 	nmax = population->nentities;
 	nsimulate = nmax - nsurvival;
 	nmin = nsurvival;
+#if DEBUG_GENETIC
+fprintf(stderr, "genetic_simulation_master: nmax=%u nmin=%u nsimulate=%u\n",
+nmax, nmin, nsimulate);
+#endif
 
 #if HAVE_MPI
 	nmax = nmin + nsimulate / ntasks;
@@ -520,6 +524,9 @@ fprintf(stderr, "genetic_algorithm: sorting by objective function results\n");
 		evolution_sort(genetic_population);
 
 		// Population generations
+#if DEBUG_GENETIC
+fprintf(stderr, "genetic_algorithm: ngenerations=%u\n", ngenerations);
+#endif
 		for (i = 1; i < ngenerations; ++i)
 		{
 			// Evolution
