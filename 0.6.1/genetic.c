@@ -212,8 +212,13 @@ fprintf(stderr, "genetic_simulation_master: performing simulations\n");
 			= nmin + j * nsimulate / nthreads;
 	thread_data[j - 1].nmax = nmax;
 	for (j = 0; j < nthreads; ++j)
+#if GLIB_MINOR_VERSION >= 32
 		thread[j] = g_thread_new
 			(NULL, (void(*))genetic_simulation_thread, thread_data + j);
+#else
+		thread[j] = g_thread_create
+			((void(*))genetic_simulation_thread, thread_data + j, TRUE, NULL);
+#endif
 	for (j = 0; j < nthreads; ++j) g_thread_join(thread[j]);
 
 #if HAVE_MPI
@@ -298,8 +303,13 @@ rank);
 			= nmin + j * nsimulate / nthreads;
 	thread_data[j - 1].nmax = nmax;
 	for (j = 0; j < nthreads; ++j)
+#if GLIB_MINOR_VERSION >= 32
 		thread[j] = g_thread_new
 			(NULL, (void(*))genetic_simulation_thread, thread_data + j);
+#else
+		thread[j] = g_thread_create
+			((void(*))genetic_simulation_thread, thread_data + j, TRUE, NULL);
+#endif
 	for (j = 0; j < nthreads; ++j) g_thread_join(thread[j]);
 
 #if DEBUG_GENETIC
