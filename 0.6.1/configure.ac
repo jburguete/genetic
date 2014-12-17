@@ -1,5 +1,5 @@
-AC_PREREQ([2.69])
-AC_INIT([GENETIC], [0.6.0], [jburguete@eead.csic.es])
+AC_PREREQ([2.68])
+AC_INIT([GENETIC], [0.6.1], [jburguete@eead.csic.es])
 AC_CONFIG_SRCDIR([genetic.c])
 #AC_CONFIG_HEADERS([config.h])
 
