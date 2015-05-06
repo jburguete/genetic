@@ -77,7 +77,8 @@ libraries and utilities. You can follow detailed instructions in
 [install-unix]
 (https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
-2. Then, follow steps 1 and 2 of the previous Debian Linux 8.0 section.
+2. Then, in a MSYS2 terminal, follow steps 1 and 2 of the previous Debian Linux
+8.0 section.
 
 OpenBSD 5.7
 ___________
