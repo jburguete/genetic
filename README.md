@@ -74,7 +74,8 @@ _____________________________
 
 1. Install [MSYS2](http://sourceforge.net/projects/msys2) and the required
 libraries and utilities. You can follow detailed instructions in
-[install-unix](https://github.com/jburguete/install-unix)
+[install-unix]
+(https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
 2. Then, follow steps 1 and 2 of the previous Debian Linux 8.0 section.
 
