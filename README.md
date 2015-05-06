@@ -12,7 +12,7 @@ AUTHORS
 REQUIRED
 --------
 
-* gcc or clang (to compile the source code)
+* mpicc, gcc or clang (to compile the source code)
 * autoconf (to generate the Makefile in different systems)
 * automake (to detect the system)
 * pkg-config (to find the libraries to compile)
@@ -38,21 +38,24 @@ BUILDING THE BINARY FILES
 
 This software has been built and tested in the following operative systems:
 
-Debian Linux 7.7
+Debian Linux 8.0
 ________________
-Debian kFreeBSD 7.7
+Debian kFreeBSD 8.0
 ___________________
-Debian Hurd 7.7
+Debian Hurd 8.0
 _______________
-DragonFly BSD 4.0.1
+DragonFly BSD 4.0.5
 ___________________
-FreeBSD 10.0
+FreeBSD 10.1
 ____________
-NetBSD 6.1.5 (with modular xorg)
-________________________________
+NetBSD 6.1.5
+____________
 
-Download this repository and exec on a terminal
-> $ cd PATH_TO_GENETIC_REPOSITORY/0.6.1
+1. Download this repository:
+> $ git clone https://github.com/jburguete/genetic.git
+
+2. Exec on a terminal:
+> $ cd genetic/0.6.1
 >
 > $ aclocal
 >
@@ -64,67 +67,24 @@ Download this repository and exec on a terminal
 >
 > $ make
 
-Microsoft Windows 7 32 bits
+Microsoft Windows 7
 ___________________________
-Microsoft Windows XP 32 bits
-____________________________
+Microsoft Windows 8.1
+_____________________________
 
-1. install [MSYS/MinGW](http://www.mingw.org) and the required libraries and
-utilities. You can follow detailed instructions in
-[MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
+1. Install [MSYS2](http://sourceforge.net/projects/msys2) and the required
+libraries and utilities. You can follow detailed instructions in
+[install-unix](https://github.com/jburguete/install-unix/tutorial.pdf)
 
-2. Then, download this repository and exec on a MSYS terminal:
-> $ cd PATH_TO_GENETIC_REPOSITORY/0.6.1
->
-> $ aclocal
->
-> $ autoconf
->
-> $ automake --add-missing
->
-> $ ./configure
->
-> $ make
+2. Then, follow steps 1 and 2 of the previous Debian Linux 8.0 section.
 
-Microsoft Windows 7 64 bits
-___________________________
-Microsoft Windows XP 64 bits
-____________________________
-
-1. install [MSYS/MinGW](http://www.mingw.org) and the required libraries and
-utilities. You can follow detailed instructions in
-[MinGW-64-Make](https://github.com/jburguete/MinGW-64-Make)
-
-2. Then, download this repository and exec on a MSYS terminal:
-> $ cd PATH_TO_GENETIC_REPOSITORY/0.6.1
->
-> $ aclocal
->
-> $ autoconf
->
-> $ automake --add-missing
->
-> $ ./configure --host=x86_64-w64-mingw32
->
-> $ make
-
-OpenBSD 5.6
+OpenBSD 5.7
 ___________
 
-Download this repository and exec on a terminal
+1. Select adquate versions:
 > $ export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.14
->
-> $ cd PATH_TO_GENETIC_REPOSITORY/0.6.1
->
-> $ aclocal
->
-> $ autoconf
->
-> $ automake --add-missing
->
-> $ ./configure
->
-> $ make
+
+2. Then, follow steps 1 and 2 of the previous Debian Linux 8.0 section.
 
 BUILDING IN OTHER PROGRAMS
 --------------------------
@@ -294,8 +254,8 @@ function can be used:
 MAKING REFERENCE MANUAL INSTRUCTIONS (file latex/refman.pdf)
 ------------------------------------------------------------
 
-Exec on a terminal
-> $ cd PATH_TO_THIS_REPOSITORY/0.6.1
+Exec on a terminal:
+> $ cd genetic/0.6.1
 >
 > $ doxygen
 >
