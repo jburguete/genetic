@@ -36,7 +36,9 @@ FILES
 BUILDING THE BINARY FILES
 -------------------------
 
-This software has been built and tested in the following operative systems:
+This software has been built and tested in the following operative systems.
+Probably, it can be built in other systems, distributions, or versions but it
+has not been tested.
 
 Debian Linux 8.0
 ________________
@@ -67,6 +69,14 @@ ____________
 >
 > $ make
 
+OpenBSD 5.7
+___________
+
+1. Select adequate versions:
+> $ export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.15
+
+2. Then, follow steps 1 and 2 of the previous Debian Linux 8.0 section.
+
 Microsoft Windows 7
 ___________________________
 Microsoft Windows 8.1
@@ -79,14 +89,6 @@ libraries and utilities. You can follow detailed instructions in
 
 2. Then, in a MSYS2 terminal, follow steps 1 and 2 of the previous Debian Linux
 8.0 section.
-
-OpenBSD 5.7
-___________
-
-1. Select adequate versions:
-> $ export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.15
-
-2. Then, follow steps 1 and 2 of the previous Debian Linux 8.0 section.
 
 BUILDING IN OTHER PROGRAMS
 --------------------------
