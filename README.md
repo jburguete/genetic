@@ -82,8 +82,8 @@ libraries and utilities. You can follow detailed instructions in
 OpenBSD 5.7
 ___________
 
-1. Select adquate versions:
-> $ export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.14
+1. Select adequate versions:
+> $ export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.15
 
 2. Then, follow steps 1 and 2 of the previous Debian Linux 8.0 section.
 
