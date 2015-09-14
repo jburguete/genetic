@@ -40,15 +40,15 @@ This software has been built and tested in the following operative systems.
 Probably, it can be built in other systems, distributions, or versions but it
 has not been tested.
 
-Debian Linux 8.0
+Debian Linux 8.2
 ________________
-Debian kFreeBSD 8.0
+Debian kFreeBSD 8.2
 ___________________
-Debian Hurd 8.0
+Debian Hurd 8.2
 _______________
-DragonFly BSD 4.0.5
+DragonFly BSD 4.2.4
 ___________________
-FreeBSD 10.1
+FreeBSD 10.2
 ____________
 NetBSD 6.1.5
 ____________
@@ -59,15 +59,7 @@ ____________
 2. Exec on a terminal:
 > $ cd genetic/0.6.1
 >
-> $ aclocal
->
-> $ autoconf
->
-> $ automake --add-missing
->
-> $ ./configure
->
-> $ make
+> $ ./build
 
 OpenBSD 5.7
 ___________
@@ -75,7 +67,7 @@ ___________
 1. Select adequate versions:
 > $ export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.15
 
-2. Then, follow steps 1 and 2 of the previous Debian Linux 8.0 section.
+2. Then, follow steps 1 and 2 of the previous Debian Linux 8.2 section.
 
 Microsoft Windows 7
 ___________________________
@@ -88,7 +80,7 @@ libraries and utilities. You can follow detailed instructions in
 (https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
 2. Then, in a MSYS2 terminal, follow steps 1 and 2 of the previous Debian Linux
-8.0 section.
+8.2 section.
 
 BUILDING IN OTHER PROGRAMS
 --------------------------
