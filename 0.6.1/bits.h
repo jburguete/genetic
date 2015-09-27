@@ -5,10 +5,10 @@ Copyright 2014, Javier Burguete Tolosa.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
- 
+
 1. Redistributions of source code must retain the above copyright notice, this
 	list of conditions and the following disclaimer.
- 
+
 2. Redistributions in binary form must reproduce the above copyright notice,
 	this list of conditions and the following disclaimer in the documentation
 	and/or other materials provided with the distribution.
@@ -21,7 +21,7 @@ INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
 BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
 DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -44,7 +44,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 static inline void bit_set(char *bit, unsigned int n)
 {
-	bit[n / 8] |= 1 << (n % 8);
+    bit[n / 8] |= 1 << (n % 8);
 }
 
 /**
@@ -57,7 +57,7 @@ static inline void bit_set(char *bit, unsigned int n)
  */
 static inline void bit_clear(char *bit, unsigned int n)
 {
-	bit[n / 8] &= ~(1 << (n % 8));
+    bit[n / 8] &= ~(1 << (n % 8));
 }
 
 /**
@@ -70,7 +70,7 @@ static inline void bit_clear(char *bit, unsigned int n)
  */
 static inline void bit_invert(char *bit, unsigned int n)
 {
- 	bit[n / 8] ^= 1 << (n % 8);
+    bit[n / 8] ^= 1 << (n % 8);
 }
 
 /**
@@ -84,7 +84,7 @@ static inline void bit_invert(char *bit, unsigned int n)
  */
 static inline int bit_get(char *bit, unsigned int n)
 {
-	return bit[n / 8] & (1 << (n % 8));
+    return bit[n / 8] & (1 << (n % 8));
 }
 
 /**
@@ -97,7 +97,7 @@ static inline int bit_get(char *bit, unsigned int n)
  */
 static inline void bit_randomize(char *bit, unsigned int n, gsl_rng *rng)
 {
-	gsl_rng_uniform_int(rng, 2)? bit_set(bit, n): bit_clear(bit, n);
+    gsl_rng_uniform_int(rng, 2)? bit_set(bit, n): bit_clear(bit, n);
 }
 
 /**
@@ -117,20 +117,20 @@ static inline void bit_randomize(char *bit, unsigned int n, gsl_rng *rng)
  * \brief Number of bits to copy.
  */
 static inline void bit_copy(char *dest, char *src, unsigned int ndest,
-	unsigned int nsrc, unsigned int length)
+                            unsigned int nsrc, unsigned int length)
 {
-	unsigned int i;
+    unsigned int i;
 
-	if (dest != src || ndest < nsrc)
-		for (i = 0; i < length; ++i)
-			bit_get(src, nsrc + i)?
-				bit_set(dest, ndest + i):
-				bit_clear(dest, ndest + i);
-	else
-		for (i = length; i-- > 0;)
-			bit_get(src, nsrc + i)?
-				bit_set(dest, ndest + i):
-				bit_clear(dest, ndest + i);
+    if (dest != src || ndest < nsrc)
+        for (i = 0; i < length; ++i)
+            bit_get(src, nsrc + i)?
+            bit_set(dest, ndest + i):
+            bit_clear(dest, ndest + i);
+    else
+        for (i = length; i-- > 0;)
+            bit_get(src, nsrc + i)?
+            bit_set(dest, ndest + i):
+            bit_clear(dest, ndest + i);
 }
 
 /**
@@ -142,7 +142,7 @@ static inline void bit_copy(char *dest, char *src, unsigned int ndest,
  */
 static inline unsigned int bit_sizeof(unsigned int length)
 {
-	return (unsigned int)((length + 7) / 8);
+    return (unsigned int)((length + 7) / 8);
 }
 
 /**
@@ -160,10 +160,10 @@ static inline unsigned int bit_sizeof(unsigned int length)
 static inline unsigned int bit_get_value
 (char *bit, unsigned int location, unsigned int nbits)
 {
-	unsigned int i, j, k;
-	for (i = k = 0, j = 1; i < nbits; ++i, j <<= 1)
-		if (bit_get(bit, location + i)) k += j;
-	return k;
+    unsigned int i, j, k;
+    for (i = k = 0, j = 1; i < nbits; ++i, j <<= 1)
+        if (bit_get(bit, location + i)) k += j;
+    return k;
 }
 
 #endif

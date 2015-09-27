@@ -5,10 +5,10 @@ Copyright 2014, Javier Burguete Tolosa.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
- 
+
 1. Redistributions of source code must retain the above copyright notice, this
 	list of conditions and the following disclaimer.
- 
+
 2. Redistributions in binary form must reproduce the above copyright notice,
 	this list of conditions and the following disclaimer in the documentation
 	and/or other materials provided with the distribution.
@@ -21,7 +21,7 @@ INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
 BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
 DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -64,52 +64,52 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \return 1 on succes, 0 on error.
  */
 int population_new(
-	Population *population,
-	GeneticVariable *variable,
-	unsigned int nvariables,
-	unsigned int genome_nbits,
-	unsigned int nentities,
-	double mutation_ratio,
-	double reproduction_ratio,
-	double adaptation_ratio)
+    Population *population,
+    GeneticVariable *variable,
+    unsigned int nvariables,
+    unsigned int genome_nbits,
+    unsigned int nentities,
+    double mutation_ratio,
+    double reproduction_ratio,
+    double adaptation_ratio)
 {
-	unsigned int i, nmutations, nreproductions, nadaptations;
-	nmutations = mutation_ratio * nentities;
-	nreproductions = reproduction_ratio * nentities;
-	nadaptations = adaptation_ratio * nentities;
-	i = nmutations + nreproductions + nadaptations;
-	if (!i)
-	{
-		fprintf(stderr, "ERROR: no evolution\n");
-		return 0;
-	}
-	if (i >= nentities)
-	{
-		fprintf(stderr, "ERROR: no survival of entities\n");
-		return 0;
-	}
-	population->nsurvival = nentities - i;
-	if (population->nsurvival < 2)
-	{
-		fprintf(stderr, "ERROR: unable to reproduce the entities\n");
-		return 0;
-	}
-	population->variable = variable;
-	population->nvariables = nvariables;
-	population->nentities = nentities;
-	population->mutation_max = nentities;
-	population->mutation_min = population->reproduction_max
-		= nentities - nmutations;
-	population->reproduction_min = population->adaptation_max
-		= population->reproduction_max - nreproductions;
-	population->adaptation_min = population->nsurvival;
-	population->genome_nbits = genome_nbits;
-	population->genome_nbytes = bit_sizeof(genome_nbits);
-	population->objective = (double*)g_malloc(nentities * sizeof(double));
-	population->entity = (Entity*)g_malloc(nentities * sizeof(Entity));
-	for (i = 0; i < population->nentities; ++i)
-		entity_new(population->entity + i, population->genome_nbytes, i);
-	return 1;
+    unsigned int i, nmutations, nreproductions, nadaptations;
+    nmutations = mutation_ratio * nentities;
+    nreproductions = reproduction_ratio * nentities;
+    nadaptations = adaptation_ratio * nentities;
+    i = nmutations + nreproductions + nadaptations;
+    if (!i)
+        {
+            fprintf(stderr, "ERROR: no evolution\n");
+            return 0;
+        }
+    if (i >= nentities)
+        {
+            fprintf(stderr, "ERROR: no survival of entities\n");
+            return 0;
+        }
+    population->nsurvival = nentities - i;
+    if (population->nsurvival < 2)
+        {
+            fprintf(stderr, "ERROR: unable to reproduce the entities\n");
+            return 0;
+        }
+    population->variable = variable;
+    population->nvariables = nvariables;
+    population->nentities = nentities;
+    population->mutation_max = nentities;
+    population->mutation_min = population->reproduction_max
+                               = nentities - nmutations;
+    population->reproduction_min = population->adaptation_max
+                                   = population->reproduction_max - nreproductions;
+    population->adaptation_min = population->nsurvival;
+    population->genome_nbits = genome_nbits;
+    population->genome_nbytes = bit_sizeof(genome_nbits);
+    population->objective = (double*)g_malloc(nentities * sizeof(double));
+    population->entity = (Entity*)g_malloc(nentities * sizeof(Entity));
+    for (i = 0; i < population->nentities; ++i)
+        entity_new(population->entity + i, population->genome_nbytes, i);
+    return 1;
 }
 
 /**
@@ -122,9 +122,9 @@ int population_new(
  */
 void population_init_genomes(Population *population, gsl_rng *rng)
 {
-	unsigned int i;
-	for (i = 0; i < population->nentities; ++i)
-		entity_init(population->entity + i, population->genome_nbytes, rng);
+    unsigned int i;
+    for (i = 0; i < population->nentities; ++i)
+        entity_init(population->entity + i, population->genome_nbytes, rng);
 }
 
 /**
@@ -135,9 +135,9 @@ void population_init_genomes(Population *population, gsl_rng *rng)
  */
 void population_free(Population *population)
 {
-	unsigned int i;
-	for (i = 0; i < population->nentities; ++i)
-		entity_free(population->entity + i);
-	g_free(population->entity);
-	g_free(population->objective);
+    unsigned int i;
+    for (i = 0; i < population->nentities; ++i)
+        entity_free(population->entity + i);
+    g_free(population->entity);
+    g_free(population->objective);
 }

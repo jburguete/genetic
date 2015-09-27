@@ -5,10 +5,10 @@ Copyright 2014, Javier Burguete Tolosa.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
- 
+
 1. Redistributions of source code must retain the above copyright notice, this
 	list of conditions and the following disclaimer.
- 
+
 2. Redistributions in binary form must reproduce the above copyright notice,
 	this list of conditions and the following disclaimer in the documentation
 	and/or other materials provided with the distribution.
@@ -21,7 +21,7 @@ INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
 BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
 DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -65,8 +65,8 @@ void (*selection_adaptation)(Population*, Entity**, gsl_rng*);
 void selection_mutation_random
 (Population *population, Entity **mother, gsl_rng *rng)
 {
-	*mother = population->entity
-		+ gsl_rng_uniform_int(rng, population->nsurvival);
+    *mother = population->entity
+              + gsl_rng_uniform_int(rng, population->nsurvival);
 }
 
 /**
@@ -83,11 +83,11 @@ void selection_mutation_random
 void selection_mutation_bestof2
 (Population *population, Entity **mother, gsl_rng *rng)
 {
-	unsigned int i, j;
-	i = gsl_rng_uniform_int(rng, population->nsurvival);
-	j = gsl_rng_uniform_int(rng, population->nsurvival);
-	if (j < i) i = j;
-	*mother = population->entity + i;
+    unsigned int i, j;
+    i = gsl_rng_uniform_int(rng, population->nsurvival);
+    j = gsl_rng_uniform_int(rng, population->nsurvival);
+    if (j < i) i = j;
+    *mother = population->entity + i;
 }
 
 /**
@@ -104,13 +104,13 @@ void selection_mutation_bestof2
 void selection_mutation_bestof3
 (Population *population, Entity **mother, gsl_rng *rng)
 {
-	unsigned int i, j;
-	i = gsl_rng_uniform_int(rng, population->nsurvival);
-	j = gsl_rng_uniform_int(rng, population->nsurvival);
-	if (j < i) i = j;
-	j = gsl_rng_uniform_int(rng, population->nsurvival);
-	if (j < i) i = j;
-	*mother = population->entity + i;
+    unsigned int i, j;
+    i = gsl_rng_uniform_int(rng, population->nsurvival);
+    j = gsl_rng_uniform_int(rng, population->nsurvival);
+    if (j < i) i = j;
+    j = gsl_rng_uniform_int(rng, population->nsurvival);
+    if (j < i) i = j;
+    *mother = population->entity + i;
 }
 
 /**
@@ -127,7 +127,7 @@ void selection_mutation_bestof3
 void selection_mutation_best
 (Population *population, Entity **mother, gsl_rng *rng)
 {
-	*mother = population->entity;
+    *mother = population->entity;
 }
 
 /**
@@ -145,9 +145,9 @@ void selection_mutation_best
 void selection_mutation_linearrank
 (Population *population, Entity **mother, gsl_rng *rng)
 {
-	unsigned int i;
-	i = (1.0 - sqrt(gsl_rng_uniform(rng))) * population->nsurvival;
-	*mother = population->entity + i;
+    unsigned int i;
+    i = (1.0 - sqrt(gsl_rng_uniform(rng))) * population->nsurvival;
+    *mother = population->entity + i;
 }
 
 /**
@@ -166,12 +166,12 @@ void selection_mutation_linearrank
 void selection_reproduction_random
 (Population *population, Entity **mother, Entity **father, gsl_rng *rng)
 {
-	*mother = population->entity
-		+ gsl_rng_uniform_int(rng, population->nsurvival);
-	do
-		*father = population->entity
-			+ gsl_rng_uniform_int(rng, population->nsurvival);
-	while (father == mother);
+    *mother = population->entity
+              + gsl_rng_uniform_int(rng, population->nsurvival);
+    do
+        *father = population->entity
+                  + gsl_rng_uniform_int(rng, population->nsurvival);
+    while (father == mother);
 }
 
 /**
@@ -191,15 +191,16 @@ void selection_reproduction_random
 void selection_reproduction_bestof2
 (Population *population, Entity **mother, Entity **father, gsl_rng *rng)
 {
-	unsigned int i, j, k;
-	i = gsl_rng_uniform_int(rng, population->nsurvival);
-	j = gsl_rng_uniform_int(rng, population->nsurvival);
-	if (i < j) i = j;
-	do j = gsl_rng_uniform_int(rng, population->nsurvival); while (i == j);
-	k = gsl_rng_uniform_int(rng, population->nsurvival);
-	if (i != k && k < j) j = k;
-	*mother = population->entity + i;
-	*father = population->entity + j;
+    unsigned int i, j, k;
+    i = gsl_rng_uniform_int(rng, population->nsurvival);
+    j = gsl_rng_uniform_int(rng, population->nsurvival);
+    if (i < j) i = j;
+    do j = gsl_rng_uniform_int(rng, population->nsurvival);
+    while (i == j);
+    k = gsl_rng_uniform_int(rng, population->nsurvival);
+    if (i != k && k < j) j = k;
+    *mother = population->entity + i;
+    *father = population->entity + j;
 }
 
 /**
@@ -219,19 +220,20 @@ void selection_reproduction_bestof2
 void selection_reproduction_bestof3
 (Population *population, Entity **mother, Entity **father, gsl_rng *rng)
 {
-	unsigned int i, j, k;
-	i = gsl_rng_uniform_int(rng, population->nsurvival);
-	j = gsl_rng_uniform_int(rng, population->nsurvival);
-	if (i < j) i = j;
-	j = gsl_rng_uniform_int(rng, population->nsurvival);
-	if (i < j) i = j;
-	do j = gsl_rng_uniform_int(rng, population->nsurvival); while (i == j);
-	k = gsl_rng_uniform_int(rng, population->nsurvival);
-	if (i != k && k < j) j = k;
-	k = gsl_rng_uniform_int(rng, population->nsurvival);
-	if (i != k && k < j) j = k;
-	*mother = population->entity + i;
-	*father = population->entity + j;
+    unsigned int i, j, k;
+    i = gsl_rng_uniform_int(rng, population->nsurvival);
+    j = gsl_rng_uniform_int(rng, population->nsurvival);
+    if (i < j) i = j;
+    j = gsl_rng_uniform_int(rng, population->nsurvival);
+    if (i < j) i = j;
+    do j = gsl_rng_uniform_int(rng, population->nsurvival);
+    while (i == j);
+    k = gsl_rng_uniform_int(rng, population->nsurvival);
+    if (i != k && k < j) j = k;
+    k = gsl_rng_uniform_int(rng, population->nsurvival);
+    if (i != k && k < j) j = k;
+    *mother = population->entity + i;
+    *father = population->entity + j;
 }
 
 /**
@@ -251,9 +253,9 @@ void selection_reproduction_bestof3
 void selection_reproduction_best
 (Population *population, Entity **mother, Entity **father, gsl_rng *rng)
 {
-	*mother = population->entity
-		+ gsl_rng_uniform_int(rng, population->nsurvival);
-	*father = population->entity;
+    *mother = population->entity
+              + gsl_rng_uniform_int(rng, population->nsurvival);
+    *father = population->entity;
 }
 
 /**
@@ -273,15 +275,15 @@ void selection_reproduction_best
 void selection_reproduction_linearrank
 (Population *population, Entity **mother, Entity **father, gsl_rng *rng)
 {
-	unsigned int i, j;
-	i = (unsigned int)((1.0 - sqrt(gsl_rng_uniform(rng)))
-		* population->nsurvival);
-	*mother = population->entity + i;
-	do
-		j = (unsigned int)((1.0 - sqrt(gsl_rng_uniform(rng)))
-			* population->nsurvival);
-	while (i == j);
-	*father = population->entity + j;
+    unsigned int i, j;
+    i = (unsigned int)((1.0 - sqrt(gsl_rng_uniform(rng)))
+                       * population->nsurvival);
+    *mother = population->entity + i;
+    do
+        j = (unsigned int)((1.0 - sqrt(gsl_rng_uniform(rng)))
+                           * population->nsurvival);
+    while (i == j);
+    *father = population->entity + j;
 }
 
 /**
@@ -296,57 +298,57 @@ void selection_reproduction_linearrank
  * \brief Type of adaptation selection operations.
  */
 void selection_init(unsigned int mutation_type, unsigned int reproduction_type,
-	unsigned int adaptation_type)
+                    unsigned int adaptation_type)
 {
-	switch (mutation_type)
-	{
-		case SELECTION_MUTATION_TYPE_RANDOM:
-			selection_mutation = &selection_mutation_random;
-			break;
-		case SELECTION_MUTATION_TYPE_BESTOF2:
-			selection_mutation = &selection_mutation_bestof2;
-			break;
-		case SELECTION_MUTATION_TYPE_BESTOF3:
-			selection_mutation = &selection_mutation_bestof3;
-			break;
-		case SELECTION_MUTATION_TYPE_BEST:
-			selection_mutation = &selection_mutation_best;
-			break;
-		default:
-			selection_mutation = &selection_mutation_linearrank;
-	}
-	switch (reproduction_type)
-	{
-		case SELECTION_REPRODUCTION_TYPE_RANDOM:
-			selection_reproduction = &selection_reproduction_random;
-			break;
-		case SELECTION_REPRODUCTION_TYPE_BESTOF2:
-			selection_reproduction = &selection_reproduction_bestof2;
-			break;
-		case SELECTION_REPRODUCTION_TYPE_BESTOF3:
-			selection_reproduction = &selection_reproduction_bestof3;
-			break;
-		case SELECTION_REPRODUCTION_TYPE_BEST:
-			selection_reproduction = &selection_reproduction_best;
-			break;
-		default:
-			selection_reproduction = &selection_reproduction_linearrank;
-	}
-	switch (adaptation_type)
-	{
-		case SELECTION_ADAPTATION_TYPE_RANDOM:
-			selection_adaptation = &selection_mutation_random;
-			break;
-		case SELECTION_ADAPTATION_TYPE_BESTOF2:
-			selection_adaptation = &selection_mutation_bestof2;
-			break;
-		case SELECTION_ADAPTATION_TYPE_BESTOF3:
-			selection_adaptation = &selection_mutation_bestof3;
-			break;
-		case SELECTION_ADAPTATION_TYPE_BEST:
-			selection_adaptation = &selection_mutation_best;
-			break;
-		default:
-			selection_adaptation = &selection_mutation_linearrank;
-	}
+    switch (mutation_type)
+        {
+        case SELECTION_MUTATION_TYPE_RANDOM:
+            selection_mutation = &selection_mutation_random;
+            break;
+        case SELECTION_MUTATION_TYPE_BESTOF2:
+            selection_mutation = &selection_mutation_bestof2;
+            break;
+        case SELECTION_MUTATION_TYPE_BESTOF3:
+            selection_mutation = &selection_mutation_bestof3;
+            break;
+        case SELECTION_MUTATION_TYPE_BEST:
+            selection_mutation = &selection_mutation_best;
+            break;
+        default:
+            selection_mutation = &selection_mutation_linearrank;
+        }
+    switch (reproduction_type)
+        {
+        case SELECTION_REPRODUCTION_TYPE_RANDOM:
+            selection_reproduction = &selection_reproduction_random;
+            break;
+        case SELECTION_REPRODUCTION_TYPE_BESTOF2:
+            selection_reproduction = &selection_reproduction_bestof2;
+            break;
+        case SELECTION_REPRODUCTION_TYPE_BESTOF3:
+            selection_reproduction = &selection_reproduction_bestof3;
+            break;
+        case SELECTION_REPRODUCTION_TYPE_BEST:
+            selection_reproduction = &selection_reproduction_best;
+            break;
+        default:
+            selection_reproduction = &selection_reproduction_linearrank;
+        }
+    switch (adaptation_type)
+        {
+        case SELECTION_ADAPTATION_TYPE_RANDOM:
+            selection_adaptation = &selection_mutation_random;
+            break;
+        case SELECTION_ADAPTATION_TYPE_BESTOF2:
+            selection_adaptation = &selection_mutation_bestof2;
+            break;
+        case SELECTION_ADAPTATION_TYPE_BESTOF3:
+            selection_adaptation = &selection_mutation_bestof3;
+            break;
+        case SELECTION_ADAPTATION_TYPE_BEST:
+            selection_adaptation = &selection_mutation_best;
+            break;
+        default:
+            selection_adaptation = &selection_mutation_linearrank;
+        }
 }

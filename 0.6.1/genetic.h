@@ -5,10 +5,10 @@ Copyright 2014, Javier Burguete Tolosa.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
- 
+
 1. Redistributions of source code must retain the above copyright notice, this
 	list of conditions and the following disclaimer.
- 
+
 2. Redistributions in binary form must reproduce the above copyright notice,
 	this list of conditions and the following disclaimer in the documentation
 	and/or other materials provided with the distribution.
@@ -21,7 +21,7 @@ INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
 BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
 DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -44,13 +44,13 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 typedef struct
 {
-/**
- * \var nmin
- * \brief The lowest simulation number to execute in the thread.
- * \var nmax
- * \brief The highest simulation number to execute in the thread.
- */
-	unsigned int nmin, nmax;
+    /**
+     * \var nmin
+     * \brief The lowest simulation number to execute in the thread.
+     * \var nmax
+     * \brief The highest simulation number to execute in the thread.
+     */
+    unsigned int nmin, nmax;
 } GeneticThreadData;
 
 extern int ntasks;
@@ -62,45 +62,45 @@ double genetic_get_variable(Entity *entity, GeneticVariable *variable);
 void genetic_simulation_thread(GeneticThreadData *data);
 void genetic_simulation_master(unsigned int nsurvival);
 #if HAVE_MPI
-	void genetic_simulation_slave(unsigned int nsurvival, int rank);
+void genetic_simulation_slave(unsigned int nsurvival, int rank);
 #endif
 int genetic_new(
-	unsigned int nvariables,
-	GeneticVariable *variable,
-	unsigned int nentities,
-	unsigned int ngenerations,
-	double mutation_ratio,
-	double reproduction_ratio,
-	double adaptation_ratio);
+    unsigned int nvariables,
+    GeneticVariable *variable,
+    unsigned int nentities,
+    unsigned int ngenerations,
+    double mutation_ratio,
+    double reproduction_ratio,
+    double adaptation_ratio);
 int genetic_algorithm(
-	unsigned int nvariables,
-	GeneticVariable *variable,
-	unsigned int nentities,
-	unsigned int ngenerations,
-	double mutation_ratio,
-	double reproduction_ratio,
-	double adaptation_ratio,
-	const gsl_rng_type *type_random,
-	unsigned long random_seed,
-	unsigned int type_reproduction,
-	unsigned int type_selection_mutation,
-	unsigned int type_selection_reproduction,
-	unsigned int type_selection_adaptation,
-	double (*simulate_entity)(Entity*),
-	char **best_genome,
-	double **best_variables,
-	double *best_objective);
+    unsigned int nvariables,
+    GeneticVariable *variable,
+    unsigned int nentities,
+    unsigned int ngenerations,
+    double mutation_ratio,
+    double reproduction_ratio,
+    double adaptation_ratio,
+    const gsl_rng_type *type_random,
+    unsigned long random_seed,
+    unsigned int type_reproduction,
+    unsigned int type_selection_mutation,
+    unsigned int type_selection_reproduction,
+    unsigned int type_selection_adaptation,
+    double (*simulate_entity)(Entity*),
+    char **best_genome,
+    double **best_variables,
+    double *best_objective);
 int genetic_algorithm_default(
-	unsigned int nvariables,
-	GeneticVariable *variable,
-	unsigned int nentities,
-	unsigned int ngenerations,
-	double mutation_ratio,
-	double reproduction_ratio,
-	double adaptation_ratio,
-	double (*simulate_entity)(Entity*),
-	char **best_genome,
-	double **best_variables,
-	double *best_objective);
+    unsigned int nvariables,
+    GeneticVariable *variable,
+    unsigned int nentities,
+    unsigned int ngenerations,
+    double mutation_ratio,
+    double reproduction_ratio,
+    double adaptation_ratio,
+    double (*simulate_entity)(Entity*),
+    char **best_genome,
+    double **best_variables,
+    double *best_objective);
 
 #endif

@@ -5,10 +5,10 @@ Copyright 2014, Javier Burguete Tolosa.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
- 
+
 1. Redistributions of source code must retain the above copyright notice, this
 	list of conditions and the following disclaimer.
- 
+
 2. Redistributions in binary form must reproduce the above copyright notice,
 	this list of conditions and the following disclaimer in the documentation
 	and/or other materials provided with the distribution.
@@ -21,7 +21,7 @@ INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
 BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
 DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
 LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF 
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
@@ -61,30 +61,30 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 void evolution_sort(Population *population)
 {
-	unsigned int i, j, index[population->nentities];
-	double objective[population->nsurvival];
-	Entity entity[population->nsurvival];
+    unsigned int i, j, index[population->nentities];
+    double objective[population->nsurvival];
+    Entity entity[population->nsurvival];
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_sort: start\n");
+    fprintf(stderr, "evolution_sort: start\n");
 #endif
-	index_new(population->objective, index, population->nentities);
-	for (i = 0; i < population->nsurvival; ++i)
-	{
-		j = index[i];
-		objective[i] = population->objective[j];
-		entity_new(entity + i, population->genome_nbytes, i);
-		memcpy(entity[i].genome, population->entity[j].genome,
-			population->genome_nbytes);
-	}
-	for (i = 0; i < population->nsurvival; ++i)
-	{
-		population->objective[i] = objective[i];
-		memcpy(population->entity[i].genome, entity[i].genome,
-			population->genome_nbytes);
-		entity_free(entity + i);
-	}
+    index_new(population->objective, index, population->nentities);
+    for (i = 0; i < population->nsurvival; ++i)
+        {
+            j = index[i];
+            objective[i] = population->objective[j];
+            entity_new(entity + i, population->genome_nbytes, i);
+            memcpy(entity[i].genome, population->entity[j].genome,
+                   population->genome_nbytes);
+        }
+    for (i = 0; i < population->nsurvival; ++i)
+        {
+            population->objective[i] = objective[i];
+            memcpy(population->entity[i].genome, entity[i].genome,
+                   population->genome_nbytes);
+            entity_free(entity + i);
+        }
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_sort: end\n");
+    fprintf(stderr, "evolution_sort: end\n");
 #endif
 }
 
@@ -98,25 +98,25 @@ fprintf(stderr, "evolution_sort: end\n");
  */
 void evolution_mutation(Population *population, gsl_rng *rng)
 {
-	unsigned int i;
-	Entity *mother, *son;
+    unsigned int i;
+    Entity *mother, *son;
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_mutation: start\n");
+    fprintf(stderr, "evolution_mutation: start\n");
 #endif
-	for (i = population->mutation_max; i > population->mutation_min;)
-	{
+    for (i = population->mutation_max; i > population->mutation_min;)
+        {
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_mutation: selection\n");
+            fprintf(stderr, "evolution_mutation: selection\n");
 #endif
-		selection_mutation(population, &mother, rng);
-		son = population->entity + --i;
+            selection_mutation(population, &mother, rng);
+            son = population->entity + --i;
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_mutation: mutation in %u\n", i);
+            fprintf(stderr, "evolution_mutation: mutation in %u\n", i);
 #endif
-		mutation(population, mother, son, rng);
-	}
+            mutation(population, mother, son, rng);
+        }
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_mutation: end\n");
+    fprintf(stderr, "evolution_mutation: end\n");
 #endif
 }
 
@@ -130,25 +130,25 @@ fprintf(stderr, "evolution_mutation: end\n");
  */
 void evolution_reproduction(Population *population, gsl_rng *rng)
 {
-	unsigned int i;
-	Entity	*mother, *father, *son;
+    unsigned int i;
+    Entity	*mother, *father, *son;
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_reproduction: start\n");
+    fprintf(stderr, "evolution_reproduction: start\n");
 #endif
-	for (i = population->reproduction_max; i > population->reproduction_min;)
-	{
+    for (i = population->reproduction_max; i > population->reproduction_min;)
+        {
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_reproduction: selection\n");
+            fprintf(stderr, "evolution_reproduction: selection\n");
 #endif
-		selection_reproduction(population, &mother, &father, rng);
-		son = population->entity + --i;
+            selection_reproduction(population, &mother, &father, rng);
+            son = population->entity + --i;
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_reproduction: reproduction in %u\n", i);
+            fprintf(stderr, "evolution_reproduction: reproduction in %u\n", i);
 #endif
-		reproduction(mother, father, son, population->genome_nbits, rng);
-	}
+            reproduction(mother, father, son, population->genome_nbits, rng);
+        }
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_reproduction: end\n");
+    fprintf(stderr, "evolution_reproduction: end\n");
 #endif
 }
 
@@ -162,24 +162,24 @@ fprintf(stderr, "evolution_reproduction: end\n");
  */
 void evolution_adaptation(Population *population, gsl_rng *rng)
 {
-	unsigned int i;
-	Entity *mother, *son;
+    unsigned int i;
+    Entity *mother, *son;
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_adaptation: start\n");
+    fprintf(stderr, "evolution_adaptation: start\n");
 #endif
-	for (i = population->adaptation_max; i > population->adaptation_min;)
-	{
+    for (i = population->adaptation_max; i > population->adaptation_min;)
+        {
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_adaptation: selection\n");
+            fprintf(stderr, "evolution_adaptation: selection\n");
 #endif
-		selection_adaptation(population, &mother, rng);
-		son = population->entity + --i;
+            selection_adaptation(population, &mother, rng);
+            son = population->entity + --i;
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_adaptation: adaptation in %u\n", i);
+            fprintf(stderr, "evolution_adaptation: adaptation in %u\n", i);
 #endif
-		adaptation(population, mother, son, rng);
-	}
+            adaptation(population, mother, son, rng);
+        }
 #if DEBUG_EVOLUTION
-fprintf(stderr, "evolution_adaptation: end\n");
+    fprintf(stderr, "evolution_adaptation: end\n");
 #endif
 }
