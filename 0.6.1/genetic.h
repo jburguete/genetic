@@ -50,57 +50,51 @@ typedef struct
      * \var nmax
      * \brief The highest simulation number to execute in the thread.
      */
-    unsigned int nmin, nmax;
+  unsigned int nmin, nmax;
 } GeneticThreadData;
 
 extern int ntasks;
 extern unsigned int nthreads;
 extern Population genetic_population[1];
-extern double (*genetic_simulation)(Entity*);
+extern double (*genetic_simulation) (Entity *);
 
-double genetic_get_variable(Entity *entity, GeneticVariable *variable);
-void genetic_simulation_thread(GeneticThreadData *data);
-void genetic_simulation_master(unsigned int nsurvival);
+double genetic_get_variable (Entity * entity, GeneticVariable * variable);
+void genetic_simulation_thread (GeneticThreadData * data);
+void genetic_simulation_master (unsigned int nsurvival);
 #if HAVE_MPI
-void genetic_simulation_slave(unsigned int nsurvival, int rank);
+void genetic_simulation_slave (unsigned int nsurvival, int rank);
 #endif
-int genetic_new(
-    unsigned int nvariables,
-    GeneticVariable *variable,
-    unsigned int nentities,
-    unsigned int ngenerations,
-    double mutation_ratio,
-    double reproduction_ratio,
-    double adaptation_ratio);
-int genetic_algorithm(
-    unsigned int nvariables,
-    GeneticVariable *variable,
-    unsigned int nentities,
-    unsigned int ngenerations,
-    double mutation_ratio,
-    double reproduction_ratio,
-    double adaptation_ratio,
-    const gsl_rng_type *type_random,
-    unsigned long random_seed,
-    unsigned int type_reproduction,
-    unsigned int type_selection_mutation,
-    unsigned int type_selection_reproduction,
-    unsigned int type_selection_adaptation,
-    double (*simulate_entity)(Entity*),
-    char **best_genome,
-    double **best_variables,
-    double *best_objective);
-int genetic_algorithm_default(
-    unsigned int nvariables,
-    GeneticVariable *variable,
-    unsigned int nentities,
-    unsigned int ngenerations,
-    double mutation_ratio,
-    double reproduction_ratio,
-    double adaptation_ratio,
-    double (*simulate_entity)(Entity*),
-    char **best_genome,
-    double **best_variables,
-    double *best_objective);
+int genetic_new (unsigned int nvariables,
+                 GeneticVariable * variable,
+                 unsigned int nentities,
+                 unsigned int ngenerations,
+                 double mutation_ratio,
+                 double reproduction_ratio, double adaptation_ratio);
+int genetic_algorithm (unsigned int nvariables,
+                       GeneticVariable * variable,
+                       unsigned int nentities,
+                       unsigned int ngenerations,
+                       double mutation_ratio,
+                       double reproduction_ratio,
+                       double adaptation_ratio,
+                       const gsl_rng_type * type_random,
+                       unsigned long random_seed,
+                       unsigned int type_reproduction,
+                       unsigned int type_selection_mutation,
+                       unsigned int type_selection_reproduction,
+                       unsigned int type_selection_adaptation,
+                       double (*simulate_entity) (Entity *),
+                       char **best_genome,
+                       double **best_variables, double *best_objective);
+int genetic_algorithm_default (unsigned int nvariables,
+                               GeneticVariable * variable,
+                               unsigned int nentities,
+                               unsigned int ngenerations,
+                               double mutation_ratio,
+                               double reproduction_ratio,
+                               double adaptation_ratio,
+                               double (*simulate_entity) (Entity *),
+                               char **best_genome,
+                               double **best_variables, double *best_objective);
 
 #endif

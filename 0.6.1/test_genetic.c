@@ -66,15 +66,16 @@ GeneticVariable v[2];
  * \brief Entity to simulate.
  * \return RMSE error on the linear equations system: x+y=3, x-y=1.
  */
-double evaluate(Entity *entity)
+double
+evaluate (Entity * entity)
 {
-    double x, y, e1, e2;
-    x = genetic_get_variable(entity, v);
-    y = genetic_get_variable(entity, v + 1);
-    e1 = x + y - 3.;
-    e2 = x - y - 1.;
-    e1 = e1 * e1 + e2 * e2;
-    return e1;
+  double x, y, e1, e2;
+  x = genetic_get_variable (entity, v);
+  y = genetic_get_variable (entity, v + 1);
+  e1 = x + y - 3.;
+  e2 = x - y - 1.;
+  e1 = e1 * e1 + e2 * e2;
+  return e1;
 }
 
 /**
@@ -86,46 +87,44 @@ double evaluate(Entity *entity)
  * \brief Array of argument strings.
  * \return 0 always.
  */
-int main(int argn, char **argc)
+int
+main (int argn, char **argc)
 {
-    int rank;
-    char *best_genome;
-    double *best_variables, best_objective;
+  int rank;
+  char *best_genome;
+  double *best_variables, best_objective;
 #if HAVE_MPI
-    MPI_Init(&argn, &argc);
-    MPI_Comm_size(MPI_COMM_WORLD, &ntasks);
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+  MPI_Init (&argn, &argc);
+  MPI_Comm_size (MPI_COMM_WORLD, &ntasks);
+  MPI_Comm_rank (MPI_COMM_WORLD, &rank);
 #else
-    rank = 0;
+  rank = 0;
 #endif
-    nthreads = 4;
-    v[0].maximum = 10.;
-    v[0].minimum = -10.;
-    v[0].nbits = 16;
-    v[1].maximum = 10.;
-    v[1].minimum = -10.;
-    v[1].nbits = 16;
-    genetic_algorithm_default(
-        2,
-        v,
-        100,
-        20,
-        0.3,
-        0.4,
-        0.1,
-        &evaluate,
-        &best_genome,
-        &best_variables,
-        &best_objective);
-    if (rank == 0)
-        {
-            printf("x=%lg y=%lg error=%lg\n",
-                   best_variables[0], best_variables[1], best_objective);
-            g_free(best_genome);
-            g_free(best_variables);
-        }
+  nthreads = 4;
+  v[0].maximum = 10.;
+  v[0].minimum = -10.;
+  v[0].nbits = 16;
+  v[1].maximum = 10.;
+  v[1].minimum = -10.;
+  v[1].nbits = 16;
+  genetic_algorithm_default (2,
+                             v,
+                             100,
+                             20,
+                             0.3,
+                             0.4,
+                             0.1,
+                             &evaluate,
+                             &best_genome, &best_variables, &best_objective);
+  if (rank == 0)
+    {
+      printf ("x=%lg y=%lg error=%lg\n",
+              best_variables[0], best_variables[1], best_objective);
+      g_free (best_genome);
+      g_free (best_variables);
+    }
 #if HAVE_MPI
-    MPI_Finalize();
+  MPI_Finalize ();
 #endif
-    return 0;
+  return 0;
 }

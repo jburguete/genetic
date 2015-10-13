@@ -48,20 +48,20 @@ enum ReproductionType
      * \var REPRODUCTION_TYPE_MIXING
      * \brief Mixing all bits reproduction operation type.
      */
-    REPRODUCTION_TYPE_SINGLEPOINTS = 1,
-    REPRODUCTION_TYPE_DOUBLEPOINTS = 2,
-    REPRODUCTION_TYPE_MIXING = 3
+  REPRODUCTION_TYPE_SINGLEPOINTS = 1,
+  REPRODUCTION_TYPE_DOUBLEPOINTS = 2,
+  REPRODUCTION_TYPE_MIXING = 3
 };
 
 extern void
-(*reproduction)(Entity*, Entity*, Entity*, unsigned int, gsl_rng*);
+  (*reproduction) (Entity *, Entity *, Entity *, unsigned int, gsl_rng *);
 
-void reproduction_singlepoints(Entity *father, Entity *mother, Entity *son,
-                               unsigned int nbits, gsl_rng *rng);
-void reproduction_doublepoints(Entity *father, Entity *mother, Entity *son,
-                               unsigned int nbits, gsl_rng *rng);
-void reproduction_mixing(Entity *father, Entity *mother, Entity *son,
-                         unsigned int nbits, gsl_rng *rng);
-void reproduction_init(unsigned int type);
+void reproduction_singlepoints (Entity * father, Entity * mother, Entity * son,
+                                unsigned int nbits, gsl_rng * rng);
+void reproduction_doublepoints (Entity * father, Entity * mother, Entity * son,
+                                unsigned int nbits, gsl_rng * rng);
+void reproduction_mixing (Entity * father, Entity * mother, Entity * son,
+                          unsigned int nbits, gsl_rng * rng);
+void reproduction_init (unsigned int type);
 
 #endif

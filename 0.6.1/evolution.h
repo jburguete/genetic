@@ -34,9 +34,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef EVOLUTION__H
 #define EVOLUTION__H 1
 
-void evolution_sort(Population *population);
-void evolution_mutation(Population *population, gsl_rng *rng);
-void evolution_reproduction(Population *population, gsl_rng *rng);
-void evolution_adaptation(Population *population, gsl_rng *rng);
+void evolution_sort (Population * population);
+void evolution_mutation (Population * population, gsl_rng * rng);
+void evolution_reproduction (Population * population, gsl_rng * rng);
+void evolution_adaptation (Population * population, gsl_rng * rng);
 
 #endif

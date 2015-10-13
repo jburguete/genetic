@@ -44,8 +44,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \var reproduction
  * \brief Pointer to the function to apply the reproduction operation.
  */
-void (*reproduction)
-(Entity*, Entity*, Entity*, unsigned int, gsl_rng*);
+void (*reproduction) (Entity *, Entity *, Entity *, unsigned int, gsl_rng *);
 
 /**
  * \fn void reproduction_singlepoints(Entity *father, Entity *mother, \
@@ -63,13 +62,14 @@ void (*reproduction)
  * \param rng
  * \brief GSL random numbers generator.
  */
-void reproduction_singlepoints(Entity *father, Entity *mother, Entity *son,
-                               unsigned int nbits, gsl_rng *rng)
+void
+reproduction_singlepoints (Entity * father, Entity * mother, Entity * son,
+                           unsigned int nbits, gsl_rng * rng)
 {
-    int i;
-    i = gsl_rng_uniform_int(rng, nbits);
-    bit_copy(son->genome, mother->genome, 0, 0, i);
-    bit_copy(son->genome, father->genome, i, i, nbits - i);
+  int i;
+  i = gsl_rng_uniform_int (rng, nbits);
+  bit_copy (son->genome, mother->genome, 0, 0, i);
+  bit_copy (son->genome, father->genome, i, i, nbits - i);
 }
 
 /**
@@ -88,16 +88,18 @@ void reproduction_singlepoints(Entity *father, Entity *mother, Entity *son,
  * \param rng
  * \brief GSL random numbers generator.
  */
-void reproduction_doublepoints(Entity *father, Entity *mother, Entity *son,
-                               unsigned int nbits, gsl_rng *rng)
+void
+reproduction_doublepoints (Entity * father, Entity * mother, Entity * son,
+                           unsigned int nbits, gsl_rng * rng)
 {
-    unsigned int i, j, k;
-    i = gsl_rng_uniform_int(rng, nbits);
-    j = gsl_rng_uniform_int(rng, nbits);
-    if (i > j) k = i, i = j, j = k;
-    bit_copy(son->genome, mother->genome, 0, 0, i);
-    bit_copy(son->genome, father->genome, i, i, j - i);
-    bit_copy(son->genome, mother->genome, j, j, nbits - j);
+  unsigned int i, j, k;
+  i = gsl_rng_uniform_int (rng, nbits);
+  j = gsl_rng_uniform_int (rng, nbits);
+  if (i > j)
+    k = i, i = j, j = k;
+  bit_copy (son->genome, mother->genome, 0, 0, i);
+  bit_copy (son->genome, father->genome, i, i, j - i);
+  bit_copy (son->genome, mother->genome, j, j, nbits - j);
 }
 
 /**
@@ -115,25 +117,24 @@ void reproduction_doublepoints(Entity *father, Entity *mother, Entity *son,
  * \param rng
  * \brief GSL random numbers generator.
  */
-void reproduction_mixing(Entity *father, Entity *mother, Entity *son,
-                         unsigned int nbits, gsl_rng *rng)
+void
+reproduction_mixing (Entity * father, Entity * mother, Entity * son,
+                     unsigned int nbits, gsl_rng * rng)
 {
-    int i;
-    for (i = 0; i < nbits; i++)
+  int i;
+  for (i = 0; i < nbits; i++)
+    {
+      if (gsl_rng_uniform_int (rng, 2))
         {
-            if (gsl_rng_uniform_int(rng, 2))
-                {
-                    bit_get(father->genome, i)?
-                    bit_set(son->genome, i):
-                    bit_clear(son->genome, i);
-                }
-            else
-                {
-                    bit_get(mother->genome, i)?
-                    bit_set(son->genome, i):
-                    bit_clear(son->genome, i);
-                }
+          bit_get (father->genome, i) ?
+            bit_set (son->genome, i) : bit_clear (son->genome, i);
         }
+      else
+        {
+          bit_get (mother->genome, i) ?
+            bit_set (son->genome, i) : bit_clear (son->genome, i);
+        }
+    }
 }
 
 /**
@@ -142,17 +143,18 @@ void reproduction_mixing(Entity *father, Entity *mother, Entity *son,
  * \param type
  * \brief Type of reproduction operations.
  */
-void reproduction_init(unsigned int type)
+void
+reproduction_init (unsigned int type)
 {
-    switch (type)
-        {
-        case REPRODUCTION_TYPE_SINGLEPOINTS:
-            reproduction = &reproduction_singlepoints;
-            break;
-        case REPRODUCTION_TYPE_DOUBLEPOINTS:
-            reproduction = &reproduction_doublepoints;
-            break;
-        default:
-            reproduction = &reproduction_mixing;
-        }
+  switch (type)
+    {
+    case REPRODUCTION_TYPE_SINGLEPOINTS:
+      reproduction = &reproduction_singlepoints;
+      break;
+    case REPRODUCTION_TYPE_DOUBLEPOINTS:
+      reproduction = &reproduction_doublepoints;
+      break;
+    default:
+      reproduction = &reproduction_mixing;
+    }
 }

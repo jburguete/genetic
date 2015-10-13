@@ -46,10 +46,10 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief GSL random number generator.
  */
 static inline void mutation
-(Population *population, Entity *mother, Entity *son, gsl_rng *rng)
+  (Population * population, Entity * mother, Entity * son, gsl_rng * rng)
 {
-    memcpy(son->genome, mother->genome, population->genome_nbytes);
-    bit_invert(son->genome, gsl_rng_uniform_int(rng, population->genome_nbits));
+  memcpy (son->genome, mother->genome, population->genome_nbytes);
+  bit_invert (son->genome, gsl_rng_uniform_int (rng, population->genome_nbits));
 }
 
 #endif

@@ -50,8 +50,8 @@ typedef struct
      * \var location
      * \brief Bit position in the genome.
      */
-    double maximum, minimum;
-    unsigned int nbits, location;
+  double maximum, minimum;
+  unsigned int nbits, location;
 } GeneticVariable;
 
 /**
@@ -90,24 +90,22 @@ typedef struct
      * \var adaptation_max
      * \brief Maximum entity to adaptation.
      */
-    Entity *entity;
-    GeneticVariable *variable;
-    double *objective;
-    unsigned int nvariables, genome_nbits, genome_nbytes, nentities, nsurvival,
-             mutation_min, mutation_max, reproduction_min, reproduction_max,
-             adaptation_min, adaptation_max;
+  Entity *entity;
+  GeneticVariable *variable;
+  double *objective;
+  unsigned int nvariables, genome_nbits, genome_nbytes, nentities, nsurvival,
+    mutation_min, mutation_max, reproduction_min, reproduction_max,
+    adaptation_min, adaptation_max;
 } Population;
 
-int population_new(
-    Population *population,
-    GeneticVariable *variable,
-    unsigned int nvariables,
-    unsigned int genome_nbits,
-    unsigned int nentities,
-    double mutation_ratio,
-    double reproduction_ratio,
-    double adaptation_ratio);
-void population_free(Population *population);
-void population_init_genomes(Population *population, gsl_rng *rng);
+int population_new (Population * population,
+                    GeneticVariable * variable,
+                    unsigned int nvariables,
+                    unsigned int genome_nbits,
+                    unsigned int nentities,
+                    double mutation_ratio,
+                    double reproduction_ratio, double adaptation_ratio);
+void population_free (Population * population);
+void population_init_genomes (Population * population, gsl_rng * rng);
 
 #endif

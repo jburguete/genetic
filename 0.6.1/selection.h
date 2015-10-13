@@ -53,11 +53,11 @@ enum SelectionMutationType
      * \brief Mutation selection operation type based on linear probability
      *   distribution with respect to rank.
      */
-    SELECTION_MUTATION_TYPE_RANDOM = 1,
-    SELECTION_MUTATION_TYPE_BESTOF2 = 2,
-    SELECTION_MUTATION_TYPE_BESTOF3 = 3,
-    SELECTION_MUTATION_TYPE_BEST = 4,
-    SELECTION_MUTATION_TYPE_LINEARRANK = 5
+  SELECTION_MUTATION_TYPE_RANDOM = 1,
+  SELECTION_MUTATION_TYPE_BESTOF2 = 2,
+  SELECTION_MUTATION_TYPE_BESTOF3 = 3,
+  SELECTION_MUTATION_TYPE_BEST = 4,
+  SELECTION_MUTATION_TYPE_LINEARRANK = 5
 };
 
 /**
@@ -79,11 +79,11 @@ enum SelectionReproductionType
      * \brief Reproduction selection operation type based on linear probability
      *   distribution with respect to rank.
      */
-    SELECTION_REPRODUCTION_TYPE_RANDOM = 1,
-    SELECTION_REPRODUCTION_TYPE_BESTOF2 = 2,
-    SELECTION_REPRODUCTION_TYPE_BESTOF3 = 3,
-    SELECTION_REPRODUCTION_TYPE_BEST = 4,
-    SELECTION_REPRODUCTION_TYPE_LINEARRANK = 5
+  SELECTION_REPRODUCTION_TYPE_RANDOM = 1,
+  SELECTION_REPRODUCTION_TYPE_BESTOF2 = 2,
+  SELECTION_REPRODUCTION_TYPE_BESTOF3 = 3,
+  SELECTION_REPRODUCTION_TYPE_BEST = 4,
+  SELECTION_REPRODUCTION_TYPE_LINEARRANK = 5
 };
 
 /**
@@ -105,41 +105,41 @@ enum SelectionAdaptationType
      * \brief Adaptation selection operation type based on linear probability
      *   distribution with respect to rank.
      */
-    SELECTION_ADAPTATION_TYPE_RANDOM = 1,
-    SELECTION_ADAPTATION_TYPE_BESTOF2 = 2,
-    SELECTION_ADAPTATION_TYPE_BESTOF3 = 3,
-    SELECTION_ADAPTATION_TYPE_BEST = 4,
-    SELECTION_ADAPTATION_TYPE_LINEARRANK = 5
+  SELECTION_ADAPTATION_TYPE_RANDOM = 1,
+  SELECTION_ADAPTATION_TYPE_BESTOF2 = 2,
+  SELECTION_ADAPTATION_TYPE_BESTOF3 = 3,
+  SELECTION_ADAPTATION_TYPE_BEST = 4,
+  SELECTION_ADAPTATION_TYPE_LINEARRANK = 5
 };
 
-extern void (*selection_mutation)(Population*, Entity**, gsl_rng*);
+extern void (*selection_mutation) (Population *, Entity **, gsl_rng *);
 extern void (*selection_reproduction)
-(Population*, Entity**, Entity**, gsl_rng*);
-extern void (*selection_adaptation)(Population*, Entity**, gsl_rng*);
+  (Population *, Entity **, Entity **, gsl_rng *);
+extern void (*selection_adaptation) (Population *, Entity **, gsl_rng *);
 
 void selection_mutation_random
-(Population *population, Entity **mother, gsl_rng *rng);
+  (Population * population, Entity ** mother, gsl_rng * rng);
 void selection_mutation_bestof2
-(Population *population, Entity **mother, gsl_rng *rng);
+  (Population * population, Entity ** mother, gsl_rng * rng);
 void selection_mutation_bestof3
-(Population *population, Entity **mother, gsl_rng *rng);
+  (Population * population, Entity ** mother, gsl_rng * rng);
 void selection_mutation_best
-(Population *population, Entity **mother, gsl_rng *rng);
+  (Population * population, Entity ** mother, gsl_rng * rng);
 void selection_mutation_linearrank
-(Population *population, Entity **mother, gsl_rng *rng);
+  (Population * population, Entity ** mother, gsl_rng * rng);
 
 void selection_reproduction_random
-(Population *population, Entity **mother, Entity **father, gsl_rng *rng);
+  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng);
 void selection_reproduction_bestof2
-(Population *population, Entity **mother, Entity **father, gsl_rng *rng);
+  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng);
 void selection_reproduction_bestof3
-(Population *population, Entity **mother, Entity **father, gsl_rng *rng);
+  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng);
 void selection_reproduction_best
-(Population *population, Entity **mother, Entity **father, gsl_rng *rng);
+  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng);
 void selection_reproduction_linearrank
-(Population *population, Entity **mother, Entity **father, gsl_rng *rng);
+  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng);
 
-void selection_init(unsigned int mutation_type, unsigned int reproduction_type,
-                    unsigned int adaptation_type);
+void selection_init (unsigned int mutation_type, unsigned int reproduction_type,
+                     unsigned int adaptation_type);
 
 #endif

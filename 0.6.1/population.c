@@ -63,53 +63,52 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief Adaptation ratio.
  * \return 1 on succes, 0 on error.
  */
-int population_new(
-    Population *population,
-    GeneticVariable *variable,
-    unsigned int nvariables,
-    unsigned int genome_nbits,
-    unsigned int nentities,
-    double mutation_ratio,
-    double reproduction_ratio,
-    double adaptation_ratio)
+int
+population_new (Population * population,
+                GeneticVariable * variable,
+                unsigned int nvariables,
+                unsigned int genome_nbits,
+                unsigned int nentities,
+                double mutation_ratio,
+                double reproduction_ratio, double adaptation_ratio)
 {
-    unsigned int i, nmutations, nreproductions, nadaptations;
-    nmutations = mutation_ratio * nentities;
-    nreproductions = reproduction_ratio * nentities;
-    nadaptations = adaptation_ratio * nentities;
-    i = nmutations + nreproductions + nadaptations;
-    if (!i)
-        {
-            fprintf(stderr, "ERROR: no evolution\n");
-            return 0;
-        }
-    if (i >= nentities)
-        {
-            fprintf(stderr, "ERROR: no survival of entities\n");
-            return 0;
-        }
-    population->nsurvival = nentities - i;
-    if (population->nsurvival < 2)
-        {
-            fprintf(stderr, "ERROR: unable to reproduce the entities\n");
-            return 0;
-        }
-    population->variable = variable;
-    population->nvariables = nvariables;
-    population->nentities = nentities;
-    population->mutation_max = nentities;
-    population->mutation_min = population->reproduction_max
-                               = nentities - nmutations;
-    population->reproduction_min = population->adaptation_max
-                                   = population->reproduction_max - nreproductions;
-    population->adaptation_min = population->nsurvival;
-    population->genome_nbits = genome_nbits;
-    population->genome_nbytes = bit_sizeof(genome_nbits);
-    population->objective = (double*)g_malloc(nentities * sizeof(double));
-    population->entity = (Entity*)g_malloc(nentities * sizeof(Entity));
-    for (i = 0; i < population->nentities; ++i)
-        entity_new(population->entity + i, population->genome_nbytes, i);
-    return 1;
+  unsigned int i, nmutations, nreproductions, nadaptations;
+  nmutations = mutation_ratio * nentities;
+  nreproductions = reproduction_ratio * nentities;
+  nadaptations = adaptation_ratio * nentities;
+  i = nmutations + nreproductions + nadaptations;
+  if (!i)
+    {
+      fprintf (stderr, "ERROR: no evolution\n");
+      return 0;
+    }
+  if (i >= nentities)
+    {
+      fprintf (stderr, "ERROR: no survival of entities\n");
+      return 0;
+    }
+  population->nsurvival = nentities - i;
+  if (population->nsurvival < 2)
+    {
+      fprintf (stderr, "ERROR: unable to reproduce the entities\n");
+      return 0;
+    }
+  population->variable = variable;
+  population->nvariables = nvariables;
+  population->nentities = nentities;
+  population->mutation_max = nentities;
+  population->mutation_min = population->reproduction_max
+    = nentities - nmutations;
+  population->reproduction_min = population->adaptation_max
+    = population->reproduction_max - nreproductions;
+  population->adaptation_min = population->nsurvival;
+  population->genome_nbits = genome_nbits;
+  population->genome_nbytes = bit_sizeof (genome_nbits);
+  population->objective = (double *) g_malloc (nentities * sizeof (double));
+  population->entity = (Entity *) g_malloc (nentities * sizeof (Entity));
+  for (i = 0; i < population->nentities; ++i)
+    entity_new (population->entity + i, population->genome_nbytes, i);
+  return 1;
 }
 
 /**
@@ -120,11 +119,12 @@ int population_new(
  * \param rng
  * \brief GSL random numbers generator.
  */
-void population_init_genomes(Population *population, gsl_rng *rng)
+void
+population_init_genomes (Population * population, gsl_rng * rng)
 {
-    unsigned int i;
-    for (i = 0; i < population->nentities; ++i)
-        entity_init(population->entity + i, population->genome_nbytes, rng);
+  unsigned int i;
+  for (i = 0; i < population->nentities; ++i)
+    entity_init (population->entity + i, population->genome_nbytes, rng);
 }
 
 /**
@@ -133,11 +133,12 @@ void population_init_genomes(Population *population, gsl_rng *rng)
  * \param population
  * \brief Population.
  */
-void population_free(Population *population)
+void
+population_free (Population * population)
 {
-    unsigned int i;
-    for (i = 0; i < population->nentities; ++i)
-        entity_free(population->entity + i);
-    g_free(population->entity);
-    g_free(population->objective);
+  unsigned int i;
+  for (i = 0; i < population->nentities; ++i)
+    entity_free (population->entity + i);
+  g_free (population->entity);
+  g_free (population->objective);
 }
