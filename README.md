@@ -9,19 +9,32 @@ AUTHORS
 * Javier Burguete Tolosa (jburguete@eead.csic.es)
 * Borja Latorre Garcés (borja.latorre@csic.es)
 
-REQUIRED
---------
+TOOLS AND LIBRARIES REQUIRED TO BUILD THE EXECUTABLE
+----------------------------------------------------
 
-* mpicc, gcc or clang (to compile the source code)
-* autoconf (to generate the Makefile in different systems)
-* automake (to detect the system)
-* pkg-config (to find the libraries to compile)
-* gsl (the GNU scientific library to generate random numbers)
-* gthreads (to use multicores in shared memory machines)
-* glib (extended utilities of C to work with data, lists, random numbers, ...)
-* openmpi or mpich (optional: to parallelize executions in a computers cluster)
-* doxygen (optional: standard comments format to generate documentation)
-* latex (optional: to build the PDF manual)
+* [gcc](https://gcc.gnu.org) or [clang](http://clang.llvm.org) (to compile the
+source code)
+* [make](http://www.gnu.org/software/make) (to build the executable file)
+* [autoconf](http://www.gnu.org/software/autoconf) (to generate the Makefile in
+different operative systems)
+* [automake](http://www.gnu.org/software/automake) (to check the operative
+system)
+* [pkg-config](http://www.freedesktop.org/wiki/Software/pkg-config) (to find the
+libraries to compile)
+* [gsl](http://www.gnu.org/software/gsl) (to generate random numbers)
+* [glib](https://developer.gnome.org/glib) (extended utilities of C to work with
+data, lists, mapped files, regular expressions, using multicores in shared
+memory machines, ...)
+* [genetic](https://github.com/jburguete/genetic) (genetic algorithm)
+
+OPTIONAL TOOLS AND LIBRARIES
+----------------------------
+
+* [openmpi](http://www.open-mpi.org) or [mpich](http://www.mpich.org) (to run in
+parallelized tasks on multiple computers)
+* [doxygen](http://www.stack.nl/~dimitri/doxygen) (standard comments format to
+generate documentation)
+* [latex](https://www.latex-project.org/) (to build the PDF manuals)
 
 FILES
 -----
@@ -40,18 +53,22 @@ This software has been built and tested in the following operative systems.
 Probably, it can be built in other systems, distributions, or versions but it
 has not been tested.
 
-Debian Linux 8.2
-________________
-Debian kFreeBSD 8.2
-___________________
-Debian Hurd 8.2
-_______________
-DragonFly BSD 4.2.4
-___________________
+Debian Linux 8
+______________
+Debian kFreeBSD 8
+_________________
+Debian Hurd 8
+_____________
+DragonFly BSD 4.2
+_________________
 FreeBSD 10.2
 ____________
-NetBSD 6.1.5
-____________
+NetBSD 7.0
+__________
+OpenSUSE Linux 13
+_________________
+Ubuntu Linux 12, 13, and 15
+___________________________
 
 1. Download this repository:
 > $ git clone https://github.com/jburguete/genetic.git
@@ -61,13 +78,13 @@ ____________
 >
 > $ ./build
 
-OpenBSD 5.7
+OpenBSD 5.8
 ___________
 
 1. Select adequate versions:
 > $ export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.15
 
-2. Then, follow steps 1 and 2 of the previous Debian Linux 8.2 section.
+2. Then, follow steps 1 and 2 of the previous Debian Linux 8 section.
 
 Microsoft Windows 7
 ___________________________
@@ -80,7 +97,15 @@ libraries and utilities. You can follow detailed instructions in
 (https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
 2. Then, in a MSYS2 terminal, follow steps 1 and 2 of the previous Debian Linux
-8.2 section.
+8 section.
+
+Fedora Linux 23
+_______________
+
+1. In order to use OpenMPI compilation do in a terminal (in 64 bits version):
+> $ export PATH=$PATH:/usr/lib64/openmpi/bin
+
+2. Then, follow steps 1 to 4 of the previous Debian 8 section.
 
 BUILDING IN OTHER PROGRAMS
 --------------------------
