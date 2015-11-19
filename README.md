@@ -140,21 +140,21 @@ The prototype of the main function is:
 ```C
 int genetic_algorithm(
   unsigned int nvariables,
-  GeneticVariable \*variable,
+  GeneticVariable *variable,
   unsigned int population,
   unsigned int ngenerations,
   double mutation_ratio,
   double reproduction_ratio,
   double adaptation_ratio,
-  const gsl_rng_type \*type_random,
+  const gsl_rng_type *type_random,
   unsigned long random_seed,
   unsigned int type_reproduction,
   unsigned int type_selection_mutation,
   unsigned int type_selection_reproduction,
-  double (\*simulate_entity)(Entity\*),
-  char \*\*best_genome,
-  double \*\*best_variables,
-  double \*best_objective);
+  double (*simulate_entity)(Entity*),
+  char **best_genome,
+  double **best_variables,
+  double *best_objective);
 ```
 
 Where the parameters are:
