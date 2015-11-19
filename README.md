@@ -1,7 +1,7 @@
 GENETIC (0.6.1 version)
 =======================
 
-A simple genetic algorithm.
+A simple genetic algorithm
 
 AUTHORS
 -------
@@ -39,19 +39,19 @@ generate documentation)
 FILES
 -----
 
-* configure.ac: configure generator.
-* Makefile.in: Makefile generator.
-* TODO: List of tasks TO DO (in spanish)
-* \*.h: Header files.
-* \*.c: Source files.
-* Doxyfile: configuration file to generate doxygen documentation.
+* configure.ac: configure generator
+* Makefile.in: Makefile generator
+* README.md: This file
+* \*.h: Header files
+* \*.c: Source files
+* Doxyfile: configuration file to generate doxygen documentation
 
 BUILDING THE BINARY FILES
 -------------------------
 
 This software has been built and tested in the following operative systems.
 Probably, it can be built in other systems, distributions, or versions but it
-has not been tested.
+has not been tested
 
 Debian Linux 8
 ______________
@@ -84,7 +84,7 @@ ___________
 1. Select adequate versions:
 > $ export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.15
 
-2. Then, follow steps 1 and 2 of the previous Debian Linux 8 section.
+2. Then, follow steps 1 and 2 of the previous Debian Linux 8 section
 
 Microsoft Windows 7
 ___________________________
@@ -97,7 +97,7 @@ libraries and utilities. You can follow detailed instructions in
 (https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
 2. Then, in a MSYS2 terminal, follow steps 1 and 2 of the previous Debian Linux
-8 section.
+8 section
 
 Fedora Linux 23
 _______________
@@ -105,7 +105,7 @@ _______________
 1. In order to use OpenMPI compilation do in a terminal (in 64 bits version):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
 
-2. Then, follow steps 1 to 4 of the previous Debian 8 section.
+2. Then, follow steps 1 to 4 of the previous Debian 8 section
 
 BUILDING IN OTHER PROGRAMS
 --------------------------
@@ -202,17 +202,17 @@ Valid algorithms are:
 default GSL seed)
 * *type_reproduction*: type of reproduction algorithm. Valid values are:
 	* *REPRODUCTION_TYPE_MIXING* (default value): the son genome is a random
-		mixing between mother and father genomes in each bit.
+		mixing between mother and father genomes in each bit
 	* *REPRODUCTION_TYPE_SINGLEPOINTS*: the son genome is equal to mother genome
-		previous to a random point and next it is equal to the father genome.
+		previous to a random point and next it is equal to the father genome
 	* *REPRODUCTION_TYPE_DOUBLEPOINTS*: the son genome is equal to father genome
-		between two random points and equal to the mother genome in the rest.
+		between two random points and equal to the mother genome in the rest
 * *type_selection_mutation*: type of algorithm to select the mothers to create
 sons with a mutation. A mutation inverts a random bit in the genome. Valid
 values are:
 	* *SELECTION_MUTATION_TYPE_LINEARRANK* (default value): the mother is
 		selected randomly between the survival entities assigning a linear
-		probabiltiy higher for better entities.
+		probabiltiy higher for better entities
 	* *SELECTION_MUTATION_TYPE_RANDOM*: the mother is selected randomly between
 		the survival entities
 	* *SELECTION_MUTATION_TYPE_BESTOF2*: the mother is the best of two randomly
@@ -228,7 +228,7 @@ sons with a adaptation. An adaption inverts a random bit between the lowest
 significative bits. Valid values are:
 	* *SELECTION_ADAPTATION_TYPE_LINEARRANK* (default value): the mother is
 		selected randomly between the survival entities assigning a linear
-		probabiltiy higher for better entities.
+		probabiltiy higher for better entities
 	* *SELECTION_ADAPTATION_TYPE_RANDOM*: the mother is selected randomly
 		between the survival entities
 	* *SELECTION_ADAPTATION_TYPE_BESTOF2*: the mother is the best of two
