@@ -137,7 +137,7 @@ _____________
 
 The prototype of the main function is:
 
-```C
+```c
 int genetic_algorithm(
   unsigned int nvariables,
   GeneticVariable *variable,
@@ -238,7 +238,7 @@ function can be used:
 ```c
 int genetic_algorithm_default(
   unsigned int nvariables,
-  GeneticVariable \*variable,
+  GeneticVariable *variable,
   unsigned int population,
   unsigned int ngenerations,
   double mutation_ratio,
