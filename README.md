@@ -157,7 +157,7 @@ int genetic_algorithm(
   double *best_objective);
 ```
 
-Where the parameters are:
+where the parameters are:
 * *nvariables*: variables number
 * *genetic_variable*: array of data to define each variable. The fields of the
 	data structure are:
@@ -244,10 +244,11 @@ int genetic_algorithm_default(
   double mutation_ratio,
   double reproduction_ratio,
   double adaptation_ratio,
-  double (\*simulate_entity)(Entity\*),
+  double (*simulate_entity)(Entity*),
   char **best_genome,
   double **best_variables,
   double *best_objective);
+```
 
 MAKING REFERENCE MANUAL INSTRUCTIONS (file latex/refman.pdf)
 ------------------------------------------------------------
