@@ -1,7 +1,7 @@
 GENETIC (0.6.1 version)
 =======================
 
-A simple genetic algorithm
+A simple genetic algorithm for optimization
 
 AUTHORS
 -------
