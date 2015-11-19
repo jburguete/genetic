@@ -136,39 +136,26 @@ MAIN FUNCTION
 _____________
 
 The prototype of the main function is:
-> int genetic_algorithm(
->
->>	unsigned int nvariables,
->>
->>	GeneticVariable *variable,
->>
->>	unsigned int population,
->>
->>	unsigned int ngenerations,
->>
->>	double mutation_ratio,
->>
->>	double reproduction_ratio,
->>
->>  double adaptation_ratio,
->>
->>  const gsl_rng_type *type_random,
->>
->>	unsigned long random_seed,
->>
->>	unsigned int type_reproduction,
->>
->>	unsigned int type_selection_mutation,
->>
->>	unsigned int type_selection_reproduction,
->>
->>	double (\*simulate_entity)(Entity\*),
->>
->>	char **best_genome,
->>
->>	double **best_variables,
->>
->>	double *best_objective);
+
+```C
+int genetic_algorithm(
+  unsigned int nvariables,
+  GeneticVariable \*variable,
+  unsigned int population,
+  unsigned int ngenerations,
+  double mutation_ratio,
+  double reproduction_ratio,
+  double adaptation_ratio,
+  const gsl_rng_type \*type_random,
+  unsigned long random_seed,
+  unsigned int type_reproduction,
+  unsigned int type_selection_mutation,
+  unsigned int type_selection_reproduction,
+  double (\*simulate_entity)(Entity\*),
+  char \*\*best_genome,
+  double \*\*best_variables,
+  double \*best_objective);
+```
 
 Where the parameters are:
 * *nvariables*: variables number
@@ -247,30 +234,20 @@ ____________________________________________
 
 If using default algorithms is considered, the following convenient simplified
 function can be used:
-> int genetic_algorithm_default(
->
->>	unsigned int nvariables,
->>
->>	GeneticVariable *variable,
->>
->>	unsigned int population,
->>
->>	unsigned int ngenerations,
->>
->>	double mutation_ratio,
->>
->>	double reproduction_ratio,
->>
->>  double adaptation_ratio,
->>
->>	double (\*simulate_entity)(Entity\*),
->>
->>	char **best_genome,
->>
->>	double **best_variables,
->>
->>	double *best_objective);
 
+```c
+int genetic_algorithm_default(
+  unsigned int nvariables,
+  GeneticVariable \*variable,
+  unsigned int population,
+  unsigned int ngenerations,
+  double mutation_ratio,
+  double reproduction_ratio,
+  double adaptation_ratio,
+  double (\*simulate_entity)(Entity\*),
+  char **best_genome,
+  double **best_variables,
+  double *best_objective);
 
 MAKING REFERENCE MANUAL INSTRUCTIONS (file latex/refman.pdf)
 ------------------------------------------------------------
