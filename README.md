@@ -53,12 +53,8 @@ This software has been built and tested in the following operative systems.
 Probably, it can be built in other systems, distributions, or versions but it
 has not been tested
 
-Debian Linux 8
-______________
-Debian kFreeBSD 8
-_________________
-Debian Hurd 8
-_____________
+Debian 8 (kFreeBSD, Linux or Hurd)
+__________________________________
 DragonFly BSD 4.2
 _________________
 Dyson Illumos
