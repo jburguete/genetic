@@ -61,6 +61,8 @@ Debian Hurd 8
 _____________
 DragonFly BSD 4.2
 _________________
+Dyson Illumos
+_____________
 FreeBSD 10.2
 ____________
 NetBSD 7.0
