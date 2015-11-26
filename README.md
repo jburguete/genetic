@@ -117,7 +117,7 @@ To build this algorithm in other programs:
 >
 > $ ln -s PATH_TO_GENETIC/0.6.1 genetic
 
-3. Include the GSL and genetics header in your source code files:
+3. Include the GSL and genetic headers in your source code files:
 > \#include \<gsl/gsl_rng.h\>
 >
 > \#include "genetic/genetic.h"
