@@ -34,11 +34,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef SORT__H
 #define SORT__H 1
 
-/**
- * \def INDEX_SORT_MERGE_MIN
- * \brief Minimum elements to sort with the merge algorithm.
- */
 #define INDEX_SORT_MERGE_MIN 32
+  ///< Minimum elements to sort with the merge algorithm.
 
 /**
  * \fn static inline void index_sort_insertion(double *x, unsigned int *index, \

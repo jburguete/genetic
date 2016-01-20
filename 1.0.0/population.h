@@ -40,10 +40,10 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 typedef struct
 {
-  double maximum; ///< Maximum value allowed.
-  double minimum; ///< Minimum value allowed.
-  unsigned int nbits; ///< Number of bits to encode in the genome.
-  unsigned int location; ///< Bit position in the genome.
+  double maximum;               ///< Maximum value allowed.
+  double minimum;               ///< Minimum value allowed.
+  unsigned int nbits;           ///< Number of bits to encode in the genome.
+  unsigned int location;        ///< Bit position in the genome.
 } GeneticVariable;
 
 /**
@@ -52,22 +52,22 @@ typedef struct
  */
 typedef struct
 {
-  Entity *entity; ///< Array of entities.
-  GeneticVariable *variable; ///< Array of variables data.
-  double *objective; ///< Array ot objective function values.
-  double thresold; ///< Thresold to finish the simulations.
-  unsigned int nvariables; ///< Number of variables.
-  unsigned int genome_nbits; ///< Number of bits of the genomes.
-  unsigned int genome_nbytes; ///< Number of bytes of the genomes.
-  unsigned int nentities; ///< Number of entities.
-  unsigned int nsurvival; ///< Number of survival entities.
-  unsigned int mutation_min; ///< Minimum entity to mutation.
-  unsigned int mutation_max; ///< Maximum entity to mutation.
-  unsigned int reproduction_min; ///< Minimum entity to reproduction.
-  unsigned int reproduction_max; ///< Maximum entity to reproduction.
-  unsigned int adaptation_min; ///< Minimum entity to adaptation.
-  unsigned int adaptation_max; ///< Maximum entity to adaptation.
-  unsigned int stop; /// Variable to finish the simulations.
+  Entity *entity;               ///< Array of entities.
+  GeneticVariable *variable;    ///< Array of variables data.
+  double *objective;            ///< Array ot objective function values.
+  double thresold;              ///< Thresold to finish the simulations.
+  unsigned int nvariables;      ///< Number of variables.
+  unsigned int genome_nbits;    ///< Number of bits of the genomes.
+  unsigned int genome_nbytes;   ///< Number of bytes of the genomes.
+  unsigned int nentities;       ///< Number of entities.
+  unsigned int nsurvival;       ///< Number of survival entities.
+  unsigned int mutation_min;    ///< Minimum entity to mutation.
+  unsigned int mutation_max;    ///< Maximum entity to mutation.
+  unsigned int reproduction_min;        ///< Minimum entity to reproduction.
+  unsigned int reproduction_max;        ///< Maximum entity to reproduction.
+  unsigned int adaptation_min;  ///< Minimum entity to adaptation.
+  unsigned int adaptation_max;  ///< Maximum entity to adaptation.
+  unsigned int stop;            /// Variable to finish the simulations.
 } Population;
 
 int population_new (Population * population,
@@ -77,8 +77,7 @@ int population_new (Population * population,
                     unsigned int nentities,
                     double mutation_ratio,
                     double reproduction_ratio,
-					double adaptation_ratio,
-					double thresold);
+                    double adaptation_ratio, double thresold);
 void population_free (Population * population);
 void population_init_genomes (Population * population, gsl_rng * rng);
 

@@ -47,17 +47,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "evolution.h"
 #include "genetic.h"
 
-/**
- * \var ntasks
- * \brief Number of tasks.
- * \var nthreads
- * \brief Number of threads.
- * \var v
- * \brief Array of variables to optimize.
- */
-int ntasks = 1;
-unsigned int nthreads = 1;
-GeneticVariable v[2];
+int ntasks = 1;                 ///< Number of tasks.
+unsigned int nthreads = 1;      ///< Number of threads.
+GeneticVariable v[2];           ///< Array of variables to optimize.
 
 /**
  * \fn double evaluate(Entity *entity)
@@ -114,11 +106,9 @@ main (int argn, char **argc)
                              0.3,
                              0.4,
                              0.1,
-							 0.0,
+                             0.0,
                              &evaluate,
-                             &best_genome,
-							 &best_variables,
-							 &best_objective);
+                             &best_genome, &best_variables, &best_objective);
   if (rank == 0)
     {
       printf ("x=%lg y=%lg error=%lg\n",

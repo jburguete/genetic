@@ -47,7 +47,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "selection.h"
 #include "evolution.h"
 
-#define DEBUG_EVOLUTION 0 ///< Macro to debug the evolution functions.
+#define DEBUG_EVOLUTION 0       ///< Macro to debug the evolution functions.
 
 /**
  * \fn void evolution_sort(Population *population)

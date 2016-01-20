@@ -73,8 +73,7 @@ population_new (Population * population,
                 unsigned int nentities,
                 double mutation_ratio,
                 double reproduction_ratio,
-				double adaptation_ratio,
-				double thresold)
+                double adaptation_ratio, double thresold)
 {
   unsigned int i, nmutations, nreproductions, nadaptations;
   nmutations = mutation_ratio * nentities;
@@ -111,12 +110,12 @@ population_new (Population * population,
   population->objective = (double *) g_malloc (nentities * sizeof (double));
   population->entity = (Entity *) g_malloc (nentities * sizeof (Entity));
   for (i = 0; i < population->nentities; ++i)
-	{
+    {
       entity_new (population->entity + i, population->genome_nbytes, i);
-	  population->objective[i] = G_MAXDOUBLE;
-	}
+      population->objective[i] = G_MAXDOUBLE;
+    }
   population->thresold = thresold;
-  population->stop = 0;	
+  population->stop = 0;
   return 1;
 }
 

@@ -48,7 +48,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "evolution.h"
 #include "genetic.h"
 
-#define DEBUG_GENETIC 0 ///< Macro to debug the genetic functions.
+#define DEBUG_GENETIC 0         ///< Macro to debug the genetic functions.
 
 Population genetic_population[1];
   ///< Population of the genetic algorithm.
@@ -122,17 +122,17 @@ genetic_simulation_thread (GeneticThreadData * data)
            data->nmin, data->nmax);
 #endif
   for (i = data->nmin; i < data->nmax && !genetic_population->stop; ++i)
-	{
+    {
       genetic_population->objective[i]
         = genetic_simulation (genetic_population->entity + i);
-	  if (genetic_population->objective[i] < genetic_population->thresold)
-		{
-		  g_mutex_lock (mutex);
-		  genetic_population->stop = 1;
-		  g_mutex_unlock (mutex);
-	      break;
-		}
-	}
+      if (genetic_population->objective[i] < genetic_population->thresold)
+        {
+          g_mutex_lock (mutex);
+          genetic_population->stop = 1;
+          g_mutex_unlock (mutex);
+          break;
+        }
+    }
 #if DEBUG_GENETIC
   fprintf (stderr, "genetic_simulation_thread: end\n");
 #endif
@@ -154,7 +154,7 @@ genetic_simulation_master (unsigned int nsurvival)
 #if HAVE_MPI
   unsigned int i;
   unsigned int n[ntasks + 1];
-  unsigned int stop [ntasks];
+  unsigned int stop[ntasks];
   char *genome_array;
   MPI_Status mpi_status;
 #endif
@@ -238,7 +238,7 @@ genetic_simulation_master (unsigned int nsurvival)
 #if DEBUG_GENETIC
       fprintf (stderr,
                "genetic_simulation_master: "
-			   "receive %u reals from task %u on %u\n",
+               "receive %u reals from task %u on %u\n",
                n[j + 1] - n[j], j, nsurvival + n[j]);
 #endif
       MPI_Recv (population->objective + nsurvival + n[j], n[j + 1] - n[j],
@@ -249,8 +249,8 @@ genetic_simulation_master (unsigned int nsurvival)
                j);
 #endif
       MPI_Recv (stop + j, j, MPI_UNSIGNED, j, 1, MPI_COMM_WORLD, &mpi_status);
-	  if (stop[j])
-		genetic_population->stop = 1;
+      if (stop[j])
+        genetic_population->stop = 1;
     }
   // Sending stop instruction to the slaves
   for (j = 0; ++j < ntasks;)
@@ -261,7 +261,7 @@ genetic_simulation_master (unsigned int nsurvival)
                j);
 #endif
       MPI_Send (&genetic_population->stop, 1, MPI_UNSIGNED, j, 1,
-			    MPI_COMM_WORLD);
+                MPI_COMM_WORLD);
     }
 #endif
 
@@ -362,13 +362,12 @@ genetic_simulation_slave (unsigned int nsurvival, int rank)
 #if DEBUG_GENETIC
   fprintf (stderr,
            "genetic_simulation_slave: "
-		   "rank=%d receive one integer from master\n",
-           rank);
+           "rank=%d receive one integer from master\n", rank);
 #endif
   // Receive the stop variable from the master
   MPI_Recv (&stop, 1, MPI_UNSIGNED, 0, 1, MPI_COMM_WORLD, &mpi_status);
   if (stop)
-	genetic_population->stop = 1;
+    genetic_population->stop = 1;
 
 #if DEBUG_GENETIC
   fprintf (stderr, "genetic_simulation_slave: rank=%d end\n", rank);
@@ -408,8 +407,7 @@ genetic_new (unsigned int nvariables,
              unsigned int ngenerations,
              double mutation_ratio,
              double reproduction_ratio,
-			 double adaptation_ratio,
-			 double thresold)
+             double adaptation_ratio, double thresold)
 {
   unsigned int i, genome_nbits, nprocesses;
 
@@ -523,7 +521,7 @@ genetic_algorithm (unsigned int nvariables,
                    unsigned int type_selection_mutation,
                    unsigned int type_selection_reproduction,
                    unsigned int type_selection_adaptation,
-				   double thresold,
+                   double thresold,
                    double (*simulate_entity) (Entity *),
                    char **best_genome,
                    double **best_variables, double *best_objective)
@@ -542,8 +540,8 @@ genetic_algorithm (unsigned int nvariables,
 
   // Init the data
   if (!genetic_new (nvariables, variable, nentities, ngenerations,
-			        mutation_ratio, reproduction_ratio, adaptation_ratio,
-					thresold))
+                    mutation_ratio, reproduction_ratio, adaptation_ratio,
+                    thresold))
     return 0;
 
   // Init the evaluation function
@@ -713,11 +711,10 @@ genetic_algorithm_default (unsigned int nvariables,
                            double mutation_ratio,
                            double reproduction_ratio,
                            double adaptation_ratio,
-         				   double thresold,
+                           double thresold,
                            double (*simulate_entity) (Entity *),
                            char **best_genome,
-                           double **best_variables,
-						   double *best_objective)
+                           double **best_variables, double *best_objective)
 {
   return genetic_algorithm (nvariables,
                             variable,
@@ -732,9 +729,7 @@ genetic_algorithm_default (unsigned int nvariables,
                             0,
                             0,
                             0,
-							thresold,
+                            thresold,
                             simulate_entity,
-                            best_genome,
-							best_variables,
-							best_objective);
+                            best_genome, best_variables, best_objective);
 }

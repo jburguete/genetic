@@ -40,8 +40,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 typedef struct
 {
-  char *genome; ///< Genome data.
-  unsigned int id; ///< Identifier number.
+  char *genome;                 ///< Genome data.
+  unsigned int id;              ///< Identifier number.
 } Entity;
 
 void entity_new (Entity * entity, unsigned int genome_nbytes, unsigned int id);

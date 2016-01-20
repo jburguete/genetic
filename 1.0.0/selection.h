@@ -41,13 +41,13 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 enum SelectionMutationType
 {
   SELECTION_MUTATION_TYPE_RANDOM = 1,
-    ///< Random mutation selection operation type.
+  ///< Random mutation selection operation type.
   SELECTION_MUTATION_TYPE_BESTOF2 = 2,
-    ///< Best of two random mutation selection operation type.
+  ///< Best of two random mutation selection operation type.
   SELECTION_MUTATION_TYPE_BESTOF3 = 3,
-    ///< Best of three random mutation selection operation type.
+  ///< Best of three random mutation selection operation type.
   SELECTION_MUTATION_TYPE_BEST = 4,
-    ///< Best mutation selection operation type.
+  ///< Best mutation selection operation type.
   SELECTION_MUTATION_TYPE_LINEARRANK = 5
     ///< Mutation selection operation type based on linear probability.
 };
@@ -59,13 +59,13 @@ enum SelectionMutationType
 enum SelectionReproductionType
 {
   SELECTION_REPRODUCTION_TYPE_RANDOM = 1,
-    ///< Random reproduction selection operation type.
+  ///< Random reproduction selection operation type.
   SELECTION_REPRODUCTION_TYPE_BESTOF2 = 2,
-    ///< Best of two random reproduction selection operation type.
+  ///< Best of two random reproduction selection operation type.
   SELECTION_REPRODUCTION_TYPE_BESTOF3 = 3,
-    ///< Best of three random reproduction selection operation type.
+  ///< Best of three random reproduction selection operation type.
   SELECTION_REPRODUCTION_TYPE_BEST = 4,
-    ///< Best reproduction selection operation type.
+  ///< Best reproduction selection operation type.
   SELECTION_REPRODUCTION_TYPE_LINEARRANK = 5
     ///< Reproduction selection operation type based on linear probability
     ///< distribution with respect to rank.
@@ -78,16 +78,16 @@ enum SelectionReproductionType
 enum SelectionAdaptationType
 {
   SELECTION_ADAPTATION_TYPE_RANDOM = 1,
-    ///< Random adaptation selection operation type.
+  ///< Random adaptation selection operation type.
   SELECTION_ADAPTATION_TYPE_BESTOF2 = 2,
-    ///< Best of two random adaptation selection operation type.
+  ///< Best of two random adaptation selection operation type.
   SELECTION_ADAPTATION_TYPE_BESTOF3 = 3,
-    ///< Best of three random adaptation selection operation type.
+  ///< Best of three random adaptation selection operation type.
   SELECTION_ADAPTATION_TYPE_BEST = 4,
-    ///< Best adaptation selection operation type.
+  ///< Best adaptation selection operation type.
   SELECTION_ADAPTATION_TYPE_LINEARRANK = 5
     ///< Adaptation selection operation type based on linear probability
-	///< distribution with respect to rank.
+    ///< distribution with respect to rank.
 };
 
 extern void (*selection_mutation) (Population *, Entity **, gsl_rng *);

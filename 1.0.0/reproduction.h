@@ -41,9 +41,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 enum ReproductionType
 {
   REPRODUCTION_TYPE_SINGLEPOINTS = 1,
-    ///< Single points reproduction operation type.
+  ///< Single points reproduction operation type.
   REPRODUCTION_TYPE_DOUBLEPOINTS = 2,
-    ///< Double points reproduction operation type.
+  ///< Double points reproduction operation type.
   REPRODUCTION_TYPE_MIXING = 3
     ///< Mixing all bits reproduction operation type.
 };

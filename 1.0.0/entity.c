@@ -47,13 +47,14 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \param id
  * \brief Identifier number.
  */
-void entity_new(Entity *entity, unsigned int genome_nbytes, unsigned int id)
+void
+entity_new (Entity * entity, unsigned int genome_nbytes, unsigned int id)
 {
-    unsigned int i;
-    entity->id = id;
-    // Aligning in 4 bytes
-    i = ((genome_nbytes + 3) / 4) * 4;
-    entity->genome = (char*)g_malloc(i);
+  unsigned int i;
+  entity->id = id;
+  // Aligning in 4 bytes
+  i = ((genome_nbytes + 3) / 4) * 4;
+  entity->genome = (char *) g_malloc (i);
 }
 
 /**
@@ -67,11 +68,12 @@ void entity_new(Entity *entity, unsigned int genome_nbytes, unsigned int id)
  * \param rng
  * \brief GSL random numbers generator.
  */
-void entity_init(Entity *entity, unsigned int genome_nbytes, gsl_rng *rng)
+void
+entity_init (Entity * entity, unsigned int genome_nbytes, gsl_rng * rng)
 {
-    unsigned int i;
-    for (i = 0; i < genome_nbytes; ++i)
-        entity->genome[i] = (char)gsl_rng_uniform_int(rng, 256);
+  unsigned int i;
+  for (i = 0; i < genome_nbytes; ++i)
+    entity->genome[i] = (char) gsl_rng_uniform_int (rng, 256);
 }
 
 /**
@@ -80,7 +82,8 @@ void entity_init(Entity *entity, unsigned int genome_nbytes, gsl_rng *rng)
  * \param entity
  * \brief Entity struct.
  */
-void entity_free(Entity *entity)
+void
+entity_free (Entity * entity)
 {
-    g_free(entity->genome);
+  g_free (entity->genome);
 }
