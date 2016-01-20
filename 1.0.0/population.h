@@ -40,18 +40,10 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 typedef struct
 {
-    /**
-     * \var maximum
-     * \brief Maximum value allowed.
-     * \var minimum
-     * \brief Minimum value allowed.
-     * \var nbits
-     * \brief Number of bits to encode in the genome.
-     * \var location
-     * \brief Bit position in the genome.
-     */
-  double maximum, minimum;
-  unsigned int nbits, location;
+  double maximum; ///< Maximum value allowed.
+  double minimum; ///< Minimum value allowed.
+  unsigned int nbits; ///< Number of bits to encode in the genome.
+  unsigned int location; ///< Bit position in the genome.
 } GeneticVariable;
 
 /**
@@ -60,42 +52,22 @@ typedef struct
  */
 typedef struct
 {
-    /**
-     * \var entity
-     * \brief Array of entities.
-     * \var variable
-     * \brief Array of variables data.
-     * \var objective
-     * \brief Array ot objective function values.
-     * \var nvariables
-     * \brief Number of variables.
-     * \var genome_nbits
-     * \brief Number of bits of the genomes.
-     * \var genome_nbytes
-     * \brief Number of bytes of the genomes.
-     * \var nentities
-     * \brief Number of entities.
-     * \var nsurvival
-     * \brief Number of survival entities.
-     * \var mutation_min
-     * \brief Minimum entity to mutation.
-     * \var mutation_max
-     * \brief Maximum entity to mutation.
-     * \var reproduction_min
-     * \brief Minimum entity to reproduction.
-     * \var reproduction_max
-     * \brief Maximum entity to reproduction.
-     * \var adaptation_min
-     * \brief Minimum entity to adaptation.
-     * \var adaptation_max
-     * \brief Maximum entity to adaptation.
-     */
-  Entity *entity;
-  GeneticVariable *variable;
-  double *objective;
-  unsigned int nvariables, genome_nbits, genome_nbytes, nentities, nsurvival,
-    mutation_min, mutation_max, reproduction_min, reproduction_max,
-    adaptation_min, adaptation_max;
+  Entity *entity; ///< Array of entities.
+  GeneticVariable *variable; ///< Array of variables data.
+  double *objective; ///< Array ot objective function values.
+  double thresold; ///< Thresold to finish the simulations.
+  unsigned int nvariables; ///< Number of variables.
+  unsigned int genome_nbits; ///< Number of bits of the genomes.
+  unsigned int genome_nbytes; ///< Number of bytes of the genomes.
+  unsigned int nentities; ///< Number of entities.
+  unsigned int nsurvival; ///< Number of survival entities.
+  unsigned int mutation_min; ///< Minimum entity to mutation.
+  unsigned int mutation_max; ///< Maximum entity to mutation.
+  unsigned int reproduction_min; ///< Minimum entity to reproduction.
+  unsigned int reproduction_max; ///< Maximum entity to reproduction.
+  unsigned int adaptation_min; ///< Minimum entity to adaptation.
+  unsigned int adaptation_max; ///< Maximum entity to adaptation.
+  unsigned int stop; /// Variable to finish the simulations.
 } Population;
 
 int population_new (Population * population,
@@ -104,7 +76,9 @@ int population_new (Population * population,
                     unsigned int genome_nbits,
                     unsigned int nentities,
                     double mutation_ratio,
-                    double reproduction_ratio, double adaptation_ratio);
+                    double reproduction_ratio,
+					double adaptation_ratio,
+					double thresold);
 void population_free (Population * population);
 void population_init_genomes (Population * population, gsl_rng * rng);
 

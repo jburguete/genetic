@@ -26,42 +26,26 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /**
- * \file reproduction.h
- * \brief Header file to define the reproduction functions.
+ * \file entity.h
+ * \brief Header file to define the entity functions and data.
  * \author Javier Burguete Tolosa.
  * \copyright Copyright 2014 Javier Burguete Tolosa. All rights reserved.
  */
-#ifndef REPRODUCTION__H
-#define REPRODUCTION__H 1
+#ifndef ENTITY__H
+#define ENTITY__H 1
 
 /**
- * \enum ReproductionType
- * \brief Enumeration to define the types of reproduction operations.
+ * \struct Entity
+ * \brief Entity struct.
  */
-enum ReproductionType
+typedef struct
 {
-    /**
-     * \var REPRODUCTION_TYPE_SINGLEPOINTS
-     * \brief Single points reproduction operation type.
-     * \var REPRODUCTION_TYPE_DOUBLEPOINTS
-     * \brief Double points reproduction operation type.
-     * \var REPRODUCTION_TYPE_MIXING
-     * \brief Mixing all bits reproduction operation type.
-     */
-  REPRODUCTION_TYPE_SINGLEPOINTS = 1,
-  REPRODUCTION_TYPE_DOUBLEPOINTS = 2,
-  REPRODUCTION_TYPE_MIXING = 3
-};
+  char *genome; ///< Genome data.
+  unsigned int id; ///< Identifier number.
+} Entity;
 
-extern void
-  (*reproduction) (Entity *, Entity *, Entity *, unsigned int, gsl_rng *);
-
-void reproduction_singlepoints (Entity * father, Entity * mother, Entity * son,
-                                unsigned int nbits, gsl_rng * rng);
-void reproduction_doublepoints (Entity * father, Entity * mother, Entity * son,
-                                unsigned int nbits, gsl_rng * rng);
-void reproduction_mixing (Entity * father, Entity * mother, Entity * son,
-                          unsigned int nbits, gsl_rng * rng);
-void reproduction_init (unsigned int type);
+void entity_new (Entity * entity, unsigned int genome_nbytes, unsigned int id);
+void entity_init (Entity * entity, unsigned int genome_nbytes, gsl_rng * rng);
+void entity_free (Entity * entity);
 
 #endif

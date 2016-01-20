@@ -40,11 +40,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "entity.h"
 #include "reproduction.h"
 
-/**
- * \var reproduction
- * \brief Pointer to the function to apply the reproduction operation.
- */
 void (*reproduction) (Entity *, Entity *, Entity *, unsigned int, gsl_rng *);
+  ///< Pointer to the function to apply the reproduction operation.
 
 /**
  * \fn void reproduction_singlepoints(Entity *father, Entity *mother, \

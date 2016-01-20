@@ -1,4 +1,4 @@
-GENETIC (0.6.1 version)
+GENETIC (1.0.0 version)
 =======================
 
 A simple genetic algorithm for optimization
@@ -72,7 +72,7 @@ ___________________________
 > $ git clone https://github.com/jburguete/genetic.git
 
 2. Exec on a terminal:
-> $ cd genetic/0.6.1
+> $ cd genetic/1.0.0
 >
 > $ ./build
 
@@ -115,7 +115,7 @@ To build this algorithm in other programs:
 2. Link in your source directory the latest code version i.e.
 > $ cd YOUR_PROGRAM_PATH
 >
-> $ ln -s PATH_TO_GENETIC/0.6.1 genetic
+> $ ln -s PATH_TO_GENETIC/1.0.0 genetic
 
 3. Include the GSL and genetic headers in your source code files:
 > \#include \<gsl/gsl_rng.h\>
@@ -151,6 +151,7 @@ int genetic_algorithm(
   unsigned int type_reproduction,
   unsigned int type_selection_mutation,
   unsigned int type_selection_reproduction,
+  double thresold,
   double (*simulate_entity)(Entity*),
   char **best_genome,
   double **best_variables,
@@ -224,6 +225,7 @@ lowest significative bits. Valid values are:
     randomly selected between the survival entities
   * *SELECTION_ADAPTATION_TYPE_BEST*: the mother is the best of the survival
     entities
+* **thresold**: thresold in objective function to finish the simulations
 * **simulate_entity**: pointer to the function to perform each simulation
 * **best_genome**: new generated best genome
 * **best_variables**: new generated best variables array
@@ -244,6 +246,7 @@ int genetic_algorithm_default(
   double mutation_ratio,
   double reproduction_ratio,
   double adaptation_ratio,
+  double thresold,
   double (*simulate_entity)(Entity*),
   char **best_genome,
   double **best_variables,
@@ -254,7 +257,7 @@ MAKING REFERENCE MANUAL INSTRUCTIONS (file latex/refman.pdf)
 ------------------------------------------------------------
 
 Exec on a terminal:
-> $ cd genetic/0.6.1
+> $ cd genetic/1.0.0
 >
 > $ doxygen
 >

@@ -39,17 +39,12 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "population.h"
 #include "selection.h"
 
-/**
- * \var selection_mutation
- * \brief Pointer to the function to apply mutation selection operations.
- * \var selection_reproduction
- * \brief Pointer to the function to apply reproduction selection operations.
- * \var selection_adaptation
- * \brief Pointer to the function to apply adaptation selection operations.
- */
 void (*selection_mutation) (Population *, Entity **, gsl_rng *);
+  ///< Pointer to the function to apply mutation selection operations.
 void (*selection_reproduction) (Population *, Entity **, Entity **, gsl_rng *);
+  ///< Pointer to the function to apply reproduction selection operations.
 void (*selection_adaptation) (Population *, Entity **, gsl_rng *);
+  ///< Pointer to the function to apply adaptation selection operations.
 
 /**
  * \fn void selection_mutation_random(Population *population, Entity **mother, \

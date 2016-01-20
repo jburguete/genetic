@@ -34,7 +34,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef GENETIC__H
 #define GENETIC__H 1
 
-
 #include "entity.h"
 #include "population.h"
 
@@ -44,19 +43,17 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 typedef struct
 {
-    /**
-     * \var nmin
-     * \brief The lowest simulation number to execute in the thread.
-     * \var nmax
-     * \brief The highest simulation number to execute in the thread.
-     */
-  unsigned int nmin, nmax;
+  unsigned int nmin;
+    ///< The lowest simulation number to execute in the thread.
+  unsigned int nmax;
+    ///< The highest simulation number to execute in the thread.
 } GeneticThreadData;
 
 extern int ntasks;
 extern unsigned int nthreads;
 extern Population genetic_population[1];
 extern double (*genetic_simulation) (Entity *);
+extern GMutex mutex[1];
 
 double genetic_get_variable (Entity * entity, GeneticVariable * variable);
 void genetic_simulation_thread (GeneticThreadData * data);
@@ -69,7 +66,9 @@ int genetic_new (unsigned int nvariables,
                  unsigned int nentities,
                  unsigned int ngenerations,
                  double mutation_ratio,
-                 double reproduction_ratio, double adaptation_ratio);
+                 double reproduction_ratio,
+				 double adaptation_ratio,
+				 double thresold);
 int genetic_algorithm (unsigned int nvariables,
                        GeneticVariable * variable,
                        unsigned int nentities,
@@ -83,9 +82,11 @@ int genetic_algorithm (unsigned int nvariables,
                        unsigned int type_selection_mutation,
                        unsigned int type_selection_reproduction,
                        unsigned int type_selection_adaptation,
+					   double thresold,
                        double (*simulate_entity) (Entity *),
                        char **best_genome,
-                       double **best_variables, double *best_objective);
+                       double **best_variables,
+					   double *best_objective);
 int genetic_algorithm_default (unsigned int nvariables,
                                GeneticVariable * variable,
                                unsigned int nentities,
@@ -93,8 +94,10 @@ int genetic_algorithm_default (unsigned int nvariables,
                                double mutation_ratio,
                                double reproduction_ratio,
                                double adaptation_ratio,
+					           double thresold,
                                double (*simulate_entity) (Entity *),
                                char **best_genome,
-                               double **best_variables, double *best_objective);
+                               double **best_variables,
+							   double *best_objective);
 
 #endif
