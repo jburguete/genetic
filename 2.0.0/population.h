@@ -67,7 +67,7 @@ typedef struct
   unsigned int reproduction_max;        ///< Maximum entity to reproduction.
   unsigned int adaptation_min;  ///< Minimum entity to adaptation.
   unsigned int adaptation_max;  ///< Maximum entity to adaptation.
-  unsigned int stop;            /// Variable to finish the simulations.
+  unsigned int stop;            ///< Variable to finish the simulations.
 } Population;
 
 int population_new (Population * population,

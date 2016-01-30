@@ -672,7 +672,8 @@ genetic_algorithm (unsigned int nvariables,
  * \fn int genetic_algorithm_default(unsigned int nvariables, \
  *   GeneticVariable *variable, unsigned int nentities, \
  *   unsigned int ngenerations, double mutation_ratio, \
- *   double reproduction_ratio, double adaptation_ratio, double thresold, \
+ *   double reproduction_ratio, double adaptation_ratio,\
+ *   unsigned long random_seed, double thresold, \
  *   double (*simulate_entity)(Entity*), char **best_genome, \
  *   double **best_variables, double *best_objective)
  * \brief Function to perform the genetic algorithm with default random and
@@ -691,6 +692,8 @@ genetic_algorithm (unsigned int nvariables,
  * \brief Reproduction ratio.
  * \param adaptation_ratio
  * \brief Adaptation ratio.
+ * \param random_seed
+ * \brief Seed of the GSL random numbers generator.
  * \param thresold
  * \brief Thresold to finish the simulations.
  * \param simulate_entity
@@ -711,6 +714,7 @@ genetic_algorithm_default (unsigned int nvariables,
                            double mutation_ratio,
                            double reproduction_ratio,
                            double adaptation_ratio,
+                           unsigned long random_seed,
                            double thresold,
                            double (*simulate_entity) (Entity *),
                            char **best_genome,
@@ -724,7 +728,7 @@ genetic_algorithm_default (unsigned int nvariables,
                             reproduction_ratio,
                             adaptation_ratio,
                             gsl_rng_mt19937,
-                            0l,
+                            random_seed,
                             0,
                             0,
                             0,

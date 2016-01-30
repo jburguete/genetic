@@ -106,6 +106,7 @@ main (int argn, char **argc)
                              0.3,
                              0.4,
                              0.1,
+                             707l,
                              0.0,
                              &evaluate,
                              &best_genome, &best_variables, &best_objective);
