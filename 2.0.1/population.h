@@ -55,7 +55,7 @@ typedef struct
   Entity *entity;               ///< Array of entities.
   GeneticVariable *variable;    ///< Array of variables data.
   double *objective;            ///< Array ot objective function values.
-  double thresold;              ///< Thresold to finish the simulations.
+  double threshold;              ///< Threshold to finish the simulations.
   unsigned int nvariables;      ///< Number of variables.
   unsigned int genome_nbits;    ///< Number of bits of the genomes.
   unsigned int genome_nbytes;   ///< Number of bytes of the genomes.
@@ -77,7 +77,7 @@ int population_new (Population * population,
                     unsigned int nentities,
                     double mutation_ratio,
                     double reproduction_ratio,
-                    double adaptation_ratio, double thresold);
+                    double adaptation_ratio, double threshold);
 void population_free (Population * population);
 void population_init_genomes (Population * population, gsl_rng * rng);
 

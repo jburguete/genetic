@@ -125,7 +125,7 @@ genetic_simulation_thread (GeneticThreadData * data)
     {
       genetic_population->objective[i]
         = genetic_simulation (genetic_population->entity + i);
-      if (genetic_population->objective[i] < genetic_population->thresold)
+      if (genetic_population->objective[i] < genetic_population->threshold)
         {
           g_mutex_lock (mutex);
           genetic_population->stop = 1;
@@ -380,7 +380,7 @@ genetic_simulation_slave (unsigned int nsurvival, int rank)
  * \fn int genetic_new(unsigned int nvariables, \
  *   GeneticVariable *variable, unsigned int nentities, \
  *   unsigned int ngenerations, double mutation_ratio, \
- *   double reproduction_ratio, double adaptation_ratio, double thresold)
+ *   double reproduction_ratio, double adaptation_ratio, double threshold)
  * \brief Function to create the data of the genetic algorithm.
  * \param nvariables
  * \brief Number of variables.
@@ -396,8 +396,8 @@ genetic_simulation_slave (unsigned int nsurvival, int rank)
  * \brief Reproduction ratio.
  * \param adaptation_ratio
  * \brief Adaptation ratio.
- * \param thresold
- * \brief Thresold to finish the simulations.
+ * \param threshold
+ * \brief Threshold to finish the simulations.
  * \return 1 on succes, 0 on error.
  */
 int
@@ -407,7 +407,7 @@ genetic_new (unsigned int nvariables,
              unsigned int ngenerations,
              double mutation_ratio,
              double reproduction_ratio,
-             double adaptation_ratio, double thresold)
+             double adaptation_ratio, double threshold)
 {
   unsigned int i, genome_nbits, nprocesses;
 
@@ -448,7 +448,7 @@ genetic_new (unsigned int nvariables,
 #endif
   if (!population_new (genetic_population, variable, nvariables, genome_nbits,
                        nentities, mutation_ratio, reproduction_ratio,
-                       adaptation_ratio, thresold))
+                       adaptation_ratio, threshold))
     return 0;
 
 #if DEBUG_GENETIC
@@ -465,7 +465,7 @@ genetic_new (unsigned int nvariables,
  *   const gsl_rng_type *type_random, unsigned long random_seed, \
  *   unsigned int type_reproduction, unsigned int type_selection_mutation, \
  *   unsigned int type_selection_reproduction, \
- *   unsigned int type_selection_adaptation, double thresold, \
+ *   unsigned int type_selection_adaptation, double threshold, \
  *   double (*simulate_entity)(Entity*), char **best_genome, \
  *   double **best_variables, double *best_objective)
  * \brief Function to perform the genetic algorithm.
@@ -495,8 +495,8 @@ genetic_new (unsigned int nvariables,
  * \brief Type of reproduction selection algorithm.
  * \param type_selection_adaptation
  * \brief Type of adaptation selection algorithm.
- * \param thresold
- * \brief Thresold to finish the simulations.
+ * \param threshold
+ * \brief Threshold to finish the simulations.
  * \param simulate_entity
  * \brief Pointer to the function to perform a simulation of an entity.
  * \param best_genome
@@ -521,7 +521,7 @@ genetic_algorithm (unsigned int nvariables,
                    unsigned int type_selection_mutation,
                    unsigned int type_selection_reproduction,
                    unsigned int type_selection_adaptation,
-                   double thresold,
+                   double threshold,
                    double (*simulate_entity) (Entity *),
                    char **best_genome,
                    double **best_variables, double *best_objective)
@@ -541,7 +541,7 @@ genetic_algorithm (unsigned int nvariables,
   // Init the data
   if (!genetic_new (nvariables, variable, nentities, ngenerations,
                     mutation_ratio, reproduction_ratio, adaptation_ratio,
-                    thresold))
+                    threshold))
     return 0;
 
   // Init the evaluation function
@@ -673,7 +673,7 @@ genetic_algorithm (unsigned int nvariables,
  *   GeneticVariable *variable, unsigned int nentities, \
  *   unsigned int ngenerations, double mutation_ratio, \
  *   double reproduction_ratio, double adaptation_ratio,\
- *   unsigned long random_seed, double thresold, \
+ *   unsigned long random_seed, double threshold, \
  *   double (*simulate_entity)(Entity*), char **best_genome, \
  *   double **best_variables, double *best_objective)
  * \brief Function to perform the genetic algorithm with default random and
@@ -694,8 +694,8 @@ genetic_algorithm (unsigned int nvariables,
  * \brief Adaptation ratio.
  * \param random_seed
  * \brief Seed of the GSL random numbers generator.
- * \param thresold
- * \brief Thresold to finish the simulations.
+ * \param threshold
+ * \brief Threshold to finish the simulations.
  * \param simulate_entity
  * \brief Pointer to the function to perform a simulation of an entity.
  * \param best_genome
@@ -715,7 +715,7 @@ genetic_algorithm_default (unsigned int nvariables,
                            double reproduction_ratio,
                            double adaptation_ratio,
                            unsigned long random_seed,
-                           double thresold,
+                           double threshold,
                            double (*simulate_entity) (Entity *),
                            char **best_genome,
                            double **best_variables, double *best_objective)
@@ -733,7 +733,7 @@ genetic_algorithm_default (unsigned int nvariables,
                             0,
                             0,
                             0,
-                            thresold,
+                            threshold,
                             simulate_entity,
                             best_genome, best_variables, best_objective);
 }

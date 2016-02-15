@@ -43,7 +43,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \fn int population_new(Population *population, GeneticVariable *variable, \
  *   unsigned int nvariables, unsigned int genome_nbits, \
  *   unsigned int nentities, double mutation_ratio, double reproduction_ratio, \
- *   double adaptation_ratio, double thresold)
+ *   double adaptation_ratio, double threshold)
  * \brief Function to init a population.
  * \param population
  * \brief Population.
@@ -61,8 +61,8 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \brief Reproduction ratio.
  * \param adaptation_ratio
  * \brief Adaptation ratio.
- * \param thresold
- * \brief Thresold to finish the simulations.
+ * \param threshold
+ * \brief Threshold to finish the simulations.
  * \return 1 on succes, 0 on error.
  */
 int
@@ -73,7 +73,7 @@ population_new (Population * population,
                 unsigned int nentities,
                 double mutation_ratio,
                 double reproduction_ratio,
-                double adaptation_ratio, double thresold)
+                double adaptation_ratio, double threshold)
 {
   unsigned int i, nmutations, nreproductions, nadaptations;
   nmutations = mutation_ratio * nentities;
@@ -114,7 +114,7 @@ population_new (Population * population,
       entity_new (population->entity + i, population->genome_nbytes, i);
       population->objective[i] = G_MAXDOUBLE;
     }
-  population->thresold = thresold;
+  population->threshold = threshold;
   population->stop = 0;
   return 1;
 }
