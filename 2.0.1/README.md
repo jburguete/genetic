@@ -55,7 +55,7 @@ has not been tested
 
 Debian 8 (kFreeBSD, Linux or Hurd)
 __________________________________
-DragonFly BSD 4.2
+DragonFly BSD 4.4
 _________________
 Dyson Illumos
 _____________
@@ -76,7 +76,7 @@ ___________________________
 >
 > $ ./build
 
-OpenBSD 5.8
+OpenBSD 5.9
 ___________
 
 1. Select adequate versions:
