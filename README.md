@@ -59,14 +59,14 @@ DragonFly BSD 4.4
 _________________
 Dyson Illumos
 _____________
-FreeBSD 10.2
+FreeBSD 10.3
 ____________
 NetBSD 7.0
 __________
 OpenSUSE Linux 13
 _________________
-Ubuntu Linux 12, 13, and 15
-___________________________
+Ubuntu Linux 15.04
+__________________
 
 1. Download this repository:
 > $ git clone https://github.com/jburguete/genetic.git
@@ -85,9 +85,9 @@ ___________
 2. Then, follow steps 1 and 2 of the previous Debian Linux 8 section
 
 Microsoft Windows 7
-___________________________
+___________________
 Microsoft Windows 8.1
-_____________________________
+_____________________
 
 1. Install [MSYS2](http://sourceforge.net/projects/msys2) and the required
 libraries and utilities. You can follow detailed instructions in
