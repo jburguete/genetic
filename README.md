@@ -63,9 +63,9 @@ FreeBSD 10.3
 ____________
 NetBSD 7.0
 __________
-OpenSUSE Linux 13
-_________________
-Ubuntu Linux 15.04
+OpenSUSE Linux Tumbleweed
+_________________________
+Ubuntu Linux 16.04
 __________________
 
 1. Download this repository:
@@ -76,7 +76,7 @@ __________________
 >
 > $ ./build
 
-OpenBSD 5.9
+OpenBSD 6.0
 ___________
 
 1. Select adequate versions:
@@ -88,6 +88,8 @@ Microsoft Windows 7
 ___________________
 Microsoft Windows 8.1
 _____________________
+Microsoft Windows 10
+____________________
 
 1. Install [MSYS2](http://sourceforge.net/projects/msys2) and the required
 libraries and utilities. You can follow detailed instructions in
@@ -97,11 +99,19 @@ libraries and utilities. You can follow detailed instructions in
 2. Then, in a MSYS2 terminal, follow steps 1 and 2 of the previous Debian Linux
 8 section
 
-Fedora Linux 23
+Fedora Linux 24
 _______________
 
 1. In order to use OpenMPI compilation do in a terminal (in 64 bits version):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
+
+2. Then, follow steps 1 to 4 of the previous Debian 8 section
+
+OpenIndiana Hipster
+___________________
+
+1. In order to use OpenMPI compilation do in a terminal:
+> $ export PATH=$PATH:/usr/lib/openmpi/gcc/bin
 
 2. Then, follow steps 1 to 4 of the previous Debian 8 section
 
