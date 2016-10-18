@@ -28,7 +28,7 @@ elif test `uname -s` = "DragonFly"; then
 fi
 
 # Checks for programs.
-AC_PROG_CC([egcc mpicc gcc clang])
+AC_PROG_CC([gcc6 gcc5 egcc mpicc gcc clang])
 AC_PROG_MAKE_SET
 AC_LANG([C])
 PKG_PROG_PKG_CONFIG
