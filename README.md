@@ -159,7 +159,8 @@ To build dynamically this algorithm in other programs:
 
 4. Link the dynamic library in your source directory:
 > $ ln -s genetic/libgenetic.so
-or in Windows systems:
+  
+  or in Windows systems:
 > $ ln -s genetic/libgenetic.dll
 
 5. Link the genetic library with your code to build the executable file i.e.
