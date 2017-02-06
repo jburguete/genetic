@@ -140,7 +140,7 @@ To build statically this algorithm in other programs:
 >
 > $ genetic/reproduction.o genetic/selection.o genetic/evolution.o \
 >
-> $ genetic/genetic.o \`pkg-config --libs gsl\`
+> $ genetic/genetic.o \`pkg-config --cflags --libs gsl\`
 
 DYNAMICALLY
 ___________
@@ -154,7 +154,9 @@ To build dynamically this algorithm in other programs:
 >
 > $ ln -s PATH_TO_GENETIC/2.2.0 genetic
 
-3. Include the genetic headers in your source code files:
+3. Include the GSL and genetic headers in your source code files:
+> \#include \<gsl/gsl_rng.h\>
+>
 > \#include "genetic/genetic.h"
 
 4. Link the dynamic library in your source directory:
@@ -164,7 +166,8 @@ To build dynamically this algorithm in other programs:
 > $ ln -s genetic/libgenetic.dll
 
 5. Link the genetic library with your code to build the executable file i.e.
-> $ gcc YOUR_CODE.c -L. -Wl,-rpath=. -lgenetic \`pkg-config --libs gsl\`
+> $ gcc YOUR_CODE.c -L. -Wl,-rpath=. -lgenetic 
+> \`pkg-config --cflags --libs gsl\`
 
 USING THE ALGORITHM IN OTHER PROGRAMS
 -------------------------------------
