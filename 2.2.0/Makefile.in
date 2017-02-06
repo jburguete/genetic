@@ -3,28 +3,33 @@ CFLAGS = @MPI@ @CFLAGS@ @GSL_CFLAGS@ @GLIB_CFLAGS@ @GTHREAD_CFLAGS@ -Wall -O3
 LIBS = @LDFLAGS@ @LIBS@ @GSL_LIBS@ @GLIB_LIBS@ @GTHREAD_LIBS@
 DEP = Makefile
 OBJ = entity.o population.o reproduction.o selection.o evolution.o genetic.o
+libgenetic = libgenetic@SO@
 
-all: test_genetic
+all: test_genetic $(libgenetic)
 
 entity.o: entity.c entity.h $(DEP)
-	$(CC) $(CFLAGS) -c entity.c -o entity.o
+	$(CC) $(CFLAGS) -c -fPIC entity.c -o entity.o
 
 population.o: population.c population.h entity.h bits.h $(DEP)
-	$(CC) $(CFLAGS) -c population.c -o population.o
+	$(CC) $(CFLAGS) -c -fPIC population.c -o population.o
 
 reproduction.o: reproduction.c reproduction.h entity.h bits.h $(DEP)
-	$(CC) $(CFLAGS) -c reproduction.c -o reproduction.o
+	$(CC) $(CFLAGS) -c -fPIC reproduction.c -o reproduction.o
 
 selection.o: selection.c selection.h population.h entity.h $(DEP)
-	$(CC) $(CFLAGS) -c selection.c -o selection.o
+	$(CC) $(CFLAGS) -c -fPIC selection.c -o selection.o
 
 evolution.o: evolution.c evolution.h selection.h adaptation.h reproduction.h \
 	mutation.h population.h entity.h sort.h bits.h $(DEP)
-	$(CC) $(CFLAGS) -c evolution.c -o evolution.o
+	$(CC) $(CFLAGS) -c -fPIC evolution.c -o evolution.o
 
 genetic.o: genetic.c genetic.h evolution.h selection.h reproduction.h \
 	population.h entity.h bits.h $(DEP)
-	$(CC) $(CFLAGS) -c genetic.c -o genetic.o
+	$(CC) $(CFLAGS) -c -fPIC genetic.c -o genetic.o
 
-test_genetic: test_genetic.c $(OBJ)
-	$(CC) $(CFLAGS) test_genetic.c $(OBJ) -o test_genetic $(LIBS)
+$(libgenetic): $(OBJ)
+	$(CC) -shared $(OBJ) -o $(libgenetic) $(LIBS)
+
+test_genetic: test_genetic.c $(libgenetic)
+	$(CC) $(CFLAGS) test_genetic.c -o test_genetic $(LIBS) -L. -Wl,-rpath=. \
+		-lgenetic

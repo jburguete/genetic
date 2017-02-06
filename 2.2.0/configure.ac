@@ -1,5 +1,5 @@
 AC_PREREQ([2.67])
-AC_INIT([GENETIC], [2.0.1], [jburguete@eead.csic.es])
+AC_INIT([GENETIC], [2.2.0], [jburguete@eead.csic.es])
 AC_CONFIG_SRCDIR([genetic.c])
 #AC_CONFIG_HEADERS([config.h])
 
@@ -8,14 +8,17 @@ AC_CANONICAL_SYSTEM
 AM_INIT_AUTOMAKE
 AC_MSG_NOTICE([Build: $build])
 AC_MSG_NOTICE([Host: $host])
+win=0
 if test $host = "x86_64-w64-mingw32"; then
 	AC_MSG_NOTICE([Microsoft Windows 64 bits])
 	CPPFLAGS="$CPPFLAGS -I/mingw/include"
 	AC_SUBST(ccflags, "-march=corei7 -mfpmath=sse -msse3 -mwindows")
+	win=1
 elif test $host = "i686-pc-mingw32"; then
 	AC_MSG_NOTICE([Microsoft Windows 32 bits])
 	CPPFLAGS="$CPPFLAGS -I/mingw/include"
 	AC_SUBST(ccflags, "-march=pentium4 -mfpmath=sse -msse2 -mwindows")
+	win=1
 elif test `uname -s` = "NetBSD"; then
 	AC_MSG_NOTICE([NetBSD])
 	LDFLAGS="$LDFLAGS -L/usr/pkg/lib"
@@ -25,6 +28,11 @@ elif test `uname -s` = "DragonFly"; then
 	AC_MSG_NOTICE([DragonFly BSD])
 	LDFLAGS="$LDFLAGS -L/usr/local/lib"
 	CPPFLAGS="$CPPFLAGS -I/usr/local/include"
+fi
+if test $win = 0; then
+	AC_SUBST(SO, [.so])
+else
+	AC_SUBST(SO, [.dll])
 fi
 
 # Checks for programs.
