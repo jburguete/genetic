@@ -1,4 +1,4 @@
-GENETIC (2.2.0 version)
+GENETIC (2.2.1 version)
 =======================
 
 A simple genetic algorithm for optimization
@@ -72,7 +72,7 @@ __________________
 > $ git clone https://github.com/jburguete/genetic.git
 
 2. Exec on a terminal:
-> $ cd genetic/2.2.0
+> $ cd genetic/2.2.1
 >
 > $ ./build
 
@@ -128,7 +128,7 @@ To build statically this algorithm in other programs:
 2. Link in your source directory the latest code version i.e.
 > $ cd YOUR_PROGRAM_PATH
 >
-> $ ln -s PATH_TO_GENETIC/2.2.0 genetic
+> $ ln -s PATH_TO_GENETIC/2.2.1 genetic
 
 3. Include the GSL and genetic headers in your source code files:
 > \#include \<gsl/gsl_rng.h\>
@@ -140,7 +140,7 @@ To build statically this algorithm in other programs:
 >
 > $ genetic/reproduction.o genetic/selection.o genetic/evolution.o \
 >
-> $ genetic/genetic.o \`pkg-config --cflags --libs gsl\`
+> $ genetic/genetic.o \`pkg-config --libs gsl\`
 
 DYNAMICALLY
 ___________
@@ -152,22 +152,18 @@ To build dynamically this algorithm in other programs:
 2. Link in your source directory the latest code version i.e.
 > $ cd YOUR_PROGRAM_PATH
 >
-> $ ln -s PATH_TO_GENETIC/2.2.0 genetic
+> $ ln -s PATH_TO_GENETIC/2.2.1 genetic
 
-3. Include the GSL and genetic headers in your source code files:
-> \#include \<gsl/gsl_rng.h\>
->
+3. Include the genetic headers in your source code files:
 > \#include "genetic/genetic.h"
 
 4. Link the dynamic library in your source directory:
 > $ ln -s genetic/libgenetic.so
-  
-  or in Windows systems:
+or in Windows systems:
 > $ ln -s genetic/libgenetic.dll
 
 5. Link the genetic library with your code to build the executable file i.e.
-> $ gcc YOUR_CODE.c -L. -Wl,-rpath=. -lgenetic 
-> \`pkg-config --cflags --libs gsl\`
+> $ gcc YOUR_CODE.c -L. -Wl,-rpath=. -lgenetic \`pkg-config --libs gsl\`
 
 USING THE ALGORITHM IN OTHER PROGRAMS
 -------------------------------------
@@ -298,7 +294,7 @@ MAKING REFERENCE MANUAL INSTRUCTIONS (file latex/refman.pdf)
 ------------------------------------------------------------
 
 Exec on a terminal:
-> $ cd genetic/2.2.0
+> $ cd genetic/2.2.1
 >
 > $ doxygen
 >

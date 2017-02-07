@@ -1,4 +1,4 @@
-GENETIC (2.2.0 version)
+GENETIC (2.2.1 version)
 =======================
 
 A simple genetic algorithm for optimization
@@ -72,7 +72,7 @@ __________________
 > $ git clone https://github.com/jburguete/genetic.git
 
 2. Exec on a terminal:
-> $ cd genetic/2.2.0
+> $ cd genetic/2.2.1
 >
 > $ ./build
 
@@ -128,7 +128,7 @@ To build statically this algorithm in other programs:
 2. Link in your source directory the latest code version i.e.
 > $ cd YOUR_PROGRAM_PATH
 >
-> $ ln -s PATH_TO_GENETIC/2.2.0 genetic
+> $ ln -s PATH_TO_GENETIC/2.2.1 genetic
 
 3. Include the GSL and genetic headers in your source code files:
 > \#include \<gsl/gsl_rng.h\>
@@ -152,7 +152,7 @@ To build dynamically this algorithm in other programs:
 2. Link in your source directory the latest code version i.e.
 > $ cd YOUR_PROGRAM_PATH
 >
-> $ ln -s PATH_TO_GENETIC/2.2.0 genetic
+> $ ln -s PATH_TO_GENETIC/2.2.1 genetic
 
 3. Include the genetic headers in your source code files:
 > \#include "genetic/genetic.h"
@@ -294,7 +294,7 @@ MAKING REFERENCE MANUAL INSTRUCTIONS (file latex/refman.pdf)
 ------------------------------------------------------------
 
 Exec on a terminal:
-> $ cd genetic/2.2.0
+> $ cd genetic/2.2.1
 >
 > $ doxygen
 >

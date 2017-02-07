@@ -51,11 +51,15 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define DEBUG_GENETIC 0         ///< Macro to debug the genetic functions.
 
 Population genetic_population[1];
-  ///< Population of the genetic algorithm.
-double (*genetic_simulation) (Entity *);
-  ///< Pointer to the function to perform a simulation.
+///< Population of the genetic algorithm.
 GMutex mutex[1];
-  ///< Mutex to lock memory writing on threads.
+///< Mutex to lock memory writing on threads.
+double (*genetic_simulation) (Entity *);
+///< Pointer to the function to perform a simulation.
+unsigned int nthreads=4;
+///< Number or threads with shared memory.
+int ntasks=1;
+///< Number of distributed tasks.
 
 /**
  * \fn double genetic_get_variable(Entity *entity, GeneticVariable *variable)
