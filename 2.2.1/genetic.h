@@ -64,7 +64,6 @@ void genetic_simulation_slave (unsigned int nsurvival, int rank);
 int genetic_new (unsigned int nvariables,
                  GeneticVariable * variable,
                  unsigned int nentities,
-                 unsigned int ngenerations,
                  double mutation_ratio,
                  double reproduction_ratio,
                  double adaptation_ratio, double threshold);

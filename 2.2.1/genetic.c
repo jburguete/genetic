@@ -381,10 +381,9 @@ genetic_simulation_slave (unsigned int nsurvival, int rank)
 #endif
 
 /**
- * \fn int genetic_new(unsigned int nvariables, \
- *   GeneticVariable *variable, unsigned int nentities, \
- *   unsigned int ngenerations, double mutation_ratio, \
- *   double reproduction_ratio, double adaptation_ratio, double threshold)
+ * \fn int genetic_new(unsigned int nvariables, GeneticVariable *variable, \
+ *   unsigned int nentities, double mutation_ratio, double reproduction_ratio, \
+ *   double adaptation_ratio, double threshold)
  * \brief Function to create the data of the genetic algorithm.
  * \param nvariables
  * \brief Number of variables.
@@ -392,8 +391,6 @@ genetic_simulation_slave (unsigned int nsurvival, int rank)
  * \brief Array of variables data.
  * \param nentities
  * \brief Number of entities in each generation.
- * \param ngenerations
- * \brief Number of generations.
  * \param mutation_ratio
  * \brief Mutation ratio.
  * \param reproduction_ratio
@@ -408,7 +405,6 @@ int
 genetic_new (unsigned int nvariables,
              GeneticVariable * variable,
              unsigned int nentities,
-             unsigned int ngenerations,
              double mutation_ratio,
              double reproduction_ratio,
              double adaptation_ratio, double threshold)
@@ -543,7 +539,7 @@ genetic_algorithm (unsigned int nvariables,
 #endif
 
   // Init the data
-  if (!genetic_new (nvariables, variable, nentities, ngenerations,
+  if (!genetic_new (nvariables, variable, nentities,
                     mutation_ratio, reproduction_ratio, adaptation_ratio,
                     threshold))
     return 0;
