@@ -227,10 +227,10 @@ genetic_simulation_master (unsigned int nsurvival)
   for (j = 0; j < nthreads; ++j)
 #if GLIB_MINOR_VERSION >= 32
     thread[j] = g_thread_new
-      (NULL, (void (*)) genetic_simulation_thread, thread_data + j);
+      (NULL, (GThreadFunc) genetic_simulation_thread, thread_data + j);
 #else
     thread[j] = g_thread_create
-      ((void (*)) genetic_simulation_thread, thread_data + j, TRUE, NULL);
+      ((GThreadFunc) genetic_simulation_thread, thread_data + j, TRUE, NULL);
 #endif
   for (j = 0; j < nthreads; ++j)
     g_thread_join (thread[j]);
@@ -340,10 +340,10 @@ genetic_simulation_slave (unsigned int nsurvival, int rank)
   for (j = 0; j < nthreads; ++j)
 #if GLIB_MINOR_VERSION >= 32
     thread[j] = g_thread_new
-      (NULL, (void (*)) genetic_simulation_thread, thread_data + j);
+      (NULL, (GThreadFunc) genetic_simulation_thread, thread_data + j);
 #else
     thread[j] = g_thread_create
-      ((void (*)) genetic_simulation_thread, thread_data + j, TRUE, NULL);
+      ((GThreadFunc) genetic_simulation_thread, thread_data + j, TRUE, NULL);
 #endif
   for (j = 0; j < nthreads; ++j)
     g_thread_join (thread[j]);
@@ -622,10 +622,10 @@ genetic_algorithm (unsigned int nvariables,
 #endif
       best_entity = genetic_population->entity;
       *best_objective = genetic_population->objective[0];
-      *best_genome = g_malloc (genetic_population->genome_nbytes);
+      *best_genome = (char *) g_malloc (genetic_population->genome_nbytes);
       memcpy (*best_genome, best_entity->genome,
               genetic_population->genome_nbytes);
-      *best_variables = bv = g_malloc (nvariables * sizeof (double));
+      *best_variables = bv = (double *) g_malloc (nvariables * sizeof (double));
       for (i = 0; i < nvariables; ++i)
         bv[i] = genetic_get_variable (best_entity, variable + i);
       gsl_rng_free (rng);
