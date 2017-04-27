@@ -65,7 +65,7 @@ NetBSD 7.0
 __________
 OpenSUSE Linux Tumbleweed
 _________________________
-Ubuntu Linux 16.10
+Ubuntu Linux 17.04
 __________________
 
 1. Download this repository:
