@@ -63,8 +63,6 @@ FreeBSD 11.0
 ____________
 NetBSD 7.0
 __________
-OpenSUSE Linux Tumbleweed
-_________________________
 Ubuntu Linux 17.04
 __________________
 
@@ -76,7 +74,7 @@ __________________
 >
 > $ ./build
 
-OpenBSD 6.0
+OpenBSD 6.1
 ___________
 
 1. Select adequate versions:
@@ -112,6 +110,14 @@ ___________________
 
 1. In order to use OpenMPI compilation do in a terminal:
 > $ export PATH=$PATH:/usr/lib/openmpi/gcc/bin
+
+2. Then, follow steps 1 to 4 of the previous Debian 8 section
+
+OpenSUSE Linux Tumbleweed
+_________________________
+
+1. In order to use OpenMPI compilation do in a terminal (in 64 bits version):
+> $ export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
 
 2. Then, follow steps 1 to 4 of the previous Debian 8 section
 
