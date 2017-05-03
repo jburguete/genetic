@@ -250,10 +250,10 @@ Valid algorithms are:
   * *SELECTION\_MUTATION\_TYPE\_BEST*: the mother is the best of the survival
     entities
 * **type\_selection\_reproduction**: type of algorithm to select the parents to
-reproduce
+  reproduce
 * **type\_selection\_adaptation**: type of algorithm to select the mothers to
-create sons with a adaptation. An adaption inverts a random bit between the
-lowest significative bits. Valid values are:
+  create sons with a adaptation. An adaption inverts a random bit between the
+  lowest significative bits. Valid values are:
   * *SELECTION\_ADAPTATION\_TYPE\_LINEARRANK* (default value): the mother is
     selected randomly between the survival entities assigning a linear
     probabiltiy higher for better entities
