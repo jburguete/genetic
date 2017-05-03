@@ -25,7 +25,6 @@ TOOLS AND LIBRARIES REQUIRED TO BUILD THE EXECUTABLE
 * [glib](https://developer.gnome.org/glib) (extended utilities of C to work with
   data, lists, mapped files, regular expressions, using multicores in shared
   memory machines, ...)
-* [genetic](https://github.com/jburguete/genetic) (genetic algorithm)
 
 OPTIONAL TOOLS AND LIBRARIES
 ----------------------------
