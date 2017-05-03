@@ -56,9 +56,9 @@ GMutex mutex[1];
 ///< Mutex to lock memory writing on threads.
 double (*genetic_simulation) (Entity *);
 ///< Pointer to the function to perform a simulation.
-unsigned int nthreads=4;
+unsigned int nthreads = 4;
 ///< Number or threads with shared memory.
-int ntasks=1;
+int ntasks = 1;
 ///< Number of distributed tasks.
 
 /**

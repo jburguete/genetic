@@ -213,65 +213,64 @@ the data structure are:
 * **reproduction_ratio**: reproduction probability
 * **adaptation_ratio**: adaptation probability
 * **type_random**: type of GSL random numbers generator algorithm. See the
-[GSL documentation]
-(https://www.gnu.org/software/gsl/manual/html_node/index.html).
+[GSL documentation](https://www.gnu.org/software/gsl/manual/html_node/index.html).
 Valid algorithms are:
-  * *gsl_rgn_mt19937* (default value)
-  * *gsl_rng_taus*
-  * *gsl_rgn_gfsr4*
-  * *gsl_rgn_ranlxs0*
-  * *gsl_rgn_ranlxs1*
-  * *gsl_rgn_mrg*
-  * *gsl_rgn_ranlux*
-  * *gsl_rgn_ranlxd1*
-  * *gsl_rgn_ranlxs2*
-  * *gsl_rgn_cmrg*
-  * *gsl_rgn_ranlux389*
-  * *gsl_rgn_ranlxd2*
-* **random_seed**: seed to the GSL random numbers generator algorithm (0 uses
-the default GSL seed)
-* **type_reproduction**: type of reproduction algorithm. Valid values are:
-  * *REPRODUCTION_TYPE_MIXING* (default value): the son genome is a random
+  * *gsl\_rgn\_mt19937* (default value)
+  * *gsl\_rng\_taus*
+  * *gsl\_rgn\_gfsr4*
+  * *gsl\_rgn\_ranlxs0*
+  * *gsl\_rgn\_ranlxs1*
+  * *gsl\_rgn\_mrg*
+  * *gsl\_rgn\_ranlux*
+  * *gsl\_rgn\_ranlxd1*
+  * *gsl\_rgn\_ranlxs2*
+  * *gsl\_rgn\_cmrg*
+  * *gsl\_rgn\_ranlux389*
+  * *gsl\_rgn\_ranlxd2*
+* **random\_seed**: seed to the GSL random numbers generator algorithm (0 uses
+  the default GSL seed)
+* **type\_reproduction**: type of reproduction algorithm. Valid values are:
+  * *REPRODUCTION\_TYPE\_MIXING* (default value): the son genome is a random
     mixing between mother and father genomes in each bit
-  * *REPRODUCTION_TYPE_SINGLEPOINTS*: the son genome is equal to mother genome
+  * *REPRODUCTION\_TYPE\_SINGLEPOINTS*: the son genome is equal to mother genome
     previous to a random point and next it is equal to the father genome
-  * *REPRODUCTION_TYPE_DOUBLEPOINTS*: the son genome is equal to father genome
+  * *REPRODUCTION\_TYPE\_DOUBLEPOINTS*: the son genome is equal to father genome
     between two random points and equal to the mother genome in the rest
-* **type_selection_mutation**: type of algorithm to select the mothers to create
-sons with a mutation. A mutation inverts a random bit in the genome. Valid
-values are:
-  * *SELECTION_MUTATION_TYPE_LINEARRANK* (default value): the mother is
+* **type\_selection\_mutation**: type of algorithm to select the mothers to 
+  create sons with a mutation. A mutation inverts a random bit in the genome.
+  Valid values are:
+  * *SELECTION\_MUTATION\_TYPE\_LINEARRANK* (default value): the mother is
     selected randomly between the survival entities assigning a linear
     probabiltiy higher for better entities
-  * *SELECTION_MUTATION_TYPE_RANDOM*: the mother is selected randomly between
+  * *SELECTION\_MUTATION\_TYPE\_RANDOM*: the mother is selected randomly between
     the survival entities
-  * *SELECTION_MUTATION_TYPE_BESTOF2*: the mother is the best of two randomly
+  * *SELECTION\_MUTATION\_TYPE\_BESTOF2*: the mother is the best of two randomly
     selected between the survival entities
-  * *SELECTION_MUTATION_TYPE_BESTOF3*: the mother is the best of three
+  * *SELECTION\_MUTATION\_TYPE\_BESTOF3*: the mother is the best of three
     randomly selected between the survival entities
-  * *SELECTION_MUTATION_TYPE_BEST*: the mother is the best of the survival
+  * *SELECTION\_MUTATION\_TYPE\_BEST*: the mother is the best of the survival
     entities
-* **type_selection_reproduction**: type of algorithm to select the parents to
+* **type\_selection\_reproduction**: type of algorithm to select the parents to
 reproduce
-* **type_selection_adaptation**: type of algorithm to select the mothers to
+* **type\_selection\_adaptation**: type of algorithm to select the mothers to
 create sons with a adaptation. An adaption inverts a random bit between the
 lowest significative bits. Valid values are:
-  * *SELECTION_ADAPTATION_TYPE_LINEARRANK* (default value): the mother is
+  * *SELECTION\_ADAPTATION\_TYPE\_LINEARRANK* (default value): the mother is
     selected randomly between the survival entities assigning a linear
     probabiltiy higher for better entities
-  * *SELECTION_ADAPTATION_TYPE_RANDOM*: the mother is selected randomly
+  * *SELECTION\_ADAPTATION\_TYPE\_RANDOM*: the mother is selected randomly
     between the survival entities
-  * *SELECTION_ADAPTATION_TYPE_BESTOF2*: the mother is the best of two
+  * *SELECTION\_ADAPTATION\_TYPE\_BESTOF2*: the mother is the best of two
     randomly selected between the survival entities
-  * *SELECTION_ADAPTATION_TYPE_BESTOF3*: the mother is the best of three
+  * *SELECTION\_ADAPTATION\_TYPE\_BESTOF3*: the mother is the best of three
     randomly selected between the survival entities
-  * *SELECTION_ADAPTATION_TYPE_BEST*: the mother is the best of the survival
+  * *SELECTION\_ADAPTATION\_TYPE\_BEST*: the mother is the best of the survival
     entities
 * **thresold**: thresold in objective function to finish the simulations
-* **simulate_entity**: pointer to the function to perform each simulation
-* **best_genome**: new generated best genome
-* **best_variables**: new generated best variables array
-* **best_objective**: obtained best objective function value
+* **simulate\_entity**: pointer to the function to perform each simulation
+* **best\_genome**: new generated best genome
+* **best\_variables**: new generated best variables array
+* **best\_objective**: obtained best objective function value
 
 CONVENIENT FUNCTION USING DEFAULT ALGORITHMS
 ____________________________________________
