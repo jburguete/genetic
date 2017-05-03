@@ -13,18 +13,18 @@ TOOLS AND LIBRARIES REQUIRED TO BUILD THE EXECUTABLE
 ----------------------------------------------------
 
 * [gcc](https://gcc.gnu.org) or [clang](http://clang.llvm.org) (to compile the
-source code)
+  source code)
 * [make](http://www.gnu.org/software/make) (to build the executable file)
 * [autoconf](http://www.gnu.org/software/autoconf) (to generate the Makefile in
-different operative systems)
+  different operative systems)
 * [automake](http://www.gnu.org/software/automake) (to check the operative
-system)
+  system)
 * [pkg-config](http://www.freedesktop.org/wiki/Software/pkg-config) (to find the
-libraries to compile)
+  libraries to compile)
 * [gsl](http://www.gnu.org/software/gsl) (to generate random numbers)
 * [glib](https://developer.gnome.org/glib) (extended utilities of C to work with
-data, lists, mapped files, regular expressions, using multicores in shared
-memory machines, ...)
+  data, lists, mapped files, regular expressions, using multicores in shared
+  memory machines, ...)
 * [genetic](https://github.com/jburguete/genetic) (genetic algorithm)
 
 OPTIONAL TOOLS AND LIBRARIES
@@ -201,8 +201,8 @@ int genetic_algorithm(
 
 where the parameters are:
 * **nvariables**: variables number
-* **genetic_variable**: array of data to define each variable. The fields of
-the data structure are:
+* **genetic_variable**: array of data to define each variable. The fields of the
+  data structure are:
   * *maximum*: maximum value
   * *minimum*: minimum value
   * *nbits*: number of bits to encode
