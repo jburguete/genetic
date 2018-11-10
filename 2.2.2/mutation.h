@@ -35,18 +35,13 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define MUTATION__H 1
 
 /**
- * \fn static inline void mutation(Population *population, Entity *mother, \
- *   Entity *son, gsl_rng *rng)
- * \brief Function to apply a mutation operation.
- * \param mother
- * \brief Mother.
- * \param son
- * \brief Son.
- * \param rng
- * \brief GSL random number generator.
+ * Function to apply a mutation operation.
  */
-static inline void mutation
-  (Population * population, Entity * mother, Entity * son, gsl_rng * rng)
+static inline void
+mutation (Population * population,      ///< Population.
+          Entity * mother,      ///< Mother entity.
+          Entity * son,         ///< Son entity.
+          gsl_rng * rng)        ///< GSL random number generator.
 {
   memcpy (son->genome, mother->genome, population->genome_nbytes);
   bit_invert (son->genome, gsl_rng_uniform_int (rng, population->genome_nbits));

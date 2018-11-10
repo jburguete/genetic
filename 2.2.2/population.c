@@ -40,40 +40,22 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "population.h"
 
 /**
- * \fn int population_new(Population *population, GeneticVariable *variable, \
- *   unsigned int nvariables, unsigned int genome_nbits, \
- *   unsigned int nentities, double mutation_ratio, double reproduction_ratio, \
- *   double adaptation_ratio, double threshold)
- * \brief Function to init a population.
- * \param population
- * \brief Population.
- * \param variable
- * \brief Variables data.
- * \param nvariables
- * \brief Number of variables.
- * \param genome_nbits
- * \brief Number of bits of each entity genome.
- * \param nentities
- * \brief Number of entities.
- * \param mutation_ratio
- * \brief Mutation ratio.
- * \param reproduction_ratio
- * \brief Reproduction ratio.
- * \param adaptation_ratio
- * \brief Adaptation ratio.
- * \param threshold
- * \brief Threshold to finish the simulations.
+ * Function to init a population.
+ *
  * \return 1 on succes, 0 on error.
  */
 int
-population_new (Population * population,
-                GeneticVariable * variable,
-                unsigned int nvariables,
+population_new (Population * population,        ///< Population.
+                GeneticVariable * variable,     ///< Variables data.
+                unsigned int nvariables,        ///< Number of variables.
                 unsigned int genome_nbits,
-                unsigned int nentities,
-                double mutation_ratio,
-                double reproduction_ratio,
-                double adaptation_ratio, double threshold)
+                ///< Number of bits of each entity genome.
+                unsigned int nentities, ///< Number of entities.
+                double mutation_ratio,  ///< Mutation ratio.
+                double reproduction_ratio,      ///< Reproduction ratio.
+                double adaptation_ratio,        ///< Adaptation ratio.
+                double threshold)
+                ///< Threshold to finish the simulations.
 {
   unsigned int i, nmutations, nreproductions, nadaptations;
   nmutations = mutation_ratio * nentities;
@@ -120,15 +102,11 @@ population_new (Population * population,
 }
 
 /**
- * \fn void population_init_genomes(Population *population, gsl_rng *rng)
- * \brief Function to free the memory allocated in a population.
- * \param population
- * \brief Population.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to free the memory allocated in a population.
  */
 void
-population_init_genomes (Population * population, gsl_rng * rng)
+population_init_genomes (Population * population,       ///< Population.
+                         gsl_rng * rng) ///< GSL random numbers generator.
 {
   unsigned int i;
   for (i = 0; i < population->nentities; ++i)
@@ -136,13 +114,10 @@ population_init_genomes (Population * population, gsl_rng * rng)
 }
 
 /**
- * \fn void population_free(Population *population)
- * \brief Function to free the memory allocated in a population.
- * \param population
- * \brief Population.
+ * Function to free the memory allocated in a population.
  */
 void
-population_free (Population * population)
+population_free (Population * population)       ///< Population.
 {
   unsigned int i;
   for (i = 0; i < population->nentities; ++i)

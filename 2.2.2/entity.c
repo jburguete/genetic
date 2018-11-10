@@ -37,18 +37,13 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "entity.h"
 
 /**
- * \fn void entity_new(Entity *entity, unsigned int genome_nbytes, \
- *   unsigned int id)
- * \brief Function to create an entity.
- * \param entity
- * \brief Entity struct.
- * \param genome_nbytes
- * \brief Number of bytes of the entity genome.
- * \param id
- * \brief Identifier number.
+ * Function to create an entity.
  */
 void
-entity_new (Entity * entity, unsigned int genome_nbytes, unsigned int id)
+entity_new (Entity * entity,    ///< Entity struct.
+            unsigned int genome_nbytes,
+            ///< Number of bytes of the entity genome. 
+            unsigned int id)    ///< Identifier number.
 {
   unsigned int i;
   entity->id = id;
@@ -58,18 +53,13 @@ entity_new (Entity * entity, unsigned int genome_nbytes, unsigned int id)
 }
 
 /**
- * \fn void entity_init(Entity *entity, unsigned int genome_nbytes, \
- *   gsl_rng *rng)
- * \brief Function to init randomly the genome of an entity.
- * \param entity
- * \brief Entity struct.
- * \param genome_nbytes
- * \brief Number of bytes of the entity genome.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to init randomly the genome of an entity.
  */
 void
-entity_init (Entity * entity, unsigned int genome_nbytes, gsl_rng * rng)
+entity_init (Entity * entity,   ///< Entity struct.
+             unsigned int genome_nbytes,
+             ///< Number of bytes of the entity genome.
+             gsl_rng * rng)     ///< GSL random numbers generator.
 {
   unsigned int i;
   for (i = 0; i < genome_nbytes; ++i)
@@ -77,13 +67,10 @@ entity_init (Entity * entity, unsigned int genome_nbytes, gsl_rng * rng)
 }
 
 /**
- * \fn void entity_free(Entity *entity)
- * \brief Function to free the memory used by an entity.
- * \param entity
- * \brief Entity struct.
+ * Function to free the memory used by an entity.
  */
 void
-entity_free (Entity * entity)
+entity_free (Entity * entity)   ///< Entity struct.
 {
   g_free (entity->genome);
 }

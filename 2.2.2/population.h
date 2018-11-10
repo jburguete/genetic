@@ -55,7 +55,7 @@ typedef struct
   Entity *entity;               ///< Array of entities.
   GeneticVariable *variable;    ///< Array of variables data.
   double *objective;            ///< Array ot objective function values.
-  double threshold;              ///< Threshold to finish the simulations.
+  double threshold;             ///< Threshold to finish the simulations.
   unsigned int nvariables;      ///< Number of variables.
   unsigned int genome_nbits;    ///< Number of bits of the genomes.
   unsigned int genome_nbytes;   ///< Number of bytes of the genomes.

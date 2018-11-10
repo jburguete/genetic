@@ -52,14 +52,12 @@ unsigned int nthreads = 1;      ///< Number of threads.
 GeneticVariable v[2];           ///< Array of variables to optimize.
 
 /**
- * \fn double evaluate(Entity *entity)
- * \brief Evaluation function.
- * \param entity
- * \brief Entity to simulate.
+ * Evaluation function.
+ *
  * \return RMSE error on the linear equations system: x+y=3, x-y=1.
  */
 double
-evaluate (Entity * entity)
+evaluate (Entity * entity)      ///< Entity to simulate.
 {
   double x, y, e1, e2;
   x = genetic_get_variable (entity, v);
@@ -71,16 +69,13 @@ evaluate (Entity * entity)
 }
 
 /**
- * \fn int main(int argn, char **argc)
- * \brief Main function.
- * \param argn
- * \brief Number of arguments.
- * \param argc
- * \brief Array of argument strings.
+ * Main function.
+ *
  * \return 0 always.
  */
 int
-main (int argn, char **argc)
+main (int argn,                 ///< Number of arguments.
+      char **argc)              ///< Array of argument strings.
 {
   int rank;
   char *best_genome;

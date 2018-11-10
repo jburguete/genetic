@@ -47,36 +47,28 @@ void (*selection_adaptation) (Population *, Entity **, gsl_rng *);
   ///< Pointer to the function to apply adaptation selection operations.
 
 /**
- * \fn void selection_mutation_random(Population *population, Entity **mother, \
- *   gsl_rng *rng)
- * \brief Function to select a single random entity.
- * \param population
- * \brief Population.
- * \param mother
- * \brief Pointer to the mother entity.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to select a single random entity.
  */
-void selection_mutation_random
-  (Population * population, Entity ** mother, gsl_rng * rng)
+void
+selection_mutation_random (Population * population,     ///< Population.
+                           Entity ** mother,
+                           ///< Pointer to the mother entity.
+                           gsl_rng * rng)
+                           ///< GSL random numbers generator.
 {
   *mother = population->entity
     + gsl_rng_uniform_int (rng, population->nsurvival);
 }
 
 /**
- * \fn void selection_mutation_bestof2(Population *population, \
- *   Entity **mother, gsl_rng *rng)
- * \brief Function to select the best of two random entities.
- * \param population
- * \brief Population.
- * \param mother
- * \brief Pointer to the mother entity.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to select the best of two random entities.
  */
-void selection_mutation_bestof2
-  (Population * population, Entity ** mother, gsl_rng * rng)
+void
+selection_mutation_bestof2 (Population * population,    ///< Population.
+                            Entity ** mother,
+                            ///< Pointer to the mother entity.
+                            gsl_rng * rng)
+                            ///< GSL random numbers generator.
 {
   unsigned int i, j;
   i = gsl_rng_uniform_int (rng, population->nsurvival);
@@ -87,18 +79,14 @@ void selection_mutation_bestof2
 }
 
 /**
- * \fn void selection_mutation_bestof3(Population *population, \
- *   Entity **mother, gsl_rng *rng)
- * \brief Function to select the best of three random entities.
- * \param population
- * \brief Population.
- * \param mother
- * \brief Pointer to the mother entity.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to select the best of three random entities.
  */
-void selection_mutation_bestof3
-  (Population * population, Entity ** mother, gsl_rng * rng)
+void
+selection_mutation_bestof3 (Population * population,    ///< Population.
+                            Entity ** mother,
+                            ///< Pointer to the mother entity.
+                            gsl_rng * rng)
+                            ///< GSL random numbers generator.
 {
   unsigned int i, j;
   i = gsl_rng_uniform_int (rng, population->nsurvival);
@@ -112,36 +100,28 @@ void selection_mutation_bestof3
 }
 
 /**
- * \fn void selection_mutation_best(Population *population, Entity **mother, \
- *   gsl_rng *rng)
- * \brief Function to select the best entity only.
- * \param population
- * \brief Population.
- * \param mother
- * \brief Pointer to the mother entity.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to select the best entity only.
  */
-void selection_mutation_best
-  (Population * population, Entity ** mother, gsl_rng * rng)
+void
+selection_mutation_best (Population * population,       ///< Population.
+                         Entity ** mother,
+                         ///< Pointer to the mother entity.
+                         gsl_rng * rng __attribute__ ((unused)))
+  ///< GSL random numbers generator.
 {
   *mother = population->entity;
 }
 
 /**
- * \fn void selection_mutation_linearrank(Population *population, \
- *   Entity **mother, gsl_rng *rng)
- * \brief Function to select an entity based on linear probability distribution
- *   with respect to rank.
- * \param population
- * \brief Population.
- * \param mother
- * \brief Pointer to the mother entity.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to select an entity based on linear probability distribution with 
+ *   respect to rank.
  */
-void selection_mutation_linearrank
-  (Population * population, Entity ** mother, gsl_rng * rng)
+void
+selection_mutation_linearrank (Population * population, ///< Population.
+                               Entity ** mother,
+                               ///< Pointer to the mother entity.
+                               gsl_rng * rng)
+                               ///< GSL random numbers generator.
 {
   unsigned int i;
   i = (1.0 - sqrt (gsl_rng_uniform (rng))) * population->nsurvival;
@@ -149,20 +129,16 @@ void selection_mutation_linearrank
 }
 
 /**
- * \fn void selection_reproduction_random(Population *population, \
- *   Entity **mother, Entity **father, gsl_rng *rng)
- * \brief Function to select a pair of random entities.
- * \param population
- * \brief Population.
- * \param mother
- * \brief Pointer to the mother entity.
- * \param father
- * \brief Pointer to the father entity.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to select a pair of random entities.
  */
-void selection_reproduction_random
-  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng)
+void
+selection_reproduction_random (Population * population, ///< Population.
+                               Entity ** mother,
+                               ///< Pointer to the mother entity.
+                               Entity ** father,
+                               ///< Pointer to the father entity.
+                               gsl_rng * rng)
+                               ///< GSL random numbers generator.
 {
   *mother = population->entity
     + gsl_rng_uniform_int (rng, population->nsurvival);
@@ -173,21 +149,17 @@ void selection_reproduction_random
 }
 
 /**
- * \fn void selection_reproduction_bestof2(Population *population, \
- *   Entity **mother, Entity **father, gsl_rng *rng)
- * \brief Function to select a pair of entities. For each parent select the best
- *   of two random entities.
- * \param population
- * \brief Population.
- * \param mother
- * \brief Pointer to the mother entity.
- * \param father
- * \brief Pointer to the father entity.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to select a pair of entities. For each parent select the best of two
+ *   random entities.
  */
-void selection_reproduction_bestof2
-  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng)
+void
+selection_reproduction_bestof2 (Population * population,        ///< Population.
+                                Entity ** mother,
+                                ///< Pointer to the mother entity.
+                                Entity ** father,
+                                ///< Pointer to the father entity.
+                                gsl_rng * rng)
+                                ///< GSL random numbers generator.
 {
   unsigned int i, j, k;
   i = gsl_rng_uniform_int (rng, population->nsurvival);
@@ -205,21 +177,17 @@ void selection_reproduction_bestof2
 }
 
 /**
- * \fn void selection_reproduction_bestof3(Population *population, \
- *   Entity **mother, Entity **father, gsl_rng *rng)
- * \brief Function to select a pair of entities. For each parent select the best
- *   of three random entities.
- * \param population
- * \brief Population.
- * \param mother
- * \brief Pointer to the mother entity.
- * \param father
- * \brief Pointer to the father entity.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to select a pair of entities. For each parent select the best of 
+ *   three random entities.
  */
-void selection_reproduction_bestof3
-  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng)
+void
+selection_reproduction_bestof3 (Population * population,        ///< Population.
+                                Entity ** mother,
+                                ///< Pointer to the mother entity.
+                                Entity ** father,
+                                ///< Pointer to the father entity.
+                                gsl_rng * rng)
+                                ///< GSL random numbers generator.
 {
   unsigned int i, j, k;
   i = gsl_rng_uniform_int (rng, population->nsurvival);
@@ -243,21 +211,16 @@ void selection_reproduction_bestof3
 }
 
 /**
- * \fn void selection_reproduction_best(Population *population, \
- *   Entity **mother, Entity **father, gsl_rng *rng)
- * \brief Function to select a pair of entities using the best and a random
- *   entity.
- * \param population
- * \brief Population.
- * \param mother
- * \brief Pointer to the mother entity.
- * \param father
- * \brief Pointer to the father entity.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to select a pair of entities using the best and a random entity.
  */
-void selection_reproduction_best
-  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng)
+void
+selection_reproduction_best (Population * population,   ///< Population.
+                             Entity ** mother,
+                             ///< Pointer to the mother entity.
+                             Entity ** father,
+                             ///< Pointer to the father entity.
+                             gsl_rng * rng)
+                             ///< GSL random numbers generator.
 {
   *mother = population->entity
     + gsl_rng_uniform_int (rng, population->nsurvival);
@@ -265,21 +228,17 @@ void selection_reproduction_best
 }
 
 /**
- * \fn void selection_reproduction_linearrank(Population *population, \
- *   Entity **mother, Entity **father, gsl_rng *rng)
- * \brief Function to select a pair of entities based on linear probability
+ * Function to select a pair of entities based on linear probability
  *   distribution with respect to rank.
- * \param population
- * \brief Population.
- * \param mother
- * \brief Pointer to the mother entity.
- * \param father
- * \brief Pointer to the father entity.
- * \param rng
- * \brief GSL random numbers generator.
  */
-void selection_reproduction_linearrank
-  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng)
+void
+selection_reproduction_linearrank (Population * population,     ///< Population.
+                                   Entity ** mother,
+                                   ///< Pointer to the mother entity.
+                                   Entity ** father,
+                                   ///< Pointer to the father entity.
+                                   gsl_rng * rng)
+                                   ///< GSL random numbers generator.
 {
   unsigned int i, j;
   i = (unsigned int) ((1.0 - sqrt (gsl_rng_uniform (rng)))
@@ -293,19 +252,15 @@ void selection_reproduction_linearrank
 }
 
 /**
- * \fn void selection_init(unsigned int mutation_type, \
- *   unsigned int reproduction_type, unsigned int adaptation_type)
- * \brief Function to select the selection operations.
- * \param mutation_type
- * \brief Type of mutation selection operations.
- * \param reproduction_type
- * \brief Type of reproduction selection operations.
- * \param adaptation_type
- * \brief Type of adaptation selection operations.
+ * Function to select the selection operations.
  */
 void
-selection_init (unsigned int mutation_type, unsigned int reproduction_type,
+selection_init (unsigned int mutation_type,
+                ///< Type of mutation selection operations.
+                unsigned int reproduction_type,
+                ///< Type of reproduction selection operations.
                 unsigned int adaptation_type)
+                ///< Type of adaptation selection operations.
 {
   switch (mutation_type)
     {

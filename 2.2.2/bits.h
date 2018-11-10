@@ -35,95 +35,68 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define BITS__H 1
 
 /**
- * \fn static inline void bit_set(char *bit, unsigned int n)
- * \brief Function to set up a single bit in a string.
- * \param bit
- * \brief String.
- * \param n
- * \brief Bit index.
+ * Function to set up a single bit in a string.
  */
 static inline void
-bit_set (char *bit, unsigned int n)
+bit_set (char *bit,             ///< String.
+         unsigned int n)        ///< Bit index.
 {
   bit[n / 8] |= 1 << (n % 8);
 }
 
 /**
- * \fn static inline void bit_clear(char *bit, unsigned int n)
- * \brief Function to set down a single bit in a string.
- * \param bit
- * \brief String.
- * \param n
- * \brief Bit index.
+ * Function to set down a single bit in a string.
  */
 static inline void
-bit_clear (char *bit, unsigned int n)
+bit_clear (char *bit,           ///< String.
+           unsigned int n)      ///< Bit index.
 {
   bit[n / 8] &= ~(1 << (n % 8));
 }
 
 /**
- * \fn static inline void bit_invert(char *bit, unsigned int n)
- * \brief Function to invert a single bit in a string.
- * \param bit
- * \brief String.
- * \param n
- * \brief Bit index.
+ * Function to invert a single bit in a string.
  */
 static inline void
-bit_invert (char *bit, unsigned int n)
+bit_invert (char *bit,          ///< String.
+            unsigned int n)     ///< Bit index.
 {
   bit[n / 8] ^= 1 << (n % 8);
 }
 
 /**
- * \fn static inline int bit_get(char *bit, unsigned int n)
- * \brief Function to get the state of a single bit in a string.
- * \param bit
- * \brief String.
- * \param n
- * \brief Bit index.
+ * Function to get the state of a single bit in a string.
+ *
  * \return The bit's state.
  */
 static inline int
-bit_get (char *bit, unsigned int n)
+bit_get (char *bit,             ///< String.
+         unsigned int n)        ///< Bit index.
 {
   return bit[n / 8] & (1 << (n % 8));
 }
 
 /**
- * \fn static inline void bit_randomize(char *bit, unsigned int n)
- * \brief Function to set randomly the state of a single bit in a string.
- * \param bit
- * \brief String.
- * \param n
- * \brief Bit index.
+ * Function to set randomly the state of a single bit in a string.
  */
 static inline void
-bit_randomize (char *bit, unsigned int n, gsl_rng * rng)
+bit_randomize (char *bit,       ///< String.
+               unsigned int n,  ///< Bit index.
+               gsl_rng * rng)   ///< GSL pseudo-random numbers generator.
 {
   gsl_rng_uniform_int (rng, 2) ? bit_set (bit, n) : bit_clear (bit, n);
 }
 
 /**
- * \fn static inline void bit_copy(char *dest, char *src, unsigned int ndest, \
- *   unsigned int nsrc, unsigned int length)
- * \brief Function to copy a set of bits in a string. If dest and src are the
- *   same overlapping sequences of bits are safely handled.
- * \param dest
- * \brief Destination string.
- * \param src
- * \brief Source string
- * \param ndest
- * \brief Initial bit index of destination bits.
- * \param nsrc
- * \brief Initial bit index of source bits.
- * \param length
- * \brief Number of bits to copy.
+ * Function to copy a set of bits in a string. If dest and src are the same
+ *   overlapping sequences of bits are safely handled.
  */
 static inline void
-bit_copy (char *dest, char *src, unsigned int ndest,
-          unsigned int nsrc, unsigned int length)
+bit_copy (char *dest,           ///< Destination string.
+          char *src,            ///< Source string
+          unsigned int ndest,   ///< Initial bit index of destination bits.
+          unsigned int nsrc,    ///< Initial bit index of source bits.
+          unsigned int length)  ///< Number of bits to copy.
 {
   unsigned int i;
 
@@ -138,32 +111,26 @@ bit_copy (char *dest, char *src, unsigned int ndest,
 }
 
 /**
- * \fn static inline unsigned int bit_sizeof(unsigned int length)
- * \brief Function to get the size required for the given number of bits,
- *   rounded up if needed.
- * \param length
- * \brief Number of bits.
+ * Function to get the size required for the given number of bits, rounded up if
+ *   needed.
  */
 static inline unsigned int
-bit_sizeof (unsigned int length)
+bit_sizeof (unsigned int length)        ///< Number of bits.
 {
   return (unsigned int) ((length + 7) / 8);
 }
 
 /**
- * \fn static inline unsigned int bit_get_value(char *bit, \
- *   unsigned int location, unsigned int nbits)
- * \brief Function to get the value of an encoded integer.
- * \param bit
- * \brief String.
- * \param location
- * \brief Location of the encoded integer in the string.
- * \param nbits
- * \brief Number of bits of the encoded integer.
+ * Function to get the value of an encoded integer.
+ *
  * \return Encoded integer.
  */
-static inline unsigned int bit_get_value
-  (char *bit, unsigned int location, unsigned int nbits)
+static inline unsigned int
+bit_get_value (char *bit,       ///< String.
+               unsigned int location,
+               ///< Location of the encoded integer in the string.
+               unsigned int nbits)
+               ///< Number of bits of the encoded integer.
 {
   unsigned int i, j, k;
   for (i = k = 0, j = 1; i < nbits; ++i, j <<= 1)

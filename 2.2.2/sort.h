@@ -38,44 +38,33 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   ///< Minimum elements to sort with the merge algorithm.
 
 /**
- * \fn static inline void index_sort_insertion(double *x, unsigned int *index, \
- *   unsigned int n)
- * \brief Function to sort an index array by the insertion algorithm.
- * \param x
- * \brief Evaluation values array.
- * \param index
- * \brief Index array.
- * \param n
- * \brief Number of elements.
+ * Function to sort an index array by the insertion algorithm.
  */
-static inline void index_sort_insertion
-  (double *x, unsigned int *index, unsigned int n)
+static inline void
+index_sort_insertion (double *x,        ///< Evaluation values array.
+                      unsigned int *index,      ///< Index array.
+                      unsigned int n)   ///< Number of elements.
 {
-  register int i, j, ii;
   register double xi;
+  register int j;
+  register unsigned int i, ii;
   for (i = 0; ++i < n;)
     {
       ii = index[i];
       xi = x[ii];
-      for (j = i; --j >= 0 && x[index[j]] > xi;)
+      for (j = (int) i; --j >= 0 && x[index[j]] > xi;)
         index[j + 1] = index[j];
       index[j + 1] = ii;
     }
 }
 
 /**
- * \fn static inline void index_sort_merge(double *x, unsigned int *index, \
- *   unsigned int n)
- * \brief Function to sort an index array by the merge algorithm.
- * \param x
- * \brief Evaluation values array.
- * \param index
- * \brief Index array.
- * \param n
- * \brief Number of elements.
+ * Function to sort an index array by the merge algorithm.
  */
-static inline void index_sort_merge
-  (double *x, unsigned int *index, unsigned int n)
+static inline void
+index_sort_merge (double *x,    ///< Evaluation values array.
+                  unsigned int *index,  ///< Index array.
+                  unsigned int n)       ///< Number of elements.
 {
   int i, j, i1, i2, k, l;
   unsigned int *ni1, *ni2, *nj, *nk, *nt, nn[n];
@@ -129,18 +118,12 @@ static inline void index_sort_merge
 }
 
 /**
- * \fn static inline void index_new(double *x, unsigned int *index, \
- *   unsigned int n)
- * \brief Function to create and sort an index array by the optimal algorithm.
- * \param x
- * \brief Evaluation values array.
- * \param index
- * \brief Index array.
- * \param n
- * \brief Number of elements.
+ * Function to create and sort an index array by the optimal algorithm.
  */
 static inline void
-index_new (double *x, unsigned int *index, unsigned int n)
+index_new (double *x,           ///< Evaluation values array.
+           unsigned int *index, ///< Index array.
+           unsigned int n)      ///< Number of elements.
 {
   unsigned int i;
   for (i = 0; i < n; ++i)

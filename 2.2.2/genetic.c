@@ -62,16 +62,13 @@ int ntasks = 1;
 ///< Number of distributed tasks.
 
 /**
- * \fn double genetic_get_variable(Entity *entity, GeneticVariable *variable)
- * \brief Function to get a variable encoded in the genome of an entity.
- * \param entity
- * \brief Entity.
- * \param variable
- * \brief Variable data.
+ * Function to get a variable encoded in the genome of an entity.
+ *
  * \return Variable value.
  */
 double
-genetic_get_variable (Entity * entity, GeneticVariable * variable)
+genetic_get_variable (Entity * entity,  ///< Entity struct.
+                      GeneticVariable * variable)       ///< Variable data.
 {
   double x;
 #if DEBUG_GENETIC
@@ -89,15 +86,11 @@ genetic_get_variable (Entity * entity, GeneticVariable * variable)
 }
 
 /**
- * \fn void genetic_evolution(Population *population, gsl_rng *rng)
- * \brief Funtion to apply the evolution of a population.
- * \param population
- * \brief Population
- * \param rng
- * \brief GSL random numbers generator.
+ * Funtion to apply the evolution of a population.
  */
 void
-genetic_evolution (Population * population, gsl_rng * rng)
+genetic_evolution (Population * population,     ///< Population
+                   gsl_rng * rng)       ///< GSL random numbers generator.
 {
 #if DEBUG_GENETIC
   fprintf (stderr, "genetic_evolution: start\n");
@@ -111,13 +104,10 @@ genetic_evolution (Population * population, gsl_rng * rng)
 }
 
 /**
- * \fn void genetic_simulation_thread(GeneticThreadData *data)
- * \brief Funtion to perform the simulations on a thread.
- * \param data
- * \brief Thread data.
+ * Funtion to perform the simulations on a thread.
  */
 void
-genetic_simulation_thread (GeneticThreadData * data)
+genetic_simulation_thread (GeneticThreadData * data)    ///< Thread data.
 {
   unsigned int i;
 #if DEBUG_GENETIC
@@ -143,13 +133,11 @@ genetic_simulation_thread (GeneticThreadData * data)
 }
 
 /**
- * \fn void genetic_simulation_master(unsigned int nsurvival)
- * \brief Function to perform the simulations on a task.
- * \param nsurvival
- * \brief Number of survival entities already simulated.
+ * Function to perform the simulations on a task.
  */
 void
 genetic_simulation_master (unsigned int nsurvival)
+                           ///< Number of survival entities already simulated.
 {
   unsigned int j, nsimulate, nmin, nmax;
   GThread *thread[nthreads];
@@ -190,7 +178,7 @@ genetic_simulation_master (unsigned int nsurvival)
     memcpy (genome_array + j * population->genome_nbytes,
             population->entity[nmin + j].genome, population->genome_nbytes);
   n[0] = 0;
-  for (i = 0; ++i < ntasks;)
+  for (i = 0; (int) ++i < ntasks;)
     {
       n[i] = i * nsimulate / ntasks;
       j = (i + 1) * nsimulate / ntasks - n[i];
@@ -225,19 +213,15 @@ genetic_simulation_master (unsigned int nsurvival)
       = nmin + j * nsimulate / nthreads;
   thread_data[j - 1].nmax = nmax;
   for (j = 0; j < nthreads; ++j)
-#if GLIB_MINOR_VERSION >= 32
     thread[j] = g_thread_new
-      (NULL, (GThreadFunc) genetic_simulation_thread, thread_data + j);
-#else
-    thread[j] = g_thread_create
-      ((GThreadFunc) genetic_simulation_thread, thread_data + j, TRUE, NULL);
-#endif
+      (NULL, (GThreadFunc) (void (*)(void)) genetic_simulation_thread,
+       thread_data + j);
   for (j = 0; j < nthreads; ++j)
     g_thread_join (thread[j]);
 
 #if HAVE_MPI
   // Receive objective function resuts from the slaves
-  for (j = 0; ++j < ntasks;)
+  for (j = 0; (int) ++j < ntasks;)
     {
 #if DEBUG_GENETIC
       fprintf (stderr,
@@ -257,7 +241,7 @@ genetic_simulation_master (unsigned int nsurvival)
         genetic_population->stop = 1;
     }
   // Sending stop instruction to the slaves
-  for (j = 0; ++j < ntasks;)
+  for (j = 0; (int) ++j < ntasks;)
     {
 #if DEBUG_GENETIC
       fprintf (stderr,
@@ -277,15 +261,12 @@ genetic_simulation_master (unsigned int nsurvival)
 #if HAVE_MPI
 
 /**
- * \fn void genetic_simulation_slave(unsigned int nsurvival, int rank)
- * \brief Function to perform the simulations on a task.
- * \param nsurvival
- * \brief Number of survival entities already simulated.
- * \param rank
- * \brief Number of task.
+ * Function to perform the simulations on a task.
  */
 void
-genetic_simulation_slave (unsigned int nsurvival, int rank)
+genetic_simulation_slave (unsigned int nsurvival,
+                          ///< Number of survival entities already simulated.
+                          int rank)     ///< Number of task.
 {
   unsigned int j, nsimulate, nmin, nmax, stop;
   GThread *thread[nthreads];
@@ -338,13 +319,9 @@ genetic_simulation_slave (unsigned int nsurvival, int rank)
       = nmin + j * nsimulate / nthreads;
   thread_data[j - 1].nmax = nmax;
   for (j = 0; j < nthreads; ++j)
-#if GLIB_MINOR_VERSION >= 32
     thread[j] = g_thread_new
-      (NULL, (GThreadFunc) genetic_simulation_thread, thread_data + j);
-#else
-    thread[j] = g_thread_create
-      ((GThreadFunc) genetic_simulation_thread, thread_data + j, TRUE, NULL);
-#endif
+      (NULL, (GThreadFunc) (void (*)(void)) genetic_simulation_thread,
+       thread_data + j);
   for (j = 0; j < nthreads; ++j)
     g_thread_join (thread[j]);
 
@@ -381,33 +358,19 @@ genetic_simulation_slave (unsigned int nsurvival, int rank)
 #endif
 
 /**
- * \fn int genetic_new(unsigned int nvariables, GeneticVariable *variable, \
- *   unsigned int nentities, double mutation_ratio, double reproduction_ratio, \
- *   double adaptation_ratio, double threshold)
- * \brief Function to create the data of the genetic algorithm.
- * \param nvariables
- * \brief Number of variables.
- * \param variable
- * \brief Array of variables data.
- * \param nentities
- * \brief Number of entities in each generation.
- * \param mutation_ratio
- * \brief Mutation ratio.
- * \param reproduction_ratio
- * \brief Reproduction ratio.
- * \param adaptation_ratio
- * \brief Adaptation ratio.
- * \param threshold
- * \brief Threshold to finish the simulations.
+ * Function to create the data of the genetic algorithm.
+ *
  * \return 1 on succes, 0 on error.
  */
 int
-genetic_new (unsigned int nvariables,
-             GeneticVariable * variable,
+genetic_new (unsigned int nvariables,   ///< Number of variables.
+             GeneticVariable * variable,        ///< Array of variables data.
              unsigned int nentities,
-             double mutation_ratio,
-             double reproduction_ratio,
-             double adaptation_ratio, double threshold)
+             ///< Number of entities in each generation.
+             double mutation_ratio,     ///< Mutation ratio.
+             double reproduction_ratio, ///< Reproduction ratio.
+             double adaptation_ratio,   ///< Adaptation ratio.
+             double threshold)  ///< Threshold to finish the simulations.
 {
   unsigned int i, genome_nbits, nprocesses;
 
@@ -458,73 +421,39 @@ genetic_new (unsigned int nvariables,
 }
 
 /**
- * \fn int genetic_algorithm(unsigned int nvariables, \
- *   GeneticVariable *variable, unsigned int nentities, \
- *   unsigned int ngenerations, double mutation_ratio, \
- *   double reproduction_ratio, double adaptation_ratio, \
- *   const gsl_rng_type *type_random, unsigned long random_seed, \
- *   unsigned int type_reproduction, unsigned int type_selection_mutation, \
- *   unsigned int type_selection_reproduction, \
- *   unsigned int type_selection_adaptation, double threshold, \
- *   double (*simulate_entity)(Entity*), char **best_genome, \
- *   double **best_variables, double *best_objective)
- * \brief Function to perform the genetic algorithm.
- * \param nvariables
- * \brief Number of variables.
- * \param variable
- * \brief Array of variables data.
- * \param nentities
- * \brief Number of entities in each generation.
- * \param ngenerations
- * \brief Number of generations.
- * \param mutation_ratio
- * \brief Mutation ratio.
- * \param reproduction_ratio
- * \brief Reproduction ratio.
- * \param adaptation_ratio
- * \brief Adaptation ratio.
- * \param type_random
- * \brief Type of GSL random numbers generator algorithm.
- * \param random_seed
- * \brief Seed of the GSL random numbers generator.
- * \param type_reproduction
- * \brief Type of reproduction algorithm.
- * \param type_selection_mutation
- * \brief Type of mutation selection algorithm.
- * \param type_selection_reproduction
- * \brief Type of reproduction selection algorithm.
- * \param type_selection_adaptation
- * \brief Type of adaptation selection algorithm.
- * \param threshold
- * \brief Threshold to finish the simulations.
- * \param simulate_entity
- * \brief Pointer to the function to perform a simulation of an entity.
- * \param best_genome
- * \brief Best genome.
- * \param best_variables
- * \brief Best array of variables.
- * \param best_objective
- * \brief Best objective function value.
+ * Function to perform the genetic algorithm.
+ *
  * \return 1 on succes, 0 on error.
  */
 int
-genetic_algorithm (unsigned int nvariables,
-                   GeneticVariable * variable,
+genetic_algorithm (unsigned int nvariables,     ///< Number of variables.
+                   GeneticVariable * variable,  ///< Array of variables data.
                    unsigned int nentities,
-                   unsigned int ngenerations,
-                   double mutation_ratio,
-                   double reproduction_ratio,
-                   double adaptation_ratio,
+                   ///< Number of entities in each generation.
+                   unsigned int ngenerations,   ///< Number of generations.
+                   double mutation_ratio,       ///< Mutation ratio.
+                   double reproduction_ratio,   ///< Reproduction ratio.
+                   double adaptation_ratio,     ///< Adaptation ratio.
                    const gsl_rng_type * type_random,
+                   ///< Type of GSL random numbers generator algorithm.
                    unsigned long random_seed,
+                   ///< Seed of the GSL random numbers generator.
                    unsigned int type_reproduction,
+                   ///< Type of reproduction algorithm.
                    unsigned int type_selection_mutation,
+                   ///< Type of mutation selection algorithm.
                    unsigned int type_selection_reproduction,
+                   ///< Type of reproduction selection algorithm.
                    unsigned int type_selection_adaptation,
+                   ///< Type of adaptation selection algorithm.
                    double threshold,
+                   ///< Threshold to finish the simulations.
                    double (*simulate_entity) (Entity *),
-                   char **best_genome,
-                   double **best_variables, double *best_objective)
+///< Pointer to the function to perform a simulation of an entity.
+                   char **best_genome,  ///< Best genome.
+                   double **best_variables,     ///< Best array of variables.
+                   double *best_objective)
+                   ///< Best objective function value.
 {
   unsigned int i;
   double *bv;
@@ -669,56 +598,34 @@ genetic_algorithm (unsigned int nvariables,
 }
 
 /**
- * \fn int genetic_algorithm_default(unsigned int nvariables, \
- *   GeneticVariable *variable, unsigned int nentities, \
- *   unsigned int ngenerations, double mutation_ratio, \
- *   double reproduction_ratio, double adaptation_ratio,\
- *   unsigned long random_seed, double threshold, \
- *   double (*simulate_entity)(Entity*), char **best_genome, \
- *   double **best_variables, double *best_objective)
- * \brief Function to perform the genetic algorithm with default random and
- *   evolution algorithms.
- * \param nvariables
- * \brief Number of variables.
- * \param variable
- * \brief Array of variables data.
- * \param nentities
- * \brief Number of entities in each generation.
- * \param ngenerations
- * \brief Number of generations.
- * \param mutation_ratio
- * \brief Mutation ratio.
- * \param reproduction_ratio
- * \brief Reproduction ratio.
- * \param adaptation_ratio
- * \brief Adaptation ratio.
- * \param random_seed
- * \brief Seed of the GSL random numbers generator.
- * \param threshold
- * \brief Threshold to finish the simulations.
- * \param simulate_entity
- * \brief Pointer to the function to perform a simulation of an entity.
- * \param best_genome
- * \brief Best genome.
- * \param best_variables
- * \brief Best array of variables.
- * \param best_objective
- * \brief Best objective function value.
+ * Function to perform the genetic algorithm with default random and evolution 
+ *   algorithms.
+ *
  * \return 1 on succes, 0 on error.
  */
 int
 genetic_algorithm_default (unsigned int nvariables,
+                           ///< Number of variables.
                            GeneticVariable * variable,
+                           ///< Array of variables data.
                            unsigned int nentities,
+                           ///< Number of entities in each generation.
                            unsigned int ngenerations,
-                           double mutation_ratio,
-                           double reproduction_ratio,
-                           double adaptation_ratio,
+                           ///< Number of generations.
+                           double mutation_ratio,       ///< Mutation ratio.
+                           double reproduction_ratio,   ///< Reproduction ratio.
+                           double adaptation_ratio,     ///< Adaptation ratio.
                            unsigned long random_seed,
+                           ///< Seed of the GSL random numbers generator.
                            double threshold,
+                           ///< Threshold to finish the simulations.
                            double (*simulate_entity) (Entity *),
-                           char **best_genome,
-                           double **best_variables, double *best_objective)
+///< Pointer to the function to perform a simulation of an entity.
+                           char **best_genome,  ///< Best genome.
+                           double **best_variables,
+                           ///< Best array of variables.
+                           double *best_objective)
+                           ///< Best objective function value.
 {
   return genetic_algorithm (nvariables,
                             variable,

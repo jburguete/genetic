@@ -50,13 +50,10 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define DEBUG_EVOLUTION 0       ///< Macro to debug the evolution functions.
 
 /**
- * \fn void evolution_sort(Population *population)
- * \brief Function to sort the survivals of the evaluated population
- * \param population
- * \brief Population
+ * Function to sort the survivals of the evaluated population
  */
 void
-evolution_sort (Population * population)
+evolution_sort (Population * population)        ///< Population.
 {
   unsigned int i, j, index[population->nentities];
   double objective[population->nsurvival];
@@ -86,15 +83,11 @@ evolution_sort (Population * population)
 }
 
 /**
- * \fn void evolution_mutation(Population *population, gsl_rng *rng)
- * \brief Funtion to apply the mutation evolution.
- * \param population
- * \brief Population
- * \param rng
- * \brief GSL random numbers generator.
+ * Funtion to apply the mutation evolution.
  */
 void
-evolution_mutation (Population * population, gsl_rng * rng)
+evolution_mutation (Population * population,    ///< Population.
+                    gsl_rng * rng)      ///< GSL random numbers generator.
 {
   unsigned int i;
   Entity *mother, *son;
@@ -119,15 +112,11 @@ evolution_mutation (Population * population, gsl_rng * rng)
 }
 
 /**
- * \fn void evolution_reproduction(Population *population, gsl_rng *rng)
- * \brief Funtion to apply the reproduction evolution.
- * \param population
- * \brief Population
- * \param rng
- * \brief GSL random numbers generator.
+ * Funtion to apply the reproduction evolution.
  */
 void
-evolution_reproduction (Population * population, gsl_rng * rng)
+evolution_reproduction (Population * population,        ///< Population.
+                        gsl_rng * rng)  ///< GSL random numbers generator.
 {
   unsigned int i;
   Entity *mother, *father, *son;
@@ -152,15 +141,11 @@ evolution_reproduction (Population * population, gsl_rng * rng)
 }
 
 /**
- * \fn void evolution_adaptation(Population *population, gsl_rng *rng)
- * \brief Funtion to apply the adaptation evolution.
- * \param population
- * \brief Population
- * \param rng
- * \brief GSL random numbers generator.
+ * Funtion to apply the adaptation evolution.
  */
 void
-evolution_adaptation (Population * population, gsl_rng * rng)
+evolution_adaptation (Population * population,  ///< Population.
+                      gsl_rng * rng)    ///< GSL random numbers generator.
 {
   unsigned int i;
   Entity *mother, *son;

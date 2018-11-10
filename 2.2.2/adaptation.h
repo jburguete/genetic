@@ -31,22 +31,17 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  * \author Javier Burguete Tolosa.
  * \copyright Copyright 2014 Javier Burguete Tolosa. All rights reserved.
  */
-#ifndef ADAPTATATION__H
-#define ADAPTATATION__H 1
+#ifndef ADAPTATION__H
+#define ADAPTATION__H 1
 
 /**
- * \fn static inline void adaptation(Population *population, Entity *mother, \
- *   Entity *son, gsl_rng *rng)
- * \brief Function to apply an adaptation operation.
- * \param mother
- * \brief Mother.
- * \param son
- * \brief Son.
- * \param rng
- * \brief GSL random number generator.
+ * Function to apply an adaptation operation.
  */
-static inline void adaptation
-  (Population * population, Entity * mother, Entity * son, gsl_rng * rng)
+static inline void
+adaptation (Population * population,    ///< Population.
+            Entity * mother,    ///< Mother entity.
+            Entity * son,       ///< Son entity.
+            gsl_rng * rng)      ///< GSL random number generator.
 {
   unsigned int i, j;
   memcpy (son->genome, mother->genome, population->genome_nbytes);

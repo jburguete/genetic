@@ -44,24 +44,15 @@ void (*reproduction) (Entity *, Entity *, Entity *, unsigned int, gsl_rng *);
   ///< Pointer to the function to apply the reproduction operation.
 
 /**
- * \fn void reproduction_singlepoints(Entity *father, Entity *mother, \
- *   Entity *son, unsigned int nbits, gsl_rng *rng)
- * \brief Function to mate two genotypes by single-point reproduction of each
- *   genome.
- * \param father
- * \brief Father.
- * \param mother
- * \brief Mother.
- * \param son
- * \brief Son.
- * \param nbits
- * \brief Genome nbits.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to mate two genotypes by single-point reproduction of each genome.
  */
 void
-reproduction_singlepoints (Entity * father, Entity * mother, Entity * son,
-                           unsigned int nbits, gsl_rng * rng)
+reproduction_singlepoints (Entity * father,     ///< Father.
+                           Entity * mother,     ///< Mother.
+                           Entity * son,        ///< Son.
+                           unsigned int nbits,  ///< Genome nbits.
+                           gsl_rng * rng)
+                           ///< GSL random numbers generator.
 {
   int i;
   i = gsl_rng_uniform_int (rng, nbits);
@@ -70,24 +61,15 @@ reproduction_singlepoints (Entity * father, Entity * mother, Entity * son,
 }
 
 /**
- * \fn void reproduction_doublepoints(Entity *father, Entity *mother, \
- *   Entity *son, unsigned int nbits, gsl_rng *rng)
- * \brief Function to mate two genotypes by double-point reproduction of each
- *   genome.
- * \param father
- * \brief Father.
- * \param mother
- * \brief Mother.
- * \param son
- * \brief Son.
- * \param nbits
- * \brief Genome nbits.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to mate two genotypes by double-point reproduction of each genome.
  */
 void
-reproduction_doublepoints (Entity * father, Entity * mother, Entity * son,
-                           unsigned int nbits, gsl_rng * rng)
+reproduction_doublepoints (Entity * father,     ///< Father.
+                           Entity * mother,     ///< Mother.
+                           Entity * son,        ///< Son.
+                           unsigned int nbits,  ///< Genome nbits.
+                           gsl_rng * rng)
+                           ///< GSL random numbers generator.
 {
   unsigned int i, j, k;
   i = gsl_rng_uniform_int (rng, nbits);
@@ -100,25 +82,16 @@ reproduction_doublepoints (Entity * father, Entity * mother, Entity * son,
 }
 
 /**
- * \fn void reproduction_mixing(Entity *father, Entity *mother, Entity *son, \
- *   unsigned int nbits, gsl_rng *rng)
- * \brief Function to mate two genotypes by random mixing both genomes.
- * \param father
- * \brief Father.
- * \param mother
- * \brief Mother.
- * \param son
- * \brief Son.
- * \param nbits
- * \brief Genome nbits.
- * \param rng
- * \brief GSL random numbers generator.
+ * Function to mate two genotypes by random mixing both genomes.
  */
 void
-reproduction_mixing (Entity * father, Entity * mother, Entity * son,
-                     unsigned int nbits, gsl_rng * rng)
+reproduction_mixing (Entity * father,   ///< Father.
+                     Entity * mother,   ///< Mother.
+                     Entity * son,      ///< Son.
+                     unsigned int nbits,        ///< Genome nbits.
+                     gsl_rng * rng)     ///< GSL random numbers generator.
 {
-  int i;
+  unsigned int i;
   for (i = 0; i < nbits; i++)
     {
       if (gsl_rng_uniform_int (rng, 2))
@@ -135,13 +108,10 @@ reproduction_mixing (Entity * father, Entity * mother, Entity * son,
 }
 
 /**
- * \fn void reproduction_init(unsigned int type)
- * \brief Function to select the reproduction operations.
- * \param type
- * \brief Type of reproduction operations.
+ * Function to select the reproduction operations.
  */
 void
-reproduction_init (unsigned int type)
+reproduction_init (unsigned int type)   ///< Type of reproduction operations.
 {
   switch (type)
     {
