@@ -79,7 +79,10 @@ ___________
 1. Select adequate versions:
 > $ export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.16
 
-2. Then, follow steps 1 and 2 of the previous Debian 9 section
+2. Deactivate OpenMPI (does not link) building with CLang:
+> $ cd genetic/2.2.2
+>
+> $ CC=clang ./build
 
 Microsoft Windows 7
 ___________________
