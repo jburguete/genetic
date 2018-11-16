@@ -74,8 +74,16 @@ evaluate (Entity * entity)      ///< Entity to simulate.
  * \return 0 always.
  */
 int
-main (int argn,                 ///< Number of arguments.
-      char **argc)              ///< Array of argument strings.
+main (int argn                  ///< Number of arguments.
+#if !HAVE_MPI
+      __attribute__ ((unused))
+#endif
+      ,
+      char **argc               ///< Array of argument strings.
+#if !HAVE_MPI
+      __attribute__ ((unused))
+#endif
+     )
 {
   int rank;
   char *best_genome;

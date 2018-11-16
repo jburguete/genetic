@@ -36,7 +36,7 @@ else
 fi
 
 # Checks for programs.
-AC_PROG_CC([egcc mpicc gcc clang])
+AC_PROG_CC([mpicc egcc gcc clang])
 AC_PROG_MAKE_SET
 AC_LANG([C])
 PKG_PROG_PKG_CONFIG
@@ -45,16 +45,6 @@ PKG_PROG_PKG_CONFIG
 if test $CC = "mpicc"; then
 	AC_MSG_NOTICE([checking for MPI... yes])
 	AC_SUBST(MPI, "-DHAVE_MPI=1")
-elif test $CC = "egcc"; then
-	if test -x "/usr/local/bin/mpicc"; then
-		AC_MSG_NOTICE([checking for MPI... yes])
-		AC_SUBST(MPI, "-DHAVE_MPI=1")
-		CPPFLAGS="$CPPFLAGS `mpicc -showme:compile`"
-		LDFLAGS="$LDFLAGS `mpicc -showme:link`"
-	else
-		AC_MSG_NOTICE([checking for MPI... no])
-		AC_SUBST(MPI, "")
-	fi
 else
 	AC_MSG_NOTICE([checking for MPI... no])
 	AC_SUBST(MPI, "")
