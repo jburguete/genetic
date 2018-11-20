@@ -60,6 +60,10 @@ Dyson Illumos
 _____________
 FreeBSD 11.2
 ____________
+Linux Mint DE 3
+_______________
+Manjaro Linux
+_____________
 NetBSD 7.0
 __________
 Xubuntu Linux 18.10
