@@ -48,83 +48,58 @@ FILES
 BUILDING THE BINARY FILES
 -------------------------
 
-This software has been built and tested in the following operative systems.
-Probably, it can be built in other systems, distributions, or versions but it
-has not been tested
+On Fedora 29, in order to use OpenMPI compilation, do in a terminal (in 64 bits
+version):
+> $ export PATH=$PATH:/usr/lib64/openmpi/bin
 
-Debian 9 (kFreeBSD, Linux or Hurd)
-__________________________________
-DragonFly BSD 5.2
-_________________
-Dyson Illumos
-_____________
-FreeBSD 11.2
-____________
-Linux Mint DE 3
-_______________
-Manjaro Linux
-_____________
-NetBSD 7.0
-__________
-Xubuntu Linux 18.10
-___________________
-
-1. Download this repository:
-> $ git clone https://github.com/jburguete/genetic.git
-
-2. Exec on a terminal:
-> $ cd genetic/2.2.2
->
-> $ ./build
-
-OpenBSD 6.4
-___________
-
-1. Select adequate versions:
-> $ export AUTOCONF_VERSION=2.69 AUTOMAKE_VERSION=1.16
-
-2. Deactivate OpenMPI (does not link) building with CLang:
-> $ cd genetic/2.2.2
->
-> $ CC=clang ./build
-
-Microsoft Windows 7
-___________________
-Microsoft Windows 10
-____________________
-
-1. Install [MSYS2](http://sourceforge.net/projects/msys2) and the required
+On Microsoft Windows systems you have to install
+[MSYS2](http://sourceforge.net/projects/msys2) and the required
 libraries and utilities. You can follow detailed instructions in
 [install-unix](https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
-2. Then, in a MSYS2 terminal, follow steps 1 and 2 of the previous Debian 9
-section
+On NetBSD 8.0, to compile with last GCC version you have to do first on the
+building terminal:
+> $ export PATH=/usr/pkg/gcc8/bin:$PATH"
 
-Fedora Linux 29
-_______________
+On OpenBSD 6.4 you have to do first on the building terminal to select
+adequate versions and deactivate OpenMPI (does not link) building with CLang:
+> $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16 CC=clang
 
-1. In order to use OpenMPI compilation do in a terminal (in 64 bits version):
-> $ export PATH=$PATH:/usr/lib64/openmpi/bin
-
-2. Then, follow steps 1 to 4 of the previous Debian 9 section
-
-OpenIndiana Hipster
-___________________
-
-1. In order to use OpenMPI compilation do in a terminal:
+On OpenIndiana Hipster, in order to enable OpenMPI compilation, do in a
+terminal:
 > $ export PATH=$PATH:/usr/lib/openmpi/gcc/bin
 
-2. Then, follow steps 1 to 4 of the previous Debian 9 section
-
-OpenSUSE Linux Leap
-___________________
-
-1. In order to use OpenMPI compilation in 64 bits version do in a terminal
-(OpenMPI configure script does not work in last OpenSUSE versions then does not
-apply this step):
+On OpenSUSE Leap, in order to enable OpenMPI compilation, in 64 bits version do
+in a terminal (OpenMPI configure script does not work in last OpenSUSE versions
+then does not apply this step):
 > $ export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
 
-2. After, follow steps 1 to 4 of the previous Debian 9 section
+This software has been built and tested in the following operative systems:
+* Debian 9 (Linux, kFreeBSD and Hurd)
+* DragonFly BSD 5.2
+* Dyson Illumos
+* Fedora Linux 29
+* FreeBSD 11.2
+* Linux Mint DE 3
+* Manjaro Linux
+* Microsoft Windows 7
+* Microsoft Windows 10
+* NetBSD 8.0 (from source with modular xorg)
+* OpenBSD 6.4
+* OpenInidiana Hipster
+* OpenSUSE Linux Leap 15
+* Ubuntu Mate Linux 18.04
+* Xubuntu Linux 18.10
+
+Probably, it can be built in other systems, distributions, or versions but it
+has not been tested
+
+Download this repository and execute on a terminal:
+> $ git clone https://github.com/jburguete/genetic.git
+>
+> $ cd genetic/2.2.2
+>
+> $ sh ./build.sh
 
 BUILDING IN OTHER PROGRAMS
 --------------------------
@@ -137,17 +112,17 @@ To build statically this algorithm in other programs:
 1. Build the binary code (follows the former section steps)
 
 2. Link in your source directory the latest code version i.e.
-> $ cd YOUR_PROGRAM_PATH
+> $ cd YOUR_PROGRAM\_PATH
 >
-> $ ln -s PATH_TO_GENETIC/2.2.2 genetic
+> $ ln -s PATH\_TO\_GENETIC/2.2.2 genetic
 
 3. Include the GSL and genetic headers in your source code files:
-> \#include \<gsl/gsl_rng.h\>
+> \#include \<gsl/gsl\_rng.h\>
 >
 > \#include "genetic/genetic.h"
 
 4. Include the genetic object files in your compilation instruction i.e.
-> $ gcc YOUR_CODE.c genetic/entity.o genetic/population.o \
+> $ gcc YOUR\_CODE.c genetic/entity.o genetic/population.o \
 >
 > $ genetic/reproduction.o genetic/selection.o genetic/evolution.o \
 >
@@ -161,9 +136,9 @@ To build dynamically this algorithm in other programs:
 1. Build the binary code (follows the former section steps)
 
 2. Link in your source directory the latest code version i.e.
-> $ cd YOUR_PROGRAM_PATH
+> $ cd YOUR_PROGRAM\_PATH
 >
-> $ ln -s PATH_TO_GENETIC/2.2.2 genetic
+> $ ln -s PATH\_TO\_GENETIC/2.2.2 genetic
 
 3. Include the genetic headers in your source code files:
 > \#include "genetic/genetic.h"
@@ -174,7 +149,7 @@ or in Windows systems:
 > $ ln -s genetic/libgenetic.dll
 
 5. Link the genetic library with your code to build the executable file i.e.
-> $ gcc YOUR_CODE.c -L. -Wl,-rpath=. -lgenetic \`pkg-config --libs gsl\`
+> $ gcc YOUR\_CODE.c -L. -Wl,-rpath=. -lgenetic \`pkg-config --libs gsl\`
 
 USING THE ALGORITHM IN OTHER PROGRAMS
 -------------------------------------
