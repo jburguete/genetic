@@ -1,6 +1,6 @@
 CC = @CC@ @ARCH@ @LTO@ @STD@ -g
 CFLAGS = @MPI@ @CFLAGS@ @GSL_CFLAGS@ @GLIB_CFLAGS@ @GTHREAD_CFLAGS@ -pedantic \
-	-Wextra -Wall -O3
+	-Wextra -Wall -O3 -D_FORTIFY_SOURCE=2
 LIBS = @LDFLAGS@ @LIBS@ @GSL_LIBS@ @GLIB_LIBS@ @GTHREAD_LIBS@
 DEP = Makefile
 OBJ = entity.o population.o reproduction.o selection.o evolution.o genetic.o
