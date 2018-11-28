@@ -99,7 +99,7 @@ Download this repository and execute on a terminal:
 >
 > $ cd genetic/2.2.2
 >
-> $ sh ./build.sh
+> $ sh build.sh
 
 BUILDING IN OTHER PROGRAMS
 --------------------------
