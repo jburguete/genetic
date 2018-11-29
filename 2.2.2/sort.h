@@ -66,16 +66,16 @@ index_sort_merge (double *x,    ///< Evaluation values array.
                   unsigned int *index,  ///< Index array.
                   unsigned int n)       ///< Number of elements.
 {
-  int i, j, i1, i2, k, l;
   unsigned int *ni1, *ni2, *nj, *nk, *nt, nn[n];
+  int i, j, i1, i2, k, l;
   if (n <= 1)
     return;
   j = INDEX_SORT_MERGE_MIN;
-  for (i = 0; i < n - j; i += j)
+  for (i = 0; i < (int) n - j; i += j)
     index_sort_insertion (x, index + i, j);
-  if (i < n)
+  if (i < (int) n)
     index_sort_insertion (x, index + i, n - i);
-  for (nk = index, nj = nn; j <= n; j *= 2)
+  for (nk = index, nj = nn; j <= (int) n; j *= 2)
     {
       for (ni1 = nk, l = 0, k = n / j; (k -= 2) >= 0; ni1 = ni2 + j)
         {
@@ -107,7 +107,7 @@ index_sort_merge (double *x,    ///< Evaluation values array.
           while (i1 < j)
             nj[l++] = ni1[i1++];
         }
-      for (; l < n; ++l)
+      for (; l < (int) n; ++l)
         nj[l] = nk[l];
       nt = nk;
       nk = nj;
