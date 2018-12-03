@@ -29,7 +29,7 @@ elif test `uname -s` = "DragonFly"; then
 	LDFLAGS="$LDFLAGS -L/usr/local/lib"
 	CPPFLAGS="$CPPFLAGS -I/usr/local/include"
 fi
-if test $win = 0; then
+if test "x$win" = "x0"; then
 	AC_SUBST(SO, [.so])
 else
 	AC_SUBST(SO, [.dll])
@@ -51,17 +51,19 @@ else
 fi
 	
 # Checking -march=native compiler flag
-compiler=$CC
-CC="$CC -march=native"
-AC_TRY_LINK([],
-	[int main(int argc, char **argv){return 0;}], [arch=1], [arch=0])
-CC=$compiler
-if test $arch = 0; then
-	AC_MSG_NOTICE([checking for -march=native... no])
-	AC_SUBST(ARCH, "")
-else
-	AC_MSG_NOTICE([checking for -march=native... yes])
-	AC_SUBST(ARCH, "-march=native")
+if test "x$win" = "x0"; then
+	compiler=$CC
+	CC="$CC -march=native"
+	AC_TRY_LINK([],
+		[int main(int argc, char **argv){return 0;}], [arch=1], [arch=0])
+	CC=$compiler
+	if test $arch = 0; then
+		AC_MSG_NOTICE([checking for -march=native... no])
+		AC_SUBST(ARCH, "")
+	else
+		AC_MSG_NOTICE([checking for -march=native... yes])
+		AC_SUBST(ARCH, "-march=native")
+	fi
 fi
 
 # Checking -flto compiler flag
