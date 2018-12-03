@@ -102,6 +102,23 @@ else
 	AC_SUBST(STD, "-std=gnu11")
 fi
 
+# Checking PGO optimiztion
+AC_ARG_WITH([pgo],
+	AS_HELP_STRING([--with-pgo], [Build using PGO]))
+if test "x$with_pgo" = "xyes"; then
+	CC="$CC -fprofile-generate"
+	AC_TRY_LINK([], [int main(int argc, char **argv){return 0;}], [pgo=1],
+		[pgo=0])
+	CC=$compiler
+	if test "x$pgo" = "x0"; then
+		AC_MSG_NOTICE("checking for PGO... no")
+		AC_SUBST(PGO, "0")
+	else
+		AC_MSG_NOTICE("checking for PGO... yes")
+		AC_SUBST(PGO, "1")
+	fi
+fi
+
 # Checks for libraries.
 AC_CHECK_LIB([m], [sqrt])
 PKG_CHECK_MODULES([GSL], [gsl])

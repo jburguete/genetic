@@ -4,69 +4,82 @@ CFLAGS = @MPI@ @CFLAGS@ @GSL_CFLAGS@ @GLIB_CFLAGS@ @GTHREAD_CFLAGS@ -pedantic \
 LIBS = @LDFLAGS@ @LIBS@ @GSL_LIBS@ @GLIB_LIBS@ @GTHREAD_LIBS@
 DEP = Makefile
 OBJ = entity.o population.o reproduction.o selection.o evolution.o genetic.o
-PGO = .pgo/
-PGOOBJ = $(PGO)entity.o $(PGO)population.o $(PGO)reproduction.o \
-	$(PGO)selection.o $(PGO)evolution.o $(PGO)genetic.o
-PGOGENERATE = -c -fPIC -fprofile-generate
-PGOUSE = -c -fPIC -fprofile-use -fprofile-correction
+PGO = @PGO@
+ifeq ($(PGO), 1)
+	PGOOBJ = entity.pgo population.pgo reproduction.pgo selection.pgo \
+		evolution.pgo genetic.pgo
+	PGOGENERATE = -fprofile-generate
+	PGOUSE = -fprofile-use -fprofile-correction
+	ENTITYDEP = test_genetic_pgo entity.gcda
+	POPULATIONDEP = test_genetic_pgo population.gcda
+	REPRODUCTIONDEP = test_genetic_pgo reproduction.gcda
+	SELECTIONDEP = test_genetic_pgo selection.gcda
+	EVOLUTIONDEP = test_genetic_pgo evolution.gcda
+	GENETICDEP = test_genetic_pgo genetic.gcda
+	libgeneticpgo = libgeneticpgo@SO@
+else
+	ENTITYDEP = entity.c entity.h $(DEP)
+	POPULATIONDEP = population.c population.h entity.h bits.h $(DEP)
+	REPRODUCTIONDEP = reproduction.c reproduction.h entity.h bits.h $(DEP)
+	SELECTIONDEP = selection.c selection.h entity.h bits.h $(DEP)
+	EVOLUTIONDEP = evolution.c evolution.h selection.h adaptation.h \
+		reproduction.h mutation.h population.h entity.h sort.h bits.h $(DEP)
+	GENETICDEP = genetic.c genetic.h evolution.h selection.h reproduction.h \
+		population.h entity.h bits.h $(DEP)
+endif
 libgenetic = libgenetic@SO@
 
 all: test_genetic $(libgenetic)
 
-$(PGO):
-	test -d $(PGO) || mkdir $(PGO)
+entity.pgo: entity.c entity.h $(DEP)
+	$(CC) -c -fPIC $(CFLAGS) $(PGOGENERATE) entity.c -o entity.pgo
 
-$(PGO)entity.o: entity.c entity.h $(DEP) $(PGO)
-	$(CC) $(CFLAGS) $(PGOGENERATE) entity.c -o $(PGO)entity.o
+population.pgo: population.c population.h entity.h bits.h $(DEP)
+	$(CC) -c -fPIC $(CFLAGS) $(PGOGENERATE) population.c -o population.pgo
 
-$(PGO)population.o: population.c population.h entity.h bits.h $(DEP) $(PGO)
-	$(CC) $(CFLAGS) $(PGOGENERATE) population.c -o $(PGO)population.o
+reproduction.pgo: reproduction.c reproduction.h entity.h bits.h $(DEP)
+	$(CC) -c -fPIC $(CFLAGS) $(PGOGENERATE) reproduction.c -o reproduction.pgo
 
-$(PGO)reproduction.o: reproduction.c reproduction.h entity.h bits.h $(DEP) \
-	$(PGO)
-	$(CC) $(CFLAGS) $(PGOGENERATE) reproduction.c -o $(PGO)reproduction.o
+selection.pgo: selection.c selection.h entity.h bits.h $(DEP)
+	$(CC) -c -fPIC $(CFLAGS) $(PGOGENERATE) selection.c -o selection.pgo
 
-$(PGO)selection.o: selection.c selection.h entity.h bits.h $(DEP) $(PGO)
-	$(CC) $(CFLAGS) $(PGOGENERATE) selection.c -o $(PGO)selection.o
+evolution.pgo: evolution.c evolution.h selection.h adaptation.h \
+	reproduction.h mutation.h population.h entity.h sort.h bits.h $(DEP)
+	$(CC) -c -fPIC $(CFLAGS) $(PGOGENERATE) evolution.c -o evolution.pgo
 
-$(PGO)evolution.o: evolution.c evolution.h selection.h adaptation.h \
-	reproduction.h mutation.h population.h entity.h sort.h bits.h $(DEP) $(PGO)
-	$(CC) $(CFLAGS) $(PGOGENERATE) evolution.c -o $(PGO)evolution.o
+genetic.pgo: genetic.c genetic.h evolution.h selection.h reproduction.h \
+	population.h entity.h bits.h $(DEP)
+	$(CC) -c -fPIC $(CFLAGS) $(PGOGENERATE) genetic.c -o genetic.pgo
 
-$(PGO)genetic.o: genetic.c genetic.h evolution.h selection.h reproduction.h \
-	population.h entity.h bits.h $(DEP) $(PGO)
-	$(CC) $(CFLAGS) $(PGOGENERATE) genetic.c -o $(PGO)genetic.o
+$(libgeneticpgo): $(PGOOBJ)
+	$(CC) -shared $(PGOGENERATE) $(PGOOBJ) -o $(libgeneticpgo) $(LIBS)
 
-$(PGO)$(libgenetic): $(PGOOBJ)
-	$(CC) -shared -fprofile-generate $(PGOOBJ) -o $(PGO)$(libgenetic) $(LIBS)
+test_genetic_pgo: test_genetic.c $(libgeneticpgo)
+	$(CC) $(CFLAGS) $(PGOGENERATE) test_genetic.c -o test_genetic_pgo \
+		$(LIBS) -L. -Wl,-rpath=. -lgeneticpgo
+	./test_genetic_pgo
 
-$(PGO)test_genetic: test_genetic.c $(PGO)$(libgenetic)
-	$(CC) $(CFLAGS) -fprofile-generate test_genetic.c -o $(PGO)test_genetic \
-		$(LIBS) -L$(PGO) -Wl,-rpath=$(PGO) -lgenetic
-	$(PGO)test_genetic
+entity.o: $(ENTITYDEP)
+	$(CC) -c -fPIC $(CFLAGS) $(PGOUSE) entity.c -o entity.o
 
-entity.o: $(PGO)test_genetic
-	$(CC) $(CFLAGS) $(PGOUSE) entity.c -o entity.o
+population.o: $(POPULATIONDEP)
+	$(CC) -c -fPIC $(CFLAGS) $(PGOUSE) population.c -o population.o
 
-population.o: $(PGO)test_genetic
-	$(CC) $(CFLAGS) $(PGOUSE) population.c -o population.o
+reproduction.o: $(REPRODUCTIONDEP)
+	$(CC) -c -fPIC $(CFLAGS) $(PGOUSE) reproduction.c -o reproduction.o
 
-reproduction.o: $(PGO)test_genetic
-	$(CC) $(CFLAGS) $(PGOUSE) reproduction.c -o reproduction.o
+selection.o: $(SELECTIONDEP)
+	$(CC) -c -fPIC $(CFLAGS) $(PGOUSE) selection.c -o selection.o
 
-selection.o: $(PGO)test_genetic
-	$(CC) $(CFLAGS) $(PGOUSE) selection.c -o selection.o
+evolution.o: $(EVOLUTIONDEP)
+	$(CC) -c -fPIC $(CFLAGS) $(PGOUSE) evolution.c -o evolution.o
 
-evolution.o: $(PGO)test_genetic
-	$(CC) $(CFLAGS) $(PGOUSE) evolution.c -o evolution.o
+genetic.o: $(GENETICDEP)
+	$(CC) -c -fPIC $(CFLAGS) $(PGOUSE) genetic.c -o genetic.o
 
-genetic.o: $(PGO)test_genetic
-	$(CC) $(CFLAGS) $(PGOUSE) genetic.c -o genetic.o
+$(libgenetic): $(OBJ) $(libgeneticpgo)
+	$(CC) -shared $(PGOUSE) $(OBJ) -o $(libgenetic) $(LIBS)
 
-$(libgenetic): $(PGO)$(libgenetic) $(OBJ)
-	$(CC) -shared -fprofile-use -fprofile-correction $(OBJ) -o $(libgenetic) \
-		$(LIBS)
-
-test_genetic: $(PGO)test_genetic $(libgenetic)
-	$(CC) $(CFLAGS) -fprofile-use -fprofile-correction test_genetic.c \
-		-o test_genetic $(LIBS) -L. -Wl,-rpath=. -lgenetic
+test_genetic: test_genetic.c $(libgenetic)
+	$(CC) $(CFLAGS) $(PGOUSE) test_genetic.c -o test_genetic $(LIBS) -L. \
+		-Wl,-rpath=. -lgenetic
