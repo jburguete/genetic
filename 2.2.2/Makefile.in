@@ -1,3 +1,5 @@
+.PHONY: clean strip
+
 CC = @CC@ @ARCH@ @LTO@ @STD@ -g
 CFLAGS = @MPI@ @CFLAGS@ @GSL_CFLAGS@ @GLIB_CFLAGS@ @GTHREAD_CFLAGS@ -pedantic \
 	-Wextra -Wall -O3 -D_FORTIFY_SOURCE=2
@@ -83,3 +85,9 @@ $(libgenetic): $(OBJ) $(libgeneticpgo)
 test_genetic: test_genetic.c $(libgenetic)
 	$(CC) $(CFLAGS) $(PGOUSE) test_genetic.c -o test_genetic $(LIBS) -L. \
 		-Wl,-rpath=. -lgenetic
+
+clean:
+	rm *.o *pgo *.gcda *@SO@ test_genetic test_genetic_pgo
+
+strip: test_genetic $(libgenetic)
+	strip test_genetic $(libgenetic)
