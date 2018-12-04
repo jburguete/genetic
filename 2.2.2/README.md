@@ -101,6 +101,13 @@ Download this repository and execute on a terminal:
 >
 > $ sh build.sh
 
+FINAL VERSION
+_____________
+
+Optionally, a final compact version without debug information can be built doing
+on the terminal:
+> $ make strip
+
 BUILDING IN OTHER PROGRAMS
 --------------------------
 
