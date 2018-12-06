@@ -34,10 +34,7 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef SELECTION__H
 #define SELECTION__H 1
 
-/**
- * \enum SelectionMutationType
- * \brief Enumeration to define the types of mutation selection operations.
- */
+///> Enumeration to define the types of mutation selection operations.
 enum SelectionMutationType
 {
   SELECTION_MUTATION_TYPE_RANDOM = 1,
@@ -52,10 +49,7 @@ enum SelectionMutationType
     ///< Mutation selection operation type based on linear probability.
 };
 
-/**
- * \enum SelectionReproductionType
- * \brief Enumeration to define the types of reproduction selection operations.
- */
+///> Enumeration to define the types of reproduction selection operations.
 enum SelectionReproductionType
 {
   SELECTION_REPRODUCTION_TYPE_RANDOM = 1,
@@ -71,10 +65,7 @@ enum SelectionReproductionType
     ///< distribution with respect to rank.
 };
 
-/**
- * \enum SelectionAdaptationType
- * \brief Enumeration to define the types of adaptation selection operations.
- */
+///> Enumeration to define the types of adaptation selection operations.
 enum SelectionAdaptationType
 {
   SELECTION_ADAPTATION_TYPE_RANDOM = 1,

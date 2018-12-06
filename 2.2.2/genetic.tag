@@ -2,17 +2,17 @@
 <tagfile>
   <compound kind="file">
     <name>adaptation.h</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>adaptation_8h</filename>
   </compound>
   <compound kind="file">
     <name>bits.h</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>bits_8h</filename>
   </compound>
   <compound kind="file">
     <name>entity.c</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>entity_8c</filename>
     <includes id="entity_8h" name="entity.h" local="yes" imported="no">entity.h</includes>
     <member kind="function">
@@ -39,7 +39,7 @@
   </compound>
   <compound kind="file">
     <name>entity.h</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>entity_8h</filename>
     <class kind="struct">Entity</class>
     <member kind="function">
@@ -66,7 +66,7 @@
   </compound>
   <compound kind="file">
     <name>evolution.c</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>evolution_8c</filename>
     <includes id="bits_8h" name="bits.h" local="yes" imported="no">bits.h</includes>
     <includes id="sort_8h" name="sort.h" local="yes" imported="no">sort.h</includes>
@@ -115,7 +115,7 @@
   </compound>
   <compound kind="file">
     <name>evolution.h</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>evolution_8h</filename>
     <member kind="function">
       <type>void</type>
@@ -148,7 +148,7 @@
   </compound>
   <compound kind="file">
     <name>genetic.c</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>genetic_8c</filename>
     <includes id="bits_8h" name="bits.h" local="yes" imported="no">bits.h</includes>
     <includes id="entity_8h" name="entity.h" local="yes" imported="no">entity.h</includes>
@@ -196,8 +196,8 @@
       <type>int</type>
       <name>genetic_new</name>
       <anchorfile>genetic_8c.html</anchorfile>
-      <anchor>aa4439bb88fb445cf12acab5462ae38ab</anchor>
-      <arglist>(unsigned int nvariables, GeneticVariable *variable, unsigned int nentities, unsigned int ngenerations, double mutation_ratio, double reproduction_ratio, double adaptation_ratio, double threshold)</arglist>
+      <anchor>ab844dcb1c74432af7837b62f4b0d5fc6</anchor>
+      <arglist>(unsigned int nvariables, GeneticVariable *variable, unsigned int nentities, double mutation_ratio, double reproduction_ratio, double adaptation_ratio, double threshold)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -251,7 +251,7 @@
   </compound>
   <compound kind="file">
     <name>genetic.h</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>genetic_8h</filename>
     <includes id="entity_8h" name="entity.h" local="yes" imported="no">entity.h</includes>
     <includes id="population_8h" name="population.h" local="yes" imported="no">population.h</includes>
@@ -281,8 +281,8 @@
       <type>int</type>
       <name>genetic_new</name>
       <anchorfile>genetic_8h.html</anchorfile>
-      <anchor>aa4439bb88fb445cf12acab5462ae38ab</anchor>
-      <arglist>(unsigned int nvariables, GeneticVariable *variable, unsigned int nentities, unsigned int ngenerations, double mutation_ratio, double reproduction_ratio, double adaptation_ratio, double threshold)</arglist>
+      <anchor>ab844dcb1c74432af7837b62f4b0d5fc6</anchor>
+      <arglist>(unsigned int nvariables, GeneticVariable *variable, unsigned int nentities, double mutation_ratio, double reproduction_ratio, double adaptation_ratio, double threshold)</arglist>
     </member>
     <member kind="function">
       <type>int</type>
@@ -336,12 +336,12 @@
   </compound>
   <compound kind="file">
     <name>mutation.h</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>mutation_8h</filename>
   </compound>
   <compound kind="file">
     <name>population.c</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>population_8c</filename>
     <includes id="bits_8h" name="bits.h" local="yes" imported="no">bits.h</includes>
     <includes id="entity_8h" name="entity.h" local="yes" imported="no">entity.h</includes>
@@ -370,7 +370,7 @@
   </compound>
   <compound kind="file">
     <name>population.h</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>population_8h</filename>
     <class kind="struct">GeneticVariable</class>
     <class kind="struct">Population</class>
@@ -398,7 +398,7 @@
   </compound>
   <compound kind="file">
     <name>reproduction.c</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>reproduction_8c</filename>
     <includes id="bits_8h" name="bits.h" local="yes" imported="no">bits.h</includes>
     <includes id="entity_8h" name="entity.h" local="yes" imported="no">entity.h</includes>
@@ -441,7 +441,7 @@
   </compound>
   <compound kind="file">
     <name>reproduction.h</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>reproduction_8h</filename>
     <member kind="enumeration">
       <type></type>
@@ -506,7 +506,7 @@
   </compound>
   <compound kind="file">
     <name>selection.c</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>selection_8c</filename>
     <includes id="entity_8h" name="entity.h" local="yes" imported="no">entity.h</includes>
     <includes id="population_8h" name="population.h" local="yes" imported="no">population.h</includes>
@@ -536,8 +536,8 @@
       <type>void</type>
       <name>selection_mutation_best</name>
       <anchorfile>selection_8c.html</anchorfile>
-      <anchor>af22a29c153a2dc6199891bae0ca6b46f</anchor>
-      <arglist>(Population *population, Entity **mother, gsl_rng *rng)</arglist>
+      <anchor>a21c889d54e02409e11a5835fbfdeec60</anchor>
+      <arglist>(Population *population, Entity **mother, gsl_rng *rng __attribute__((unused)))</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -612,7 +612,7 @@
   </compound>
   <compound kind="file">
     <name>selection.h</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>selection_8h</filename>
     <member kind="enumeration">
       <type></type>
@@ -748,13 +748,6 @@
     </member>
     <member kind="function">
       <type>void</type>
-      <name>selection_mutation_best</name>
-      <anchorfile>selection_8h.html</anchorfile>
-      <anchor>af22a29c153a2dc6199891bae0ca6b46f</anchor>
-      <arglist>(Population *population, Entity **mother, gsl_rng *rng)</arglist>
-    </member>
-    <member kind="function">
-      <type>void</type>
       <name>selection_mutation_linearrank</name>
       <anchorfile>selection_8h.html</anchorfile>
       <anchor>a80abad68f642a109f2cfbed62f2f15b2</anchor>
@@ -826,7 +819,7 @@
   </compound>
   <compound kind="file">
     <name>sort.h</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>sort_8h</filename>
     <member kind="define">
       <type>#define</type>
@@ -838,7 +831,7 @@
   </compound>
   <compound kind="file">
     <name>test_genetic.c</name>
-    <path>/home/burguete/programas/genetic/2.2.1/</path>
+    <path>/home/burguete/programas/genetic/2.2.2/</path>
     <filename>test__genetic_8c</filename>
     <includes id="entity_8h" name="entity.h" local="yes" imported="no">entity.h</includes>
     <includes id="population_8h" name="population.h" local="yes" imported="no">population.h</includes>
@@ -857,8 +850,8 @@
       <type>int</type>
       <name>main</name>
       <anchorfile>test__genetic_8c.html</anchorfile>
-      <anchor>a6d6b841d00afea11d5056811a58699a1</anchor>
-      <arglist>(int argn, char **argc)</arglist>
+      <anchor>afc34040f187a2c158c76c035e1208f55</anchor>
+      <arglist>(int argn __attribute__((unused)), char **argc __attribute__((unused)))</arglist>
     </member>
     <member kind="variable">
       <type>int</type>
@@ -1068,7 +1061,7 @@
   </compound>
   <compound kind="page">
     <name>md_README</name>
-    <title>GENETIC (2.2.1 version)</title>
+    <title>GENETIC (2.2.2 version)</title>
     <filename>md_README</filename>
   </compound>
 </tagfile>
