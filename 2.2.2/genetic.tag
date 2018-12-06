@@ -536,8 +536,8 @@
       <type>void</type>
       <name>selection_mutation_best</name>
       <anchorfile>selection_8c.html</anchorfile>
-      <anchor>a21c889d54e02409e11a5835fbfdeec60</anchor>
-      <arglist>(Population *population, Entity **mother, gsl_rng *rng __attribute__((unused)))</arglist>
+      <anchor>af22a29c153a2dc6199891bae0ca6b46f</anchor>
+      <arglist>(Population *population, Entity **mother, gsl_rng *rng)</arglist>
     </member>
     <member kind="function">
       <type>void</type>
@@ -748,6 +748,13 @@
     </member>
     <member kind="function">
       <type>void</type>
+      <name>selection_mutation_best</name>
+      <anchorfile>selection_8h.html</anchorfile>
+      <anchor>af22a29c153a2dc6199891bae0ca6b46f</anchor>
+      <arglist>(Population *population, Entity **mother, gsl_rng *rng)</arglist>
+    </member>
+    <member kind="function">
+      <type>void</type>
       <name>selection_mutation_linearrank</name>
       <anchorfile>selection_8h.html</anchorfile>
       <anchor>a80abad68f642a109f2cfbed62f2f15b2</anchor>
@@ -850,8 +857,8 @@
       <type>int</type>
       <name>main</name>
       <anchorfile>test__genetic_8c.html</anchorfile>
-      <anchor>afc34040f187a2c158c76c035e1208f55</anchor>
-      <arglist>(int argn __attribute__((unused)), char **argc __attribute__((unused)))</arglist>
+      <anchor>a6d6b841d00afea11d5056811a58699a1</anchor>
+      <arglist>(int argn, char **argc)</arglist>
     </member>
     <member kind="variable">
       <type>int</type>
