@@ -89,8 +89,9 @@ population_new (Population * population,        ///< Population.
   population->adaptation_min = population->nsurvival;
   population->genome_nbits = genome_nbits;
   population->genome_nbytes = bit_sizeof (genome_nbits);
-  population->objective = (double *) g_malloc (nentities * sizeof (double));
-  population->entity = (Entity *) g_malloc (nentities * sizeof (Entity));
+  population->objective
+		= (double *) g_slice_alloc (nentities * sizeof (double));
+  population->entity = (Entity *) g_slice_alloc (nentities * sizeof (Entity));
   for (i = 0; i < population->nentities; ++i)
     {
       entity_new (population->entity + i, population->genome_nbytes, i);
@@ -110,7 +111,7 @@ population_init_genomes (Population * population,       ///< Population.
 {
   unsigned int i;
   for (i = 0; i < population->nentities; ++i)
-    entity_init (population->entity + i, population->genome_nbytes, rng);
+    entity_init (population->entity + i, rng);
 }
 
 /**
@@ -119,9 +120,10 @@ population_init_genomes (Population * population,       ///< Population.
 void
 population_free (Population * population)       ///< Population.
 {
-  unsigned int i;
-  for (i = 0; i < population->nentities; ++i)
+  unsigned int i, nentities;
+	nentities = population->nentities;
+  for (i = 0; i < nentities; ++i)
     entity_free (population->entity + i);
-  g_free (population->entity);
-  g_free (population->objective);
+  g_slice_free1 (nentities * sizeof (Entity), population->entity);
+  g_slice_free1 (nentities * sizeof (double), population->objective);
 }

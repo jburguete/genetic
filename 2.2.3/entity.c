@@ -26,37 +26,48 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /**
- * \file reproduction.h
- * \brief Header file to define the reproduction functions.
+ * \file entity.c
+ * \brief Source file to define the entity functions.
  * \author Javier Burguete Tolosa.
  * \copyright Copyright 2014 Javier Burguete Tolosa. All rights reserved.
  */
-#ifndef REPRODUCTION__H
-#define REPRODUCTION__H 1
+#define _GNU_SOURCE
+#include <gsl/gsl_rng.h>
+#include <glib.h>
+#include "entity.h"
 
 /**
- * \enum ReproductionType
- * \brief Enumeration to define the types of reproduction operations.
+ * Function to create an entity.
  */
-enum ReproductionType
+void
+entity_new (Entity * entity,    ///< Entity struct.
+            unsigned int genome_nbytes,
+            ///< Number of bytes of the entity genome. 
+            unsigned int id)    ///< Identifier number.
 {
-  REPRODUCTION_TYPE_SINGLEPOINTS = 1,
-  ///< Single points reproduction operation type.
-  REPRODUCTION_TYPE_DOUBLEPOINTS = 2,
-  ///< Double points reproduction operation type.
-  REPRODUCTION_TYPE_MIXING = 3
-    ///< Mixing all bits reproduction operation type.
-};
+  entity->id = id;
+  // Aligning in 4 bytes
+  entity->nbytes = ((genome_nbytes + 3) / 4) * 4;
+  entity->genome = (char *) g_slice_alloc (entity->nbytes);
+}
 
-extern void
-  (*reproduction) (Entity *, Entity *, Entity *, unsigned int, gsl_rng *);
+/**
+ * Function to init randomly the genome of an entity.
+ */
+void
+entity_init (Entity * entity,   ///< Entity struct.
+             gsl_rng * rng)     ///< GSL random numbers generator.
+{
+  unsigned int i;
+  for (i = 0; i < entity->nbytes; ++i)
+    entity->genome[i] = (char) gsl_rng_uniform_int (rng, 256);
+}
 
-void reproduction_singlepoints (Entity * father, Entity * mother, Entity * son,
-                                unsigned int nbits, gsl_rng * rng);
-void reproduction_doublepoints (Entity * father, Entity * mother, Entity * son,
-                                unsigned int nbits, gsl_rng * rng);
-void reproduction_mixing (Entity * father, Entity * mother, Entity * son,
-                          unsigned int nbits, gsl_rng * rng);
-void reproduction_init (unsigned int type);
-
-#endif
+/**
+ * Function to free the memory used by an entity.
+ */
+void
+entity_free (Entity * entity)   ///< Entity struct.
+{
+  g_slice_free1 (entity->nbytes, entity->genome);
+}

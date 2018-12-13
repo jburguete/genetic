@@ -86,28 +86,6 @@ extern void (*selection_reproduction)
   (Population *, Entity **, Entity **, gsl_rng *);
 extern void (*selection_adaptation) (Population *, Entity **, gsl_rng *);
 
-void selection_mutation_random
-  (Population * population, Entity ** mother, gsl_rng * rng);
-void selection_mutation_bestof2
-  (Population * population, Entity ** mother, gsl_rng * rng);
-void selection_mutation_bestof3
-  (Population * population, Entity ** mother, gsl_rng * rng);
-void selection_mutation_best
-  (Population * population, Entity ** mother, gsl_rng * rng);
-void selection_mutation_linearrank
-  (Population * population, Entity ** mother, gsl_rng * rng);
-
-void selection_reproduction_random
-  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng);
-void selection_reproduction_bestof2
-  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng);
-void selection_reproduction_bestof3
-  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng);
-void selection_reproduction_best
-  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng);
-void selection_reproduction_linearrank
-  (Population * population, Entity ** mother, Entity ** father, gsl_rng * rng);
-
 void selection_init (unsigned int mutation_type, unsigned int reproduction_type,
                      unsigned int adaptation_type);
 

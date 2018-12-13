@@ -26,26 +26,31 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /**
- * \file entity.h
- * \brief Header file to define the entity functions and data.
+ * \file reproduction.h
+ * \brief Header file to define the reproduction functions.
  * \author Javier Burguete Tolosa.
  * \copyright Copyright 2014 Javier Burguete Tolosa. All rights reserved.
  */
-#ifndef ENTITY__H
-#define ENTITY__H 1
+#ifndef REPRODUCTION__H
+#define REPRODUCTION__H 1
 
 /**
- * \struct Entity
- * \brief Entity struct.
+ * \enum ReproductionType
+ * \brief Enumeration to define the types of reproduction operations.
  */
-typedef struct
+enum ReproductionType
 {
-  char *genome;                 ///< Genome data.
-  unsigned int id;              ///< Identifier number.
-} Entity;
+  REPRODUCTION_TYPE_SINGLEPOINTS = 1,
+  ///< Single points reproduction operation type.
+  REPRODUCTION_TYPE_DOUBLEPOINTS = 2,
+  ///< Double points reproduction operation type.
+  REPRODUCTION_TYPE_MIXING = 3
+    ///< Mixing all bits reproduction operation type.
+};
 
-void entity_new (Entity * entity, unsigned int genome_nbytes, unsigned int id);
-void entity_init (Entity * entity, unsigned int genome_nbytes, gsl_rng * rng);
-void entity_free (Entity * entity);
+extern void
+  (*reproduction) (Entity *, Entity *, Entity *, unsigned int, gsl_rng *);
+
+void reproduction_init (unsigned int type);
 
 #endif

@@ -46,7 +46,7 @@ void (*reproduction) (Entity *, Entity *, Entity *, unsigned int, gsl_rng *);
 /**
  * Function to mate two genotypes by single-point reproduction of each genome.
  */
-void
+static void
 reproduction_singlepoints (Entity * father,     ///< Father.
                            Entity * mother,     ///< Mother.
                            Entity * son,        ///< Son.
@@ -63,7 +63,7 @@ reproduction_singlepoints (Entity * father,     ///< Father.
 /**
  * Function to mate two genotypes by double-point reproduction of each genome.
  */
-void
+static void
 reproduction_doublepoints (Entity * father,     ///< Father.
                            Entity * mother,     ///< Mother.
                            Entity * son,        ///< Son.
@@ -84,7 +84,7 @@ reproduction_doublepoints (Entity * father,     ///< Father.
 /**
  * Function to mate two genotypes by random mixing both genomes.
  */
-void
+static void
 reproduction_mixing (Entity * father,   ///< Father.
                      Entity * mother,   ///< Mother.
                      Entity * son,      ///< Son.

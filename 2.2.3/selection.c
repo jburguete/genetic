@@ -49,7 +49,7 @@ void (*selection_adaptation) (Population *, Entity **, gsl_rng *);
 /**
  * Function to select a single random entity.
  */
-void
+static void
 selection_mutation_random (Population * population,     ///< Population.
                            Entity ** mother,
                            ///< Pointer to the mother entity.
@@ -63,7 +63,7 @@ selection_mutation_random (Population * population,     ///< Population.
 /**
  * Function to select the best of two random entities.
  */
-void
+static void
 selection_mutation_bestof2 (Population * population,    ///< Population.
                             Entity ** mother,
                             ///< Pointer to the mother entity.
@@ -81,7 +81,7 @@ selection_mutation_bestof2 (Population * population,    ///< Population.
 /**
  * Function to select the best of three random entities.
  */
-void
+static void
 selection_mutation_bestof3 (Population * population,    ///< Population.
                             Entity ** mother,
                             ///< Pointer to the mother entity.
@@ -102,7 +102,7 @@ selection_mutation_bestof3 (Population * population,    ///< Population.
 /**
  * Function to select the best entity only.
  */
-void
+static void
 selection_mutation_best (Population * population,       ///< Population.
                          Entity ** mother,
                          ///< Pointer to the mother entity.
@@ -116,7 +116,7 @@ selection_mutation_best (Population * population,       ///< Population.
  * Function to select an entity based on linear probability distribution with 
  *   respect to rank.
  */
-void
+static void
 selection_mutation_linearrank (Population * population, ///< Population.
                                Entity ** mother,
                                ///< Pointer to the mother entity.
@@ -131,7 +131,7 @@ selection_mutation_linearrank (Population * population, ///< Population.
 /**
  * Function to select a pair of random entities.
  */
-void
+static void
 selection_reproduction_random (Population * population, ///< Population.
                                Entity ** mother,
                                ///< Pointer to the mother entity.
@@ -152,7 +152,7 @@ selection_reproduction_random (Population * population, ///< Population.
  * Function to select a pair of entities. For each parent select the best of two
  *   random entities.
  */
-void
+static void
 selection_reproduction_bestof2 (Population * population,        ///< Population.
                                 Entity ** mother,
                                 ///< Pointer to the mother entity.
@@ -180,7 +180,7 @@ selection_reproduction_bestof2 (Population * population,        ///< Population.
  * Function to select a pair of entities. For each parent select the best of 
  *   three random entities.
  */
-void
+static void
 selection_reproduction_bestof3 (Population * population,        ///< Population.
                                 Entity ** mother,
                                 ///< Pointer to the mother entity.
@@ -213,7 +213,7 @@ selection_reproduction_bestof3 (Population * population,        ///< Population.
 /**
  * Function to select a pair of entities using the best and a random entity.
  */
-void
+static void
 selection_reproduction_best (Population * population,   ///< Population.
                              Entity ** mother,
                              ///< Pointer to the mother entity.
@@ -231,7 +231,7 @@ selection_reproduction_best (Population * population,   ///< Population.
  * Function to select a pair of entities based on linear probability
  *   distribution with respect to rank.
  */
-void
+static void
 selection_reproduction_linearrank (Population * population,     ///< Population.
                                    Entity ** mother,
                                    ///< Pointer to the mother entity.

@@ -26,51 +26,27 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 /**
- * \file entity.c
- * \brief Source file to define the entity functions.
+ * \file entity.h
+ * \brief Header file to define the entity functions and data.
  * \author Javier Burguete Tolosa.
  * \copyright Copyright 2014 Javier Burguete Tolosa. All rights reserved.
  */
-#define _GNU_SOURCE
-#include <gsl/gsl_rng.h>
-#include <glib.h>
-#include "entity.h"
+#ifndef ENTITY__H
+#define ENTITY__H 1
 
 /**
- * Function to create an entity.
+ * \struct Entity
+ * \brief Entity struct.
  */
-void
-entity_new (Entity * entity,    ///< Entity struct.
-            unsigned int genome_nbytes,
-            ///< Number of bytes of the entity genome. 
-            unsigned int id)    ///< Identifier number.
+typedef struct
 {
-  unsigned int i;
-  entity->id = id;
-  // Aligning in 4 bytes
-  i = ((genome_nbytes + 3) / 4) * 4;
-  entity->genome = (char *) g_malloc (i);
-}
+  char *genome;                 ///< Genome data.
+  unsigned int id;              ///< Identifier number.
+	unsigned int nbytes;          ///< genome size in bytes.
+} Entity;
 
-/**
- * Function to init randomly the genome of an entity.
- */
-void
-entity_init (Entity * entity,   ///< Entity struct.
-             unsigned int genome_nbytes,
-             ///< Number of bytes of the entity genome.
-             gsl_rng * rng)     ///< GSL random numbers generator.
-{
-  unsigned int i;
-  for (i = 0; i < genome_nbytes; ++i)
-    entity->genome[i] = (char) gsl_rng_uniform_int (rng, 256);
-}
+void entity_new (Entity * entity, unsigned int genome_nbytes, unsigned int id);
+void entity_init (Entity * entity, gsl_rng * rng);
+void entity_free (Entity * entity);
 
-/**
- * Function to free the memory used by an entity.
- */
-void
-entity_free (Entity * entity)   ///< Entity struct.
-{
-  g_free (entity->genome);
-}
+#endif

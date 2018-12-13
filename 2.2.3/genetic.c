@@ -50,16 +50,10 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define DEBUG_GENETIC 0         ///< Macro to debug the genetic functions.
 
-Population genetic_population[1];
+static Population genetic_population[1];
 ///< Population of the genetic algorithm.
-GMutex mutex[1];
-///< Mutex to lock memory writing on threads.
-double (*genetic_simulation) (Entity *);
+static double (*genetic_simulation) (Entity *);
 ///< Pointer to the function to perform a simulation.
-unsigned int nthreads = 4;
-///< Number or threads with shared memory.
-int ntasks = 1;
-///< Number of distributed tasks.
 
 /**
  * Function to get a variable encoded in the genome of an entity.
@@ -88,7 +82,7 @@ genetic_get_variable (Entity * entity,  ///< Entity struct.
 /**
  * Funtion to apply the evolution of a population.
  */
-void
+static inline void
 genetic_evolution (Population * population,     ///< Population
                    gsl_rng * rng)       ///< GSL random numbers generator.
 {
@@ -106,7 +100,7 @@ genetic_evolution (Population * population,     ///< Population
 /**
  * Funtion to perform the simulations on a thread.
  */
-void
+static void
 genetic_simulation_thread (GeneticThreadData * data)    ///< Thread data.
 {
   unsigned int i;
@@ -135,7 +129,7 @@ genetic_simulation_thread (GeneticThreadData * data)    ///< Thread data.
 /**
  * Function to perform the simulations on a task.
  */
-void
+static void
 genetic_simulation_master (unsigned int nsurvival)
                            ///< Number of survival entities already simulated.
 {
@@ -263,7 +257,7 @@ genetic_simulation_master (unsigned int nsurvival)
 /**
  * Function to perform the simulations on a task.
  */
-void
+static void
 genetic_simulation_slave (unsigned int nsurvival,
                           ///< Number of survival entities already simulated.
                           int rank)     ///< Number of task.
