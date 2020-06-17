@@ -817,6 +817,6 @@
   <compound kind="page">
     <name>md_README</name>
     <title>GENETIC (3.0.0 version)</title>
-    <filename>md_README.html</filename>
+    <filename>md_README</filename>
   </compound>
 </tagfile>

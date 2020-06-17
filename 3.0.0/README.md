@@ -9,6 +9,17 @@ AUTHORS
 * Javier Burguete Tolosa (jburguete@eead.csic.es)
 * Borja Latorre Garcés (borja.latorre@csic.es)
 
+FILES
+-----
+
+* configure.ac: configure generator
+* Makefile.in: Makefile generator
+* build.sh: simplified building shell script
+* README.md: This file
+* \*.h: Header files
+* \*.c: Source files
+* Doxyfile: configuration file to generate doxygen documentation
+
 TOOLS AND LIBRARIES REQUIRED TO BUILD THE EXECUTABLE
 ----------------------------------------------------
 
@@ -34,16 +45,6 @@ parallelized tasks on multiple computers)
 * [doxygen](http://www.stack.nl/~dimitri/doxygen) (standard comments format to
 generate documentation)
 * [latex](https://www.latex-project.org/) (to build the PDF manuals)
-
-FILES
------
-
-* configure.ac: configure generator
-* Makefile.in: Makefile generator
-* README.md: This file
-* \*.h: Header files
-* \*.c: Source files
-* Doxyfile: configuration file to generate doxygen documentation
 
 BUILDING THE BINARY FILES
 -------------------------
