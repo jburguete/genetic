@@ -58,11 +58,11 @@ On Microsoft Windows systems you have to install
 libraries and utilities. You can follow detailed instructions in
 [install-unix](https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
-On NetBSD 8.0, to compile with last GCC version you have to do first on the
+On NetBSD 9.0, to compile with last GCC version you have to do first on the
 building terminal:
-> $ export PATH=/usr/pkg/gcc8/bin:$PATH"
+> $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-On OpenBSD 6.4 you have to do first on the building terminal to select
+On OpenBSD 6.7 you have to do first on the building terminal to select
 adequate versions and deactivate OpenMPI (does not link) building with CLang:
 > $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16 CC=clang
 
@@ -76,21 +76,21 @@ then does not apply this step):
 > $ export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
 
 This software has been built and tested in the following operative systems:
-* Debian 9 (Linux, kFreeBSD and Hurd)
-* DragonFly BSD 5.2
+* Arch Linux
+* Debian 10 (Linux)
+* Devuan Linux 3
+* DragonFly BSD 5.8
 * Dyson Illumos
-* Fedora Linux 29
-* FreeBSD 11.2
+* Fedora Linux 32
+* FreeBSD 12.1
 * Linux Mint DE 3
 * Manjaro Linux
-* Microsoft Windows 7
-* Microsoft Windows 10
-* NetBSD 8.0 (from source with modular xorg)
-* OpenBSD 6.4
+* Microsoft Windows 10 + MSYS2
+* NetBSD 9.0
+* OpenBSD 6.7
 * OpenInidiana Hipster
 * OpenSUSE Linux Leap 15
-* Ubuntu Mate Linux 18.04
-* Xubuntu Linux 18.10
+* Xubuntu Linux 20.04
 
 Probably, it can be built in other systems, distributions, or versions but it
 has not been tested
