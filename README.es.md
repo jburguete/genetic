@@ -1,81 +1,82 @@
-GENETIC (3.0.0 version)
+GENETIC (versión 3.0.0)
 =======================
 
-A simple genetic algorithm for optimization
+:uk:[english](README.md) :es:[español](README.es.md)
 
-AUTHORS
+Un algoritmo genético simple para optimización
+
+AUTORES
 -------
 
 * Javier Burguete Tolosa (jburguete@eead.csic.es)
 * Borja Latorre Garcés (borja.latorre@csic.es)
 
-FILES
------
+FICHEROS
+--------
 
-* configure.ac: configure generator
-* Makefile.in: Makefile generator
-* build.sh: simplified building shell script
-* README.md: This file
-* \*.h: Header files
-* \*.c: Source files
-* Doxyfile: configuration file to generate doxygen documentation
+* configure.ac: generador de configurarción
+* Makefile.in: generador del Makefile
+* build.sh: shell script simplificado de construcción
+* \*.h: ficheros de cabecera
+* \*.c: ficheros fuente
+* Doxyfile: fichero de configuración para generar la documentación doxygen
 
-TOOLS AND LIBRARIES REQUIRED TO BUILD THE EXECUTABLE
-----------------------------------------------------
+UTILIDADES Y BIBLIOTECAS REQUERIDAS PARA CONSTRUIR EL EJECUTABLE
+----------------------------------------------------------------
 
-* [gcc](https://gcc.gnu.org) or [clang](http://clang.llvm.org) (to compile the
-  source code)
-* [make](http://www.gnu.org/software/make) (to build the executable file)
-* [autoconf](http://www.gnu.org/software/autoconf) (to generate the Makefile in
-  different operative systems)
-* [automake](http://www.gnu.org/software/automake) (to check the operative
-  system)
-* [pkg-config](http://www.freedesktop.org/wiki/Software/pkg-config) (to find the
-  libraries to compile)
-* [gsl](http://www.gnu.org/software/gsl) (to generate random numbers)
-* [glib](https://developer.gnome.org/glib) (extended utilities of C to work with
-  data, lists, mapped files, regular expressions, using multicores in shared
-  memory machines, ...)
+* [gcc](https://gcc.gnu.org) o [clang](http://clang.llvm.org) para compilar el
+  código fuente
+* [make](http://www.gnu.org/software/make) para construir el fichero ejecutable
+* [autoconf](http://www.gnu.org/software/autoconf) para generar el Makefile en
+  diferentes sistemas operativos
+* [automake](http://www.gnu.org/software/automake) para detectar el sistema
+  operativo
+* [pkg-config](http://www.freedesktop.org/wiki/Software/pkg-config) para
+  encontrar las bibliotecas para compilar
+* [glib](https://developer.gnome.org/glib) utilidades extendidas de C para
+  trabajar con datos, listas, ficheros mapeados, expresiones regulares, usar
+  multiprocesador en máquinas de memoria compartida, ...
+* [gsl](http://www.gnu.org/software/gsl) para generar números pseudo-aleatorios
 
-OPTIONAL TOOLS AND LIBRARIES
-----------------------------
+UTILIDADES Y BIBLIOTECAS OPCIONALES
+-----------------------------------
 
-* [openmpi](http://www.open-mpi.org) or [mpich](http://www.mpich.org) (to run in
-parallelized tasks on multiple computers)
-* [doxygen](http://www.stack.nl/~dimitri/doxygen) (standard comments format to
-generate documentation)
-* [latex](https://www.latex-project.org/) (to build the PDF manuals)
+* [openmpi](http://www.open-mpi.org) o [mpich](http://www.mpich.org) para
+  ejecutarse en tareas paralelizadas en múltiples computadoras
+* [doxygen](http://www.stack.nl/~dimitri/doxygen) formato de comentarios
+  estándar para generar documentación
+* [latex](https://www.latex-project.org/) para construir los manuales PDF
 
-BUILDING THE BINARY FILES
--------------------------
+CONSTRUIR LOS FICHEROS BINARIOS
+-------------------------------
 
-On Fedora 29, in order to use OpenMPI compilation, do in a terminal (in 64 bits
-version):
+En Fedora 32, para usar compilación con OpenMPI, haga en un terminal (en la
+versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
 
-On Microsoft Windows systems you have to install
-[MSYS2](http://sourceforge.net/projects/msys2) and the required
-libraries and utilities. You can follow detailed instructions in
+En sistemas Microsoft Windows hay que instalar
+[MSYS2](http://sourceforge.net/projects/msys2) con las biliotecas y utilidades
+requeridas. Puede seguir las instrucciones detalladas en
 [install-unix](https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
-On NetBSD 9.0, to compile with last GCC version you have to do first on the
-building terminal:
+En NetBSD 9.0, para compilar con la última versión del compilador GCC hay que
+hacer primero en el terminal de construcción:
 > $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-On OpenBSD 6.7 you have to do first on the building terminal to select
-adequate versions and deactivate OpenMPI (does not link) building with CLang:
-> $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16 CC=clang
+En OpenBSD 6.7 hay que hacer primero en el terminal de construcción para
+seleccionar versiones adecuadas:
+> $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16
 
-On OpenIndiana Hipster, in order to enable OpenMPI compilation, do in a
-terminal:
+En OpenIndiana Hipster, para activar la compilación con OpenMPI, haga en el
+terminal de construcción:
 > $ export PATH=$PATH:/usr/lib/openmpi/gcc/bin
 
-On OpenSUSE Leap, in order to enable OpenMPI compilation, in 64 bits version do
-in a terminal (OpenMPI configure script does not work in last OpenSUSE versions
-then does not apply this step):
+En OpenSUSE Leap, para activar la compilación con OpenMPI, haga en el terminal
+de construcción (en la versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
 
-This software has been built and tested in the following operative systems:
+Esta biblioteca ha sido construida y probada en los siguientes sistemas
+operativos:
 * Arch Linux
 * Debian 10 (Linux)
 * Devuan Linux 3
@@ -92,21 +93,21 @@ This software has been built and tested in the following operative systems:
 * OpenSUSE Linux Leap 15
 * Xubuntu Linux 20.04
 
-Probably, it can be built in other systems, distributions, or versions but it
-has not been tested
+Probablemente puede construirse en otros sistemas, distribuciones o versiones
+pero no ha sido probada
 
-Download this repository and execute on a terminal:
+Descárgese este repositorio y ejecute en un terminal:
 > $ git clone https://github.com/jburguete/genetic.git
 >
 > $ cd genetic/3.0.0
 >
 > $ sh build.sh
 
-FINAL VERSION
+VERSIÓN FINAL
 _____________
 
-Optionally, a final compact version without debug information can be built doing
-on the terminal:
+Opcionalmente, se puede construir una versión final compacta sin información de
+depuración haciendo en el terminal:
 > $ make strip
 
 BUILDING IN OTHER PROGRAMS
@@ -120,7 +121,7 @@ To build statically this algorithm in other programs:
 1. Build the binary code (follows the former section steps)
 
 2. Link in your source directory the latest code version i.e.
-> $ cd YOUR_PROGRAM\_PATH
+> $ cd YOUR\_PROGRAM\_PATH
 >
 > $ ln -s PATH\_TO\_GENETIC/3.0.0 genetic
 
@@ -144,7 +145,7 @@ To build dynamically this algorithm in other programs:
 1. Build the binary code (follows the former section steps)
 
 2. Link in your source directory the latest code version i.e.
-> $ cd YOUR_PROGRAM\_PATH
+> $ cd YOUR\_PROGRAM\_PATH
 >
 > $ ln -s PATH\_TO\_GENETIC/3.0.0 genetic
 
@@ -294,3 +295,4 @@ Exec on a terminal:
 > $ cd latex
 >
 > $ make
+
