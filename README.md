@@ -51,7 +51,7 @@ generate documentation
 BUILDING THE BINARY FILES
 -------------------------
 
-On Fedora 32, in order to use OpenMPI compilation, do in a terminal (in 64 bits
+On Fedora Linux 33, in order to use OpenMPI compilation, do in a terminal (in 64 bits
 version):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
 
@@ -60,11 +60,11 @@ On Microsoft Windows systems you have to install
 libraries and utilities. You can follow detailed instructions in
 [install-unix](https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
-On NetBSD 9.0, to compile with last GCC version you have to do first on the
+On NetBSD 9.1, to compile with last GCC version you have to do first on the
 building terminal:
 > $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-On OpenBSD 6.7 you have to do first on the building terminal to select
+On OpenBSD 6.8 you have to do first on the building terminal to select
 adequate versions and deactivate OpenMPI (does not link) building with CLang:
 > $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16 CC=clang
 
@@ -72,7 +72,7 @@ On OpenIndiana Hipster, in order to enable OpenMPI compilation, do in a
 terminal:
 > $ export PATH=$PATH:/usr/lib/openmpi/gcc/bin
 
-On OpenSUSE Leap, in order to enable OpenMPI compilation, in 64 bits version do
+On OpenSUSE Linux 15.2, in order to enable OpenMPI compilation, in 64 bits version do
 in a terminal:
 > $ export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
 
@@ -80,18 +80,18 @@ This software has been built and tested in the following operative systems:
 * Arch Linux
 * Debian 10 (Linux)
 * Devuan Linux 3
-* DragonFly BSD 5.8
+* Dragonfly BSD 5.8.3
 * Dyson Illumos
-* Fedora Linux 32
-* FreeBSD 12.1
-* Linux Mint DE 3
+* Fedora Linux 33
+* FreeBSD 12.2
+* Linux Mint DE 4
 * Manjaro Linux
 * Microsoft Windows 10 + MSYS2
-* NetBSD 9.0
-* OpenBSD 6.7
+* NetBSD 9.1
+* OpenBSD 6.8
 * OpenInidiana Hipster
-* OpenSUSE Linux Leap 15
-* Xubuntu Linux 20.04
+* OpenSUSE Linux 15.2
+* Xubuntu Linux 20.10
 
 Probably, it can be built in other systems, distributions, or versions but it
 has not been tested

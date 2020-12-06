@@ -50,7 +50,7 @@ UTILIDADES Y BIBLIOTECAS OPCIONALES
 CONSTRUIR LOS FICHEROS BINARIOS
 -------------------------------
 
-En Fedora 32, para usar compilación con OpenMPI, haga en un terminal (en la
+En Fedora Linux 33, para usar compilación con OpenMPI, haga en un terminal (en la
 versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
 
@@ -59,11 +59,11 @@ En sistemas Microsoft Windows hay que instalar
 requeridas. Puede seguir las instrucciones detalladas en
 [install-unix](https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
-En NetBSD 9.0, para compilar con la última versión del compilador GCC hay que
+En NetBSD 9.1, para compilar con la última versión del compilador GCC hay que
 hacer primero en el terminal de construcción:
 > $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-En OpenBSD 6.7 hay que hacer primero en el terminal de construcción para
+En OpenBSD 6.8 hay que hacer primero en el terminal de construcción para
 seleccionar versiones adecuadas:
 > $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16
 
@@ -71,7 +71,7 @@ En OpenIndiana Hipster, para activar la compilación con OpenMPI, haga en el
 terminal de construcción:
 > $ export PATH=$PATH:/usr/lib/openmpi/gcc/bin
 
-En OpenSUSE Leap, para activar la compilación con OpenMPI, haga en el terminal
+En OpenSUSE Linux 15.2, para activar la compilación con OpenMPI, haga en el terminal
 de construcción (en la versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
 
@@ -80,18 +80,18 @@ operativos:
 * Arch Linux
 * Debian 10 (Linux)
 * Devuan Linux 3
-* DragonFly BSD 5.8
+* Dragonfly BSD 5.8.3
 * Dyson Illumos
-* Fedora Linux 32
-* FreeBSD 12.1
-* Linux Mint DE 3
+* Fedora Linux 33
+* FreeBSD 12.2
+* Linux Mint DE 4
 * Manjaro Linux
 * Microsoft Windows 10 + MSYS2
-* NetBSD 9.0
-* OpenBSD 6.7
+* NetBSD 9.1
+* OpenBSD 6.8
 * OpenInidiana Hipster
-* OpenSUSE Linux Leap 15
-* Xubuntu Linux 20.04
+* OpenSUSE Linux 15.2
+* Xubuntu Linux 20.10
 
 Probablemente puede construirse en otros sistemas, distribuciones o versiones
 pero no ha sido probada
