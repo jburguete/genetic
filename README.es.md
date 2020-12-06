@@ -53,6 +53,8 @@ CONSTRUIR LOS FICHEROS BINARIOS
 En Fedora Linux 33, para usar compilación con OpenMPI, haga en un terminal (en la
 versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
+con MPICH (en la versión de 64 bits):
+> $ export PATH=$PATH:/usr/lib64/mpich/bin
 
 En sistemas Microsoft Windows hay que instalar
 [MSYS2](http://sourceforge.net/projects/msys2) con las biliotecas y utilidades

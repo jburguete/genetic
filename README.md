@@ -54,6 +54,8 @@ BUILDING THE BINARY FILES
 On Fedora Linux 33, in order to use OpenMPI compilation, do in a terminal (in 64 bits
 version):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
+with MPIC (in 64 bits version):
+> $ export PATH=$PATH:/usr/lib64/mpich/bin
 
 On Microsoft Windows systems you have to install
 [MSYS2](http://sourceforge.net/projects/msys2) and the required
