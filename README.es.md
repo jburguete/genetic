@@ -50,8 +50,8 @@ UTILIDADES Y BIBLIOTECAS OPCIONALES
 CONSTRUIR LOS FICHEROS BINARIOS
 -------------------------------
 
-En Fedora Linux 33, para usar compilación con OpenMPI, haga en un terminal (en la
-versión de 64 bits):
+En Fedora Linux 33, para usar compilación con OpenMPI, haga en un terminal (en
+la versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
 con MPICH (en la versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/mpich/bin
@@ -73,8 +73,8 @@ En OpenIndiana Hipster, para activar la compilación con OpenMPI, haga en el
 terminal de construcción:
 > $ export PATH=$PATH:/usr/lib/openmpi/gcc/bin
 
-En OpenSUSE Linux 15.2, para activar la compilación con OpenMPI, haga en el terminal
-de construcción (en la versión de 64 bits):
+En OpenSUSE Linux 15.2, para activar la compilación con OpenMPI, haga en el
+terminal de construcción (en la versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
 
 Esta biblioteca ha sido construida y probada en los siguientes sistemas
@@ -297,4 +297,3 @@ Exec on a terminal:
 > $ cd latex
 >
 > $ make
-
