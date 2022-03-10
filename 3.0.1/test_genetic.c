@@ -47,9 +47,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "evolution.h"
 #include "genetic.h"
 
-int ntasks = 1;                 ///< Number of tasks.
-unsigned int nthreads = 1;      ///< Number of threads.
-GMutex mutex[1];                ///< Mutex to lock memory writing on threads.
 GeneticVariable v[2];           ///< Array of variables to optimize.
 
 /**

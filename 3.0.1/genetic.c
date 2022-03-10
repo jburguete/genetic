@@ -50,6 +50,10 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #define DEBUG_GENETIC 0         ///< Macro to debug the genetic functions.
 
+int ntasks = 1;                 ///< Number of tasks.
+unsigned int nthreads = 1;      ///< Number of threads.
+GMutex mutex[1];                ///< Mutex to lock memory writing on threads.
+
 static Population genetic_population[1];
 ///< Population of the genetic algorithm.
 static double (*genetic_simulation) (Entity *);

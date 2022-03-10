@@ -1,4 +1,4 @@
-GENETIC (versión 3.0.0)
+GENETIC (versión 3.0.1)
 =======================
 
 :uk:[english](README.md) :es:[español](README.es.md)
@@ -50,7 +50,7 @@ UTILIDADES Y BIBLIOTECAS OPCIONALES
 CONSTRUIR LOS FICHEROS BINARIOS
 -------------------------------
 
-En Fedora Linux 33, para usar compilación con OpenMPI, haga en un terminal (en
+En Fedora Linux 34, para usar compilación con OpenMPI, haga en un terminal (en
 la versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
 con MPICH (en la versión de 64 bits):
@@ -65,7 +65,7 @@ En NetBSD 9.1, para compilar con la última versión del compilador GCC hay que
 hacer primero en el terminal de construcción:
 > $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-En OpenBSD 6.8 hay que hacer primero en el terminal de construcción para
+En OpenBSD 6.9 hay que hacer primero en el terminal de construcción para
 seleccionar versiones adecuadas:
 > $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16
 
@@ -83,17 +83,17 @@ operativos:
 * Debian 10 (Linux)
 * Devuan Linux 3
 * Dragonfly BSD 5.8.3
-* Dyson Illumos
-* Fedora Linux 33
-* FreeBSD 12.2
+* Fedora Linux 34
+* FreeBSD 13.0
+* Gentoo Linux
 * Linux Mint DE 4
 * Manjaro Linux
 * Microsoft Windows 10 + MSYS2
 * NetBSD 9.1
-* OpenBSD 6.8
+* OpenBSD 6.9
 * OpenInidiana Hipster
 * OpenSUSE Linux 15.2
-* Xubuntu Linux 20.10
+* Ubuntu Linux 21.04
 
 Probablemente puede construirse en otros sistemas, distribuciones o versiones
 pero no ha sido probada
