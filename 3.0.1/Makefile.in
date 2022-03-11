@@ -7,17 +7,19 @@ LIBS = @LDFLAGS@ @LIBS@ @GSL_LIBS@ @GLIB_LIBS@ @GTHREAD_LIBS@
 DEP = Makefile
 OBJ = entity.o population.o reproduction.o selection.o evolution.o genetic.o
 PGO = @PGO@
+test_genetic_pgo = test_genetic_pgo@EXE@
+test_genetic = test_genetic@EXE@
 ifeq ($(PGO), 1)
 	PGOOBJ = entity.pgo population.pgo reproduction.pgo selection.pgo \
 		evolution.pgo genetic.pgo
 	PGOGENERATE = -fprofile-generate
 	PGOUSE = -fprofile-use -fprofile-correction
-	ENTITYDEP = test_genetic_pgo entity.gcda
-	POPULATIONDEP = test_genetic_pgo population.gcda
-	REPRODUCTIONDEP = test_genetic_pgo reproduction.gcda
-	SELECTIONDEP = test_genetic_pgo selection.gcda
-	EVOLUTIONDEP = test_genetic_pgo evolution.gcda
-	GENETICDEP = test_genetic_pgo genetic.gcda
+	ENTITYDEP = $(test_genetic_pgo) entity.gcda
+	POPULATIONDEP = $(test_genetic_pgo) population.gcda
+	REPRODUCTIONDEP = $(test_genetic_pgo) reproduction.gcda
+	SELECTIONDEP = $(test_genetic_pgo) selection.gcda
+	EVOLUTIONDEP = $(test_genetic_pgo) evolution.gcda
+	GENETICDEP = $(test_genetic_pgo) genetic.gcda
 	libgeneticpgo = libgeneticpgo@SO@
 else
 	ENTITYDEP = entity.c entity.h $(DEP)
@@ -31,7 +33,7 @@ else
 endif
 libgenetic = libgenetic@SO@
 
-all: test_genetic $(libgenetic)
+all: $(test_genetic) $(libgenetic)
 
 entity.pgo: entity.c entity.h $(DEP)
 	$(CC) -c -fPIC $(CFLAGS) $(PGOGENERATE) entity.c -o entity.pgo
@@ -56,8 +58,8 @@ genetic.pgo: genetic.c genetic.h evolution.h selection.h reproduction.h \
 $(libgeneticpgo): $(PGOOBJ)
 	$(CC) -shared $(PGOGENERATE) $(PGOOBJ) -o $(libgeneticpgo) $(LIBS)
 
-test_genetic_pgo: test_genetic.c $(libgeneticpgo)
-	$(CC) $(CFLAGS) $(PGOGENERATE) test_genetic.c -o test_genetic_pgo \
+$(test_genetic_pgo): test_genetic.c $(libgeneticpgo)
+	$(CC) $(CFLAGS) $(PGOGENERATE) test_genetic.c -o $(test_genetic_pgo) \
 		$(LIBS) -L. -Wl,-rpath=. -lgeneticpgo
 	./test_genetic_pgo
 
@@ -82,12 +84,12 @@ genetic.o: $(GENETICDEP)
 $(libgenetic): $(OBJ) $(libgeneticpgo)
 	$(CC) -shared $(PGOUSE) $(OBJ) -o $(libgenetic) $(LIBS)
 
-test_genetic: test_genetic.c $(libgenetic)
-	$(CC) $(CFLAGS) $(PGOUSE) test_genetic.c -o test_genetic $(LIBS) -L. \
-		-Wl,-rpath=. -lgenetic
+$(test_genetic): test_genetic.c $(libgenetic)
+	$(CC) $(CFLAGS) $(PGOUSE) test_genetic.c -o $(test_genetic) $(LIBS) \
+		-L. -Wl,-rpath=. -lgenetic
 
 clean:
-	rm *.o *pgo *.gcda *@SO@ test_genetic test_genetic_pgo
+	rm *.o *pgo *.gcda *@SO@ $(test_genetic) $(test_genetic_pgo)
 
-strip: test_genetic $(libgenetic)
-	strip test_genetic $(libgenetic)
+strip: $(test_genetic) $(libgenetic)
+	strip $(test_genetic) $(libgenetic)

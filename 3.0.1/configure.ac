@@ -31,8 +31,10 @@ elif test `uname -s` = "DragonFly"; then
 fi
 if test "x$win" = "x0"; then
 	AC_SUBST(SO, [.so])
+	AC_SUBST(EXE, [])
 else
 	AC_SUBST(SO, [.dll])
+	AC_SUBST(EXE, [.exe])
 fi
 
 # Checks for programs.
