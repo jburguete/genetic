@@ -47,7 +47,7 @@ else
 endif
 libgenetic = $(static)libgenetic.a
 
-all: $(static) $(test_genetic) $(libgenetic)
+all: $(static) $(test_genetic)
 
 $(static):
 	test -d $(static) && mkdir -p $(static)
@@ -116,5 +116,6 @@ $(test_genetic): $(static)test_genetic.o $(libgenetic)
 clean:
 	rm *.o *pgo *.gcda *.a $(test_genetic) $(test_genetic_pgo)
 
-strip: $(test_genetic) $(libgenetic)
-	strip $(test_genetic) $(libgenetic)
+strip:
+	make
+	strip $(test_genetic)
