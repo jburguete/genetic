@@ -3,7 +3,7 @@
 CC = @CC@ @ARCH@ @LTO@ @STD@ -g
 CFLAGS = @MPI@ @CFLAGS@ @GSL_CFLAGS@ @GLIB_CFLAGS@ @GTHREAD_CFLAGS@ -pedantic \
 	-Wextra -Wall -O3 -D_FORTIFY_SOURCE=2
-LIBS = @LDFLAGS@ @LIBS@ @GSL_LIBS@ @GLIB_LIBS@ @GTHREAD_LIBS@
+LIBS = @LDFLAGS@ @GLIB_LIBS@ @GTHREAD_LIBS@ @GSL_LIBS@ @LIBS@
 DEP = Makefile
 OBJ = entity.o population.o reproduction.o selection.o evolution.o genetic.o
 PGO = @PGO@
@@ -58,8 +58,12 @@ genetic.pgo: genetic.c genetic.h evolution.h selection.h reproduction.h \
 $(libgeneticpgo): $(PGOOBJ)
 	$(CC) -shared $(PGOGENERATE) $(PGOOBJ) -o $(libgeneticpgo) $(LIBS)
 
-$(test_genetic_pgo): test_genetic.c $(libgeneticpgo)
-	$(CC) $(CFLAGS) $(PGOGENERATE) test_genetic.c -o $(test_genetic_pgo) \
+test_genetic.pgo: test_genetic.c genetic.h evolution.h selection.h \
+	reproduction.h population.h entity.h bits.h $(DEP)
+	$(CC) -c $(CFLAGS) $(PGOGENERATE) test_genetic.c -o test_genetic.pgo
+
+$(test_genetic_pgo): test_genetic.pgo $(libgeneticpgo)
+	$(CC) $(CFLAGS) $(PGOGENERATE) test_genetic.pgo -o $(test_genetic_pgo) \
 		$(LIBS) -L. -Wl,-rpath=. -lgeneticpgo
 	./test_genetic_pgo
 
@@ -84,8 +88,12 @@ genetic.o: $(GENETICDEP)
 $(libgenetic): $(OBJ) $(libgeneticpgo)
 	$(CC) -shared $(PGOUSE) $(OBJ) -o $(libgenetic) $(LIBS)
 
-$(test_genetic): test_genetic.c $(libgenetic)
-	$(CC) $(CFLAGS) $(PGOUSE) test_genetic.c -o $(test_genetic) $(LIBS) \
+test_genetic.o: test_genetic.c genetic.h evolution.h selection.h \
+	reproduction.h population.h entity.h bits.h $(DEP)
+	$(CC) -c $(CFLAGS) $(PGOUSE) test_genetic.c -o test_genetic.o
+
+$(test_genetic): test_genetic.o $(libgenetic)
+	$(CC) $(CFLAGS) $(PGOUSE) test_genetic.o -o $(test_genetic) $(LIBS) \
 		-L. -Wl,-rpath=. -lgenetic
 
 clean:

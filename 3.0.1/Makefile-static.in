@@ -1,0 +1,120 @@
+.PHONY: clean strip
+
+static = static/
+entity_o = $(static)entity.o
+population_o = $(static)population.o
+reproduction_o = $(static)reproduction.o
+selection_o = $(static)selection.o
+evolution_o = $(static)evolution.o
+genetic_o = $(static)genetic.o
+CC = @CC@ @ARCH@ @LTO@ @STD@ -g
+CFLAGS = @MPI@ @CFLAGS@ @GSL_CFLAGS@ @GLIB_CFLAGS@ @GTHREAD_CFLAGS@ -pedantic \
+	-Wextra -Wall -O3 -D_FORTIFY_SOURCE=2
+LIBS = @LDFLAGS@ @GLIB_LIBS@ @GTHREAD_LIBS@ @GSL_LIBS@ @LIBS@
+DEP = Makefile
+OBJ = $(entity_o) $(population_o) $(reproduction_o) $(selection_o) \
+	$(evolution_o) $(genetic_o)
+PGO = @PGO@
+test_genetic_pgo = $(static)test_genetic_pgo@EXE@
+test_genetic = $(static)test_genetic@EXE@
+ifeq ($(PGO), 1)
+	entity_pgo = $(static)entity.pgo
+	population_pgo = $(static)population.pgo
+	reproduction_pgo = $(static)reproduction.pgo
+	selection_pgo = $(static)selection.pgo
+	evolution_pgo = $(static)evolution.pgo
+	genetic_pgo = $(static)genetic.pgo
+	PGOOBJ = $(entity_pgo) $(population_pgo) $(reproduction_pgo) \
+		$(selection_pgo) $(evolution_pgo) $(genetic_pgo)
+	PGOGENERATE = -fprofile-generate
+	PGOUSE = -fprofile-use -fprofile-correction
+	ENTITYDEP = $(test_genetic_pgo) $(static)entity.gcda
+	POPULATIONDEP = $(test_genetic_pgo) $(static)population.gcda
+	REPRODUCTIONDEP = $(test_genetic_pgo) $(static)reproduction.gcda
+	SELECTIONDEP = $(test_genetic_pgo) $(static)selection.gcda
+	EVOLUTIONDEP = $(test_genetic_pgo) $(static)evolution.gcda
+	GENETICDEP = $(test_genetic_pgo) $(static)genetic.gcda
+	libgeneticpgo = $(static)libgeneticpgo.a
+else
+	ENTITYDEP = entity.c entity.h $(DEP)
+	POPULATIONDEP = population.c population.h entity.h bits.h $(DEP)
+	REPRODUCTIONDEP = reproduction.c reproduction.h entity.h bits.h $(DEP)
+	SELECTIONDEP = selection.c selection.h entity.h bits.h $(DEP)
+	EVOLUTIONDEP = evolution.c evolution.h selection.h adaptation.h \
+		reproduction.h mutation.h population.h entity.h sort.h bits.h $(DEP)
+	GENETICDEP = genetic.c genetic.h evolution.h selection.h reproduction.h \
+		population.h entity.h bits.h $(DEP)
+endif
+libgenetic = $(static)libgenetic.a
+
+all: $(static) $(test_genetic) $(libgenetic)
+
+$(static):
+	test -d $(static) && mkdir -p $(static)
+
+$(entity_pgo): entity.c entity.h $(DEP)
+	$(CC) -c $(CFLAGS) $(PGOGENERATE) entity.c -o $(entity_pgo)
+
+$(population_pgo): population.c population.h entity.h bits.h $(DEP)
+	$(CC) -c $(CFLAGS) $(PGOGENERATE) population.c -o $(population_pgo)
+
+$(reproduction_pgo): reproduction.c reproduction.h entity.h bits.h $(DEP)
+	$(CC) -c $(CFLAGS) $(PGOGENERATE) reproduction.c -o $(reproduction_pgo)
+
+$(selection_pgo): selection.c selection.h entity.h bits.h $(DEP)
+	$(CC) -c $(CFLAGS) $(PGOGENERATE) selection.c -o $(selection_pgo)
+
+$(evolution_pgo): evolution.c evolution.h selection.h adaptation.h \
+	reproduction.h mutation.h population.h entity.h sort.h bits.h $(DEP)
+	$(CC) -c $(CFLAGS) $(PGOGENERATE) evolution.c -o $(evolution_pgo)
+
+$(genetic_pgo): genetic.c genetic.h evolution.h selection.h \
+	reproduction.h population.h entity.h bits.h $(DEP)
+	$(CC) -c $(CFLAGS) $(PGOGENERATE) genetic.c -o $(genetic_pgo)
+
+$(libgeneticpgo): $(PGOOBJ)
+	ar rcs $(libgeneticpgo) $(PGOOBJ)
+
+$(static)test_genetic.pgo: test_genetic.c genetic.h evolution.h selection.h \
+	reproduction.h population.h entity.h bits.h $(DEP)
+	$(CC) -c $(CFLAGS) $(PGOGENERATE) test_genetic.c -o $(static)test_genetic.pgo
+
+$(test_genetic_pgo): $(static)test_genetic.pgo $(libgeneticpgo)
+	$(CC) $(CFLAGS) $(PGOGENERATE) $(static)test_genetic.pgo \
+		-o $(test_genetic_pgo) $(LIBS) -L$(static) -Wl,-rpath=. -lgeneticpgo
+	cd $(static);	./test_genetic_pgo
+
+$(entity_o): $(ENTITYDEP)
+	$(CC) -c $(CFLAGS) $(PGOUSE) entity.c -o $(entity_o)
+
+$(population_o): $(POPULATIONDEP)
+	$(CC) -c $(CFLAGS) $(PGOUSE) population.c -o $(population_o)
+
+$(reproduction_o): $(REPRODUCTIONDEP)
+	$(CC) -c $(CFLAGS) $(PGOUSE) reproduction.c -o $(reproduction_o)
+
+$(selection_o): $(SELECTIONDEP)
+	$(CC) -c $(CFLAGS) $(PGOUSE) selection.c -o $(selection_o)
+
+$(evolution_o): $(EVOLUTIONDEP)
+	$(CC) -c $(CFLAGS) $(PGOUSE) evolution.c -o $(evolution_o)
+
+$(genetic_o): $(GENETICDEP)
+	$(CC) -c $(CFLAGS) $(PGOUSE) genetic.c -o $(static)genetic.o
+
+$(libgenetic): $(OBJ) $(libgeneticpgo)
+	ar rcs $(libgenetic) $(OBJ)
+
+$(static)test_genetic.o: test_genetic.c genetic.h evolution.h selection.h \
+	reproduction.h population.h entity.h bits.h $(DEP)
+	$(CC) -c $(CFLAGS) $(PGOUSE) test_genetic.c -o $(static)test_genetic.o
+
+$(test_genetic): $(static)test_genetic.o $(libgenetic)
+	$(CC) $(CFLAGS) $(PGOUSE) $(static)test_genetic.o -o $(test_genetic) $(LIBS) \
+		-L$(static) -Wl,-rpath=. -lgenetic
+
+clean:
+	rm *.o *pgo *.gcda *.a $(test_genetic) $(test_genetic_pgo)
+
+strip: $(test_genetic) $(libgenetic)
+	strip $(test_genetic) $(libgenetic)

@@ -141,5 +141,16 @@ AC_C_INLINE
 # Checks for library functions.
 AC_CHECK_FUNCS([sqrt])
 
-AC_CONFIG_FILES([Makefile])
+
+# Checking static library
+AC_ARG_WITH([static],
+	AS_HELP_STRING([--with-static], [Build static library]))
+if test "x$with_static" = "xyes"; then
+	mk=Makefile-static.in
+else
+	mk=Makefile.in
+fi
+
+# Output
+AC_CONFIG_FILES([Makefile:$mk])
 AC_OUTPUT
