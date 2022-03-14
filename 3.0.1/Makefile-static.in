@@ -50,7 +50,7 @@ libgenetic = $(static)libgenetic.a
 all: $(static) $(test_genetic)
 
 $(static):
-	test -d $(static) && mkdir -p $(static)
+	test -d $(static) || mkdir -p $(static)
 
 $(entity_pgo): entity.c entity.h $(DEP)
 	$(CC) -c $(CFLAGS) $(PGOGENERATE) entity.c -o $(entity_pgo)

@@ -141,7 +141,6 @@ AC_C_INLINE
 # Checks for library functions.
 AC_CHECK_FUNCS([sqrt])
 
-
 # Checking static library
 AC_ARG_WITH([static],
 	AS_HELP_STRING([--with-static], [Build static library]))
