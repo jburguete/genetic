@@ -34,6 +34,7 @@ ifeq ($(PGO), 1)
 	SELECTIONDEP = $(test_genetic_pgo) $(bin)selection.gcda
 	EVOLUTIONDEP = $(test_genetic_pgo) $(bin)evolution.gcda
 	GENETICDEP = $(test_genetic_pgo) $(bin)genetic.gcda
+	TESTDEP = $(test_genetic_pgo)
 	libgeneticpgo = $(bin)libgeneticpgo.a
 else
 	ENTITYDEP = entity.c entity.h $(DEP)
@@ -44,6 +45,8 @@ else
 		reproduction.h mutation.h population.h entity.h sort.h bits.h $(DEP)
 	GENETICDEP = genetic.c genetic.h evolution.h selection.h reproduction.h \
 		population.h entity.h bits.h $(DEP)
+ 	TESTDEP = test_genetic.c genetic.h evolution.h selection.h population.h \
+		entity.h bits.h $(DEP)
 endif
 CGENERATE = -c $(CFLAGS) $(PGOGENERATE)
 CUSE = -c $(CFLAGS) $(PGOUSE)
@@ -107,8 +110,7 @@ $(genetic_o): $(GENETICDEP)
 $(libgenetic): $(OBJ)
 	ar rcs $(libgenetic) $(OBJ)
 
-$(bin)test_genetic.o: test_genetic.c genetic.h evolution.h selection.h \
-	reproduction.h population.h entity.h bits.h $(DEP)
+$(bin)test_genetic.o: $(TESTDEP)
 	$(CC) -c $(CFLAGS) $(PGOUSE) test_genetic.c -o $(bin)test_genetic.o
 
 $(test_genetic): $(bin)test_genetic.o $(libgenetic)
