@@ -1,10 +1,10 @@
-AC_PREREQ([2.67])
-AC_INIT([GENETIC], [3.0.1], [jburguete@eead.csic.es])
+AC_PREREQ([2.69])
+AC_INIT([GENETIC],[3.0.1], [jburguete@eead.csic.es])
 AC_CONFIG_SRCDIR([genetic.c])
 #AC_CONFIG_HEADERS([config.h])
 
 # Checks for operative systems
-AC_CANONICAL_SYSTEM
+AC_CANONICAL_TARGET
 AM_INIT_AUTOMAKE
 AC_MSG_NOTICE([Build: $build])
 AC_MSG_NOTICE([Host: $host])
@@ -61,8 +61,8 @@ AC_ARG_WITH([native], AS_HELP_STRING([--with-native],
 if test [["x$with_native" = "xyes"] -a ["x$win" = "x0"]]; then
 	compiler=$CC
 	CC="$CC -march=native"
-	AC_TRY_LINK([], [int main(int argc, char **argv){return 0;}], [arch=1],
-       		[arch=0])
+	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
+    [[int main(int argc, char **argv){return 0;}]])], [arch=1], [arch=0])
 	CC=$compiler
 	if test "x$arch" = "x0"; then
 		AC_MSG_NOTICE([checking for -march=native... no])
@@ -76,7 +76,8 @@ fi
 # Checking -flto compiler flag
 compiler=$CC
 CC="$CC -flto"
-AC_TRY_LINK([], [int main(int argc, char **argv){return 0;}], [lto=1], [lto=0])
+AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
+  [[int main(int argc, char **argv){return 0;}]])], [lto=1], [lto=0])
 CC=$compiler
 if test $lto = 0; then
 	AC_MSG_NOTICE("checking for -flto... no")
@@ -89,13 +90,14 @@ fi
 # Checking -std compiler flag
 compiler=$CC
 CC="$CC -std=gnu11"
-AC_TRY_LINK([], [int main(int argc, char **argv){return 0;}], [std=1], [std=0])
+AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
+  [[int main(int argc, char **argv){return 0;}]])], [std=1], [std=0])
 CC=$compiler
 if test $std = 0; then
 	AC_MSG_NOTICE("checking for -std=gnu11... no")
 	CC="$CC -std=gnu99"
-	AC_TRY_LINK([], [int main(int argc, char **argv){return 0;}], [std=1],
-		[std=0])
+	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
+    [[int main(int argc, char **argv){return 0;}]])], [std=1], [std=0])
 	CC=$compiler
 	if test $std = 0; then
 		AC_MSG_NOTICE("checking for -std=gnu99... no")
@@ -114,8 +116,8 @@ AC_ARG_WITH([pgo],
 	AS_HELP_STRING([--with-pgo], [Build using PGO]))
 if test "x$with_pgo" = "xyes"; then
 	CC="$CC -fprofile-generate"
-	AC_TRY_LINK([], [int main(int argc, char **argv){return 0;}], [pgo=1],
-		[pgo=0])
+	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
+    [[int main(int argc, char **argv){return 0;}]])], [pgo=1], [pgo=0])
 	CC=$compiler
 	if test "x$pgo" = "x0"; then
 		AC_MSG_NOTICE("checking for PGO... no")
