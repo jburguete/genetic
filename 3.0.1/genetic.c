@@ -328,7 +328,7 @@ genetic_simulation_slave (unsigned int nsurvival,
            "genetic_simulation_slave: rank=%d send %u reals on %u to master\n",
            rank, nsimulate, nmin);
 #endif
-  // Send the objective function resuts to the master
+  // Send the objective function results to the master
   MPI_Send (population->objective + nmin, nsimulate, MPI_DOUBLE, 0, 1,
             MPI_COMM_WORLD);
 #if DEBUG_GENETIC
