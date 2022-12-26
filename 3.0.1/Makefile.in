@@ -27,7 +27,7 @@ ifeq (@PGO@, 1)
 		$(selection_pgo) $(evolution_pgo) $(genetic_pgo)
 ifeq (@CC@, clang)
 	PGOGENERATE = -fprofile-instr-generate
-	PGOUSE = -fprofile-use=default.profraw
+	PGOUSE = -fprofile-instr-use=default.profraw
 	ENTITYDEP = $(test_genetic_pgo) $(bin)default.profraw
 	POPULATIONDEP = $(test_genetic_pgo) $(bin)default.profraw
 	REPRODUCTIONDEP = $(test_genetic_pgo) $(bin)default.profraw
