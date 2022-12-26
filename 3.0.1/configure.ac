@@ -23,7 +23,7 @@ elif test `uname -s` = "NetBSD"; then
 	AC_MSG_NOTICE([NetBSD])
 	LDFLAGS="$LDFLAGS -L/usr/pkg/lib"
 	CPPFLAGS="$CPPFLAGS -I/usr/pkg/include"
-	PATH="/usr/pkg/gcc48/bin:$PATH"
+	PATH="/usr/pkg/gcc12/bin:$PATH"
 elif test `uname -s` = "DragonFly"; then
 	AC_MSG_NOTICE([DragonFly BSD])
 	LDFLAGS="$LDFLAGS -L/usr/local/lib"
@@ -42,6 +42,18 @@ AC_PROG_CC([mpicc egcc gcc clang])
 AC_PROG_MAKE_SET
 AC_LANG([C])
 PKG_PROG_PKG_CONFIG
+if test "`command -v gmake`"; then
+	AC_SUBST(MAKE, [gmake])
+else
+	AC_SUBST(MAKE, [make])
+fi
+if test $CC = "clang"; then
+	AC_CHECK_PROGS([LLVM_PROFDATA], [llvm-profdata llvm-profdata-15], 0)
+	if test $LLVM_PROFDATA = 0; then
+	      	AC_MSG_ERROR([No llvm-profdata])
+	fi
+	AC_MSG_NOTICE([llvm-profdata: $LLVM_PROFDATA])
+fi
 
 # Checking MPI
 AC_ARG_WITH([mpi], AS_HELP_STRING([--with-mpi], [Build with MPI]))
@@ -61,8 +73,7 @@ AC_ARG_WITH([native], AS_HELP_STRING([--with-native],
 if test [["x$with_native" = "xyes"] -a ["x$win" = "x0"]]; then
 	compiler=$CC
 	CC="$CC -march=native"
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
-    [[int main(int argc, char **argv){return 0;}]])], [arch=1], [arch=0])
+	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [arch=1], [arch=0])
 	CC=$compiler
 	if test "x$arch" = "x0"; then
 		AC_MSG_NOTICE([checking for -march=native... no])
@@ -76,8 +87,7 @@ fi
 # Checking -flto compiler flag
 compiler=$CC
 CC="$CC -flto"
-AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
-  [[int main(int argc, char **argv){return 0;}]])], [lto=1], [lto=0])
+AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [lto=1], [lto=0])
 CC=$compiler
 if test $lto = 0; then
 	AC_MSG_NOTICE("checking for -flto... no")
@@ -90,14 +100,12 @@ fi
 # Checking -std compiler flag
 compiler=$CC
 CC="$CC -std=gnu11"
-AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
-  [[int main(int argc, char **argv){return 0;}]])], [std=1], [std=0])
+AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [std=1], [std=0])
 CC=$compiler
 if test $std = 0; then
 	AC_MSG_NOTICE("checking for -std=gnu11... no")
 	CC="$CC -std=gnu99"
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
-    [[int main(int argc, char **argv){return 0;}]])], [std=1], [std=0])
+	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [std=1], [std=0])
 	CC=$compiler
 	if test $std = 0; then
 		AC_MSG_NOTICE("checking for -std=gnu99... no")
@@ -116,12 +124,19 @@ AC_ARG_WITH([pgo],
 	AS_HELP_STRING([--with-pgo], [Build using PGO]))
 if test "x$with_pgo" = "xyes"; then
 	CC="$CC -fprofile-generate"
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]],
-    [[int main(int argc, char **argv){return 0;}]])], [pgo=1], [pgo=0])
+	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [pgo=1], [pgo=0])
 	CC=$compiler
 	if test "x$pgo" = "x0"; then
-		AC_MSG_NOTICE("checking for PGO... no")
-		AC_SUBST(PGO, "0")
+		CC="$CC -fprofile-instr-generate"
+		AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [pgo=1], [pgo=0])
+		CC=$compiler
+		if test "x$pgo" = "x0"; then
+			AC_MSG_NOTICE("checking for PGO... no")
+			AC_SUBST(PGO, "0")
+		else
+			AC_MSG_NOTICE("checking for PGO... yes")
+			AC_SUBST(PGO, "1")
+		fi
 	else
 		AC_MSG_NOTICE("checking for PGO... yes")
 		AC_SUBST(PGO, "1")
