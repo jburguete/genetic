@@ -1,5 +1,5 @@
 AC_PREREQ([2.69])
-AC_INIT([GENETIC],[3.0.1], [jburguete@eead.csic.es])
+AC_INIT([GENETIC],[3.0.1],[jburguete@eead.csic.es])
 AC_CONFIG_SRCDIR([genetic.c])
 #AC_CONFIG_HEADERS([config.h])
 
@@ -60,22 +60,23 @@ AC_ARG_WITH([mpi], AS_HELP_STRING([--with-mpi], [Build with MPI]))
 if test "x$with_mpi" = "xyes"; then
 	if test "x$CC" = "xmpicc"; then
 		AC_MSG_NOTICE([checking for MPI... yes])
-		AC_SUBST(MPI, "-DHAVE_MPI=1")
+		AC_DEFINE([HAVE_MPI], [1])
 	else
 		AC_MSG_NOTICE([checking for MPI... no])
-		AC_SUBST(MPI, "")
 	fi
 fi
 	
+# Checks for compiler flags
+compiler=$CC
+
 # Checking -march=native compiler flag
 AC_ARG_WITH([native], AS_HELP_STRING([--with-native],
 	[Build with native optimization]))
 if test [["x$with_native" = "xyes"] -a ["x$win" = "x0"]]; then
-	compiler=$CC
 	CC="$CC -march=native"
 	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [arch=1], [arch=0])
 	CC=$compiler
-	if test "x$arch" = "x0"; then
+	if test $arch = 0; then
 		AC_MSG_NOTICE([checking for -march=native... no])
 		AC_SUBST(ARCH, "")
 	else
@@ -85,20 +86,18 @@ if test [["x$with_native" = "xyes"] -a ["x$win" = "x0"]]; then
 fi
 
 # Checking -flto compiler flag
-compiler=$CC
 CC="$CC -flto"
 AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [lto=1], [lto=0])
 CC=$compiler
 if test $lto = 0; then
-	AC_MSG_NOTICE("checking for -flto... no")
+	AC_MSG_NOTICE([checking for -flto... no])
 	AC_SUBST(LTO, "")
 else
-	AC_MSG_NOTICE("checking for -flto... yes")
+	AC_MSG_NOTICE([checking for -flto... yes])
 	AC_SUBST(LTO, "-flto")
 fi
 
 # Checking -std compiler flag
-compiler=$CC
 CC="$CC -std=gnu11"
 AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [std=1], [std=0])
 CC=$compiler
@@ -122,26 +121,23 @@ fi
 # Checking PGO optimiztion
 AC_ARG_WITH([pgo],
 	AS_HELP_STRING([--with-pgo], [Build using PGO]))
+pgo=0
 if test "x$with_pgo" = "xyes"; then
 	CC="$CC -fprofile-generate"
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [pgo=1], [pgo=0])
+	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [pgo=1])
 	CC=$compiler
-	if test "x$pgo" = "x0"; then
+	if test $pgo = 0; then
 		CC="$CC -fprofile-instr-generate"
-		AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [pgo=1], [pgo=0])
+		AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [pgo=1])
 		CC=$compiler
-		if test "x$pgo" = "x0"; then
-			AC_MSG_NOTICE("checking for PGO... no")
-			AC_SUBST(PGO, "0")
-		else
-			AC_MSG_NOTICE("checking for PGO... yes")
-			AC_SUBST(PGO, "1")
-		fi
-	else
-		AC_MSG_NOTICE("checking for PGO... yes")
-		AC_SUBST(PGO, "1")
 	fi
 fi
+if test $pgo = 0; then
+		AC_MSG_NOTICE("checking for PGO... no")
+else
+		AC_MSG_NOTICE("checking for PGO... yes")
+fi
+AC_SUBST(PGO, [$pgo])
 
 # Checks for libraries.
 AC_CHECK_LIB([m], [sqrt])
