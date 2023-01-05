@@ -1,7 +1,6 @@
+# Header
 AC_PREREQ([2.69])
 AC_INIT([GENETIC],[3.0.1],[jburguete@eead.csic.es])
-AC_CONFIG_SRCDIR([genetic.c])
-#AC_CONFIG_HEADERS([config.h])
 
 # Checks for operative systems
 AC_CANONICAL_TARGET
@@ -9,16 +8,19 @@ AM_INIT_AUTOMAKE
 AC_MSG_NOTICE([Build: $build])
 AC_MSG_NOTICE([Host: $host])
 win=0
+native=1
 if test $host = "x86_64-w64-mingw32"; then
 	AC_MSG_NOTICE([Microsoft Windows 64 bits])
 	CPPFLAGS="$CPPFLAGS -I/mingw/include"
 	AC_SUBST(ccflags, "-march=corei7 -mfpmath=sse -msse3 -mwindows")
 	win=1
+	native=0
 elif test $host = "i686-w64-mingw32"; then
 	AC_MSG_NOTICE([Microsoft Windows 32 bits])
 	CPPFLAGS="$CPPFLAGS -I/mingw/include"
 	AC_SUBST(ccflags, "-march=pentium4 -mfpmath=sse -msse2 -mwindows")
 	win=1
+	native=0
 elif test `uname -s` = "NetBSD"; then
 	AC_MSG_NOTICE([NetBSD])
 	LDFLAGS="$LDFLAGS -L/usr/pkg/lib"
@@ -28,17 +30,22 @@ elif test `uname -s` = "DragonFly"; then
 	AC_MSG_NOTICE([DragonFly BSD])
 	LDFLAGS="$LDFLAGS -L/usr/local/lib"
 	CPPFLAGS="$CPPFLAGS -I/usr/local/include"
+elif test `uname -s` = "OpenBSD"; then
+	AC_MSG_NOTICE([OpenBSD])
+	native=0
 fi
 if test "x$win" = "x0"; then
 	AC_SUBST(SO, [.so])
-	AC_SUBST(EXE, [])
 else
 	AC_SUBST(SO, [.dll])
 	AC_SUBST(EXE, [.exe])
 fi
 
 # Checks for programs.
-AC_PROG_CC([mpicc egcc gcc clang])
+AC_PROG_CC([mpicc gcc-12 gcc12 gcc-11 gcc11 gcc-10 gcc10 egcc gcc clang])
+AC_MSG_NOTICE([Compiler: $CC])
+$CC -v
+AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_LANG([C])
 PKG_PROG_PKG_CONFIG
@@ -70,18 +77,19 @@ fi
 compiler=$CC
 
 # Checking -march=native compiler flag
-AC_ARG_WITH([native], AS_HELP_STRING([--with-native],
-	[Build with native optimization]))
-if test [["x$with_native" = "xyes"] -a ["x$win" = "x0"]]; then
-	CC="$CC -march=native"
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [arch=1], [arch=0])
-	CC=$compiler
-	if test $arch = 0; then
-		AC_MSG_NOTICE([checking for -march=native... no])
-		AC_SUBST(ARCH, "")
-	else
-		AC_MSG_NOTICE([checking for -march=native... yes])
-		AC_SUBST(ARCH, "-march=native")
+if test $native = 1; then
+	AC_ARG_WITH([native], AS_HELP_STRING([--with-native],
+		[Build using -march=native flag]))
+	if test "x$with_native" = "xyes"; then
+		CC="$CC -march=native"
+		AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [arch=1], [arch=0])
+		CC=$compiler
+		if test $arch = 0; then
+			AC_MSG_NOTICE([checking for -march=native... no])
+		else
+			AC_MSG_NOTICE([checking for -march=native... yes])
+			AC_SUBST(ARCH, "-march=native")
+		fi
 	fi
 fi
 
@@ -91,31 +99,9 @@ AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [lto=1], [lto=0])
 CC=$compiler
 if test $lto = 0; then
 	AC_MSG_NOTICE([checking for -flto... no])
-	AC_SUBST(LTO, "")
 else
 	AC_MSG_NOTICE([checking for -flto... yes])
 	AC_SUBST(LTO, "-flto")
-fi
-
-# Checking -std compiler flag
-CC="$CC -std=gnu11"
-AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [std=1], [std=0])
-CC=$compiler
-if test $std = 0; then
-	AC_MSG_NOTICE("checking for -std=gnu11... no")
-	CC="$CC -std=gnu99"
-	AC_LINK_IFELSE([AC_LANG_PROGRAM([[]], [[]])], [std=1], [std=0])
-	CC=$compiler
-	if test $std = 0; then
-		AC_MSG_NOTICE("checking for -std=gnu99... no")
-		AC_SUBST(STD, "")
-	else
-		AC_MSG_NOTICE("checking for -std=gnu99... yes")
-		AC_SUBST(STD, "-std=gnu99")
-	fi
-else
-	AC_MSG_NOTICE("checking for -std=gnu11... yes")
-	AC_SUBST(STD, "-std=gnu11")
 fi
 
 # Checking PGO optimiztion
@@ -150,13 +136,13 @@ AC_CHECK_HEADERS([string.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_C_INLINE
+AC_TYPE_SIZE_T
 
 # Checks for library functions.
 AC_CHECK_FUNCS([sqrt])
 
 # Checking static library
-AC_ARG_WITH([static],
-	AS_HELP_STRING([--with-static], [Build static library]))
+AC_ARG_WITH([static], AS_HELP_STRING([--with-static], [Build static library]))
 if test "x$with_static" = "xyes"; then
 	mk=Makefile-static.in
 else
@@ -164,5 +150,6 @@ else
 fi
 
 # Output
+AC_CONFIG_SRCDIR([genetic.c])
 AC_CONFIG_FILES([Makefile:$mk])
 AC_OUTPUT
