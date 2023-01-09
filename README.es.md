@@ -50,7 +50,7 @@ UTILIDADES Y BIBLIOTECAS OPCIONALES
 CONSTRUIR LOS FICHEROS BINARIOS
 -------------------------------
 
-En Fedora Linux 35, para usar compilación con OpenMPI, haga en un terminal (en
+En Fedora Linux 37, para usar compilación con OpenMPI, haga en un terminal (en
 la versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
 con MPICH (en la versión de 64 bits):
@@ -61,11 +61,11 @@ En sistemas Microsoft Windows hay que instalar
 requeridas. Puede seguir las instrucciones detalladas en
 [install-unix](https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
-En NetBSD 9.2, para compilar con la última versión del compilador GCC hay que
+En NetBSD 9.3, para compilar con la última versión del compilador GCC hay que
 hacer primero en el terminal de construcción:
 > $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-En OpenBSD 7.0 hay que hacer primero en el terminal de construcción para
+En OpenBSD 7.2 hay que hacer primero en el terminal de construcción para
 seleccionar versiones adecuadas:
 > $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16
 
@@ -73,27 +73,27 @@ En OpenIndiana Hipster, para activar la compilación con OpenMPI, haga en el
 terminal de construcción:
 > $ export PATH=$PATH:/usr/lib/openmpi/gcc/bin
 
-En OpenSUSE Linux 15.3, para activar la compilación con OpenMPI, haga en el
+En OpenSUSE Linux 15.4, para activar la compilación con OpenMPI, haga en el
 terminal de construcción (en la versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
 
 Esta biblioteca ha sido construida y probada en los siguientes sistemas
 operativos:
 * Arch Linux
-* Debian 11 (Linux)
+* Debian Linux 11
 * Devuan Linux 4
-* Dragonfly BSD 6.2.1
-* Fedora Linux 35
-* FreeBSD 13.0
+* Dragonfly BSD 6.4
+* Fedora Linux 37
+* FreeBSD 13.1
 * Gentoo Linux
 * Linux Mint DE 5
 * Manjaro Linux
 * Microsoft Windows 10 + MSYS2
-* NetBSD 9.2
-* OpenBSD 7.0
+* NetBSD 9.3
+* OpenBSD 7.2
 * OpenInidiana Hipster
-* OpenSUSE Linux 15.3
-* Ubuntu Linux 21.04
+* OpenSUSE Linux 15.4
+* Ubuntu Linux 22.10
 
 Probablemente puede construirse en otros sistemas, distribuciones o versiones
 pero no ha sido probada
@@ -101,7 +101,7 @@ pero no ha sido probada
 Descárgese este repositorio y ejecute en un terminal:
 > $ git clone https://github.com/jburguete/genetic.git
 >
-> $ cd genetic/3.0.0
+> $ cd genetic/3.0.1
 >
 > $ sh build.sh
 
@@ -112,55 +112,29 @@ Opcionalmente, se puede construir una versión final compacta sin información d
 depuración haciendo en el terminal:
 > $ make strip
 
-BUILDING IN OTHER PROGRAMS
---------------------------
+ENLAZANDO EN OTROS PROGRAMAS
+----------------------------
 
-STATICALLY
-__________
+Para enlazar dinámicamente este algoritmo en otros programas:
 
-To build statically this algorithm in other programs:
+1. Construa el código binario siguiendo las intrucciones de la sección anterior
 
-1. Build the binary code (follows the former section steps)
-
-2. Link in your source directory the latest code version i.e.
-> $ cd YOUR\_PROGRAM\_PATH
+2. Enlace en su carpeta fuente la última versión del código, p. ej:
+> $ cd RUTA\_A\_SU\_PROGRAMA
 >
-> $ ln -s PATH\_TO\_GENETIC/3.0.0 genetic
+> $ ln -s RUTA\_A\_GENETIC/3.0.1 genetic
 
-3. Include the GSL and genetic headers in your source code files:
-> \#include \<gsl/gsl\_rng.h\>
->
+3. Incluya las cabeceras de genetic en sus ficheros de código fuente:
 > \#include "genetic/genetic.h"
 
-4. Include the genetic object files in your compilation instruction i.e.
-> $ gcc YOUR\_CODE.c genetic/entity.o genetic/population.o \
->
-> $ genetic/reproduction.o genetic/selection.o genetic/evolution.o \
->
-> $ genetic/genetic.o \`pkg-config --libs gsl\`
-
-DYNAMICALLY
-___________
-
-To build dynamically this algorithm in other programs:
-
-1. Build the binary code (follows the former section steps)
-
-2. Link in your source directory the latest code version i.e.
-> $ cd YOUR\_PROGRAM\_PATH
->
-> $ ln -s PATH\_TO\_GENETIC/3.0.0 genetic
-
-3. Include the genetic headers in your source code files:
-> \#include "genetic/genetic.h"
-
-4. Link the dynamic library in your source directory:
+4. Enlace la bibloteca dinámica en su carpeta fuente:
 > $ ln -s genetic/libgenetic.so
-or in Windows systems:
+   o en sistemas Windows:
 > $ ln -s genetic/libgenetic.dll
 
-5. Link the genetic library with your code to build the executable file i.e.
-> $ gcc YOUR\_CODE.c -L. -Wl,-rpath=. -lgenetic \`pkg-config --libs gsl\`
+5. Enlace la biblioteca genetic con su código para construir el fichero
+   ejecutable, p. ej:
+> $ gcc SU\_CÓDIGO.c -L. -Wl,-rpath=. -lgenetic \`pkg-config --libs gsl\`
 
 USING THE ALGORITHM IN OTHER PROGRAMS
 -------------------------------------
@@ -286,11 +260,11 @@ int genetic_algorithm_default(
   double *best_objective);
 ```
 
-MAKING REFERENCE MANUAL INSTRUCTIONS (file latex/refman.pdf)
-------------------------------------------------------------
+INSTRUCCIONES PARA CONSTRUIR EL MANUAL DE REFERENCIA (fichero latex/refman.pdf)
+-------------------------------------------------------------------------------
 
-Exec on a terminal:
-> $ cd genetic/3.0.0
+Ejeecute en un terminal:
+> $ cd genetic/3.0.1
 >
 > $ doxygen
 >

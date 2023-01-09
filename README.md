@@ -51,7 +51,7 @@ generate documentation
 BUILDING THE BINARY FILES
 -------------------------
 
-On Fedora Linux 35, in order to use OpenMPI compilation, do in a terminal (in 64 bits
+On Fedora Linux 37, in order to use OpenMPI compilation, do in a terminal (in 64 bits
 version):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
 with MPIC (in 64 bits version):
@@ -62,11 +62,11 @@ On Microsoft Windows systems you have to install
 libraries and utilities. You can follow detailed instructions in
 [install-unix](https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
-On NetBSD 9.2, to compile with last GCC version you have to do first on the
+On NetBSD 9.3, to compile with last GCC version you have to do first on the
 building terminal:
 > $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-On OpenBSD 7.0 you have to do first on the building terminal to select
+On OpenBSD 7.2 you have to do first on the building terminal to select
 adequate versions and deactivate OpenMPI (does not link) building with CLang:
 > $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16 CC=clang
 
@@ -74,26 +74,26 @@ On OpenIndiana Hipster, in order to enable OpenMPI compilation, do in a
 terminal:
 > $ export PATH=$PATH:/usr/lib/openmpi/gcc/bin
 
-On OpenSUSE Linux 15.3, in order to enable OpenMPI compilation, in 64 bits version do
+On OpenSUSE Linux 15.4, in order to enable OpenMPI compilation, in 64 bits version do
 in a terminal:
 > $ export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
 
 This software has been built and tested in the following operative systems:
 * Arch Linux
-* Debian 11 (Linux)
+* Debian Linux 11
 * Devuan Linux 4
-* Dragonfly BSD 6.2.1
-* Dyson Illumos
-* Fedora Linux 35
-* FreeBSD 13.0
+* Dragonfly BSD 6.4
+* Fedora Linux 37
+* FreeBSD 13.1
+* Gentoo Linux
 * Linux Mint DE 5
 * Manjaro Linux
 * Microsoft Windows 10 + MSYS2
-* NetBSD 9.2
-* OpenBSD 7.0
+* NetBSD 9.3
+* OpenBSD 7.2
 * OpenInidiana Hipster
-* OpenSUSE Linux 15.3
-* Ubuntu Linux 
+* OpenSUSE Linux 15.4
+* Ubuntu Linux 22.10
 
 Probably, it can be built in other systems, distributions, or versions but it
 has not been tested
@@ -101,7 +101,7 @@ has not been tested
 Download this repository and execute on a terminal:
 > $ git clone https://github.com/jburguete/genetic.git
 >
-> $ cd genetic/3.0.0
+> $ cd genetic/3.0.1
 >
 > $ sh build.sh
 
@@ -115,33 +115,6 @@ on the terminal:
 BUILDING IN OTHER PROGRAMS
 --------------------------
 
-STATICALLY
-__________
-
-To build statically this algorithm in other programs:
-
-1. Build the binary code (follows the former section steps)
-
-2. Link in your source directory the latest code version i.e.
-> $ cd YOUR\_PROGRAM\_PATH
->
-> $ ln -s PATH\_TO\_GENETIC/3.0.0 genetic
-
-3. Include the GSL and genetic headers in your source code files:
-> \#include \<gsl/gsl\_rng.h\>
->
-> \#include "genetic/genetic.h"
-
-4. Include the genetic object files in your compilation instruction i.e.
-> $ gcc YOUR\_CODE.c genetic/entity.o genetic/population.o \
->
-> $ genetic/reproduction.o genetic/selection.o genetic/evolution.o \
->
-> $ genetic/genetic.o \`pkg-config --libs gsl\`
-
-DYNAMICALLY
-___________
-
 To build dynamically this algorithm in other programs:
 
 1. Build the binary code (follows the former section steps)
@@ -149,14 +122,14 @@ To build dynamically this algorithm in other programs:
 2. Link in your source directory the latest code version i.e.
 > $ cd YOUR\_PROGRAM\_PATH
 >
-> $ ln -s PATH\_TO\_GENETIC/3.0.0 genetic
+> $ ln -s PATH\_TO\_GENETIC/3.0.1 genetic
 
 3. Include the genetic headers in your source code files:
 > \#include "genetic/genetic.h"
 
 4. Link the dynamic library in your source directory:
 > $ ln -s genetic/libgenetic.so
-or in Windows systems:
+   or in Windows systems:
 > $ ln -s genetic/libgenetic.dll
 
 5. Link the genetic library with your code to build the executable file i.e.
@@ -290,11 +263,10 @@ MAKING REFERENCE MANUAL INSTRUCTIONS (file latex/refman.pdf)
 ------------------------------------------------------------
 
 Exec on a terminal:
-> $ cd genetic/3.0.0
+> $ cd genetic/3.0.1
 >
 > $ doxygen
 >
 > $ cd latex
 >
 > $ make
-
