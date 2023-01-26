@@ -141,15 +141,8 @@ AC_TYPE_SIZE_T
 # Checks for library functions.
 AC_CHECK_FUNCS([sqrt])
 
-# Checking static library
-AC_ARG_WITH([static], AS_HELP_STRING([--with-static], [Build static library]))
-if test "x$with_static" = "xyes"; then
-	mk=Makefile-static.in
-else
-	mk=Makefile.in
-fi
-
 # Output
+mk=Makefile.in
 AC_CONFIG_SRCDIR([genetic.c])
 AC_CONFIG_FILES([Makefile:$mk])
 AC_OUTPUT
