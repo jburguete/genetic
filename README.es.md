@@ -136,13 +136,13 @@ Para enlazar dinámicamente este algoritmo en otros programas:
    ejecutable, p. ej:
 > $ gcc SU\_CÓDIGO.c -L. -Wl,-rpath=. -lgenetic \`pkg-config --libs gsl\`
 
-USING THE ALGORITHM IN OTHER PROGRAMS
+USANDO EL ALGORITMO EN OTROS PROGRAMAS
 -------------------------------------
 
-MAIN FUNCTION
+FUNCIÓN PRINCIPAL
 _____________
 
-The prototype of the main function is:
+El prototipo de la función principal es:
 
 ```c
 int genetic_algorithm(
@@ -165,22 +165,22 @@ int genetic_algorithm(
   double *best_objective);
 ```
 
-where the parameters are:
-* **nvariables**: variables number
-* **genetic_variable**: array of data to define each variable. The fields of the
-  data structure are:
-  * *maximum*: maximum value
-  * *minimum*: minimum value
-  * *nbits*: number of bits to encode
-* **population**: population size
-* **ngenerations**: number of generations
-* **mutation_ratio**: mutation probability
-* **reproduction_ratio**: reproduction probability
-* **adaptation_ratio**: adaptation probability
-* **type_random**: type of GSL random numbers generator algorithm. See the
-[GSL documentation](https://www.gnu.org/software/gsl/manual/html_node/index.html).
-Valid algorithms are:
-  * *gsl\_rgn\_mt19937* (default value)
+donde los parámetros son:
+* **nvariables**: número de variables
+* **genetic_variable**: vector de datos para definir cada variable. Los campos
+  de cada estructura de datos son:
+  * *maximum*: valor máximo
+  * *minimum*: valor mínimo
+  * *nbits*: número de bits a codificar
+* **population**: tamaño de la población
+* **ngenerations**: número de generaciones
+* **mutation_ratio**: probabilidad de mutación
+* **reproduction_ratio**: probabilidad de reproducción
+* **adaptation_ratio**: probabilidad de adaptación
+* **type_random**: tipo de algoritmo GSL generador de números aleatorios. Véase
+  [GSL documentation](https://www.gnu.org/software/gsl/manual/html_node/index.html).
+  Algoritmos válidos son:
+  * *gsl\_rgn\_mt19937* (valor por defecto)
   * *gsl\_rng\_taus*
   * *gsl\_rgn\_gfsr4*
   * *gsl\_rgn\_ranlxs0*
@@ -192,56 +192,59 @@ Valid algorithms are:
   * *gsl\_rgn\_cmrg*
   * *gsl\_rgn\_ranlux389*
   * *gsl\_rgn\_ranlxd2*
-* **random\_seed**: seed to the GSL random numbers generator algorithm (0 uses
-  the default GSL seed)
-* **type\_reproduction**: type of reproduction algorithm. Valid values are:
-  * *REPRODUCTION\_TYPE\_MIXING* (default value): the son genome is a random
-    mixing between mother and father genomes in each bit
-  * *REPRODUCTION\_TYPE\_SINGLEPOINTS*: the son genome is equal to mother genome
-    previous to a random point and next it is equal to the father genome
-  * *REPRODUCTION\_TYPE\_DOUBLEPOINTS*: the son genome is equal to father genome
-    between two random points and equal to the mother genome in the rest
-* **type\_selection\_mutation**: type of algorithm to select the mothers to 
-  create sons with a mutation. A mutation inverts a random bit in the genome.
-  Valid values are:
-  * *SELECTION\_MUTATION\_TYPE\_LINEARRANK* (default value): the mother is
-    selected randomly between the survival entities assigning a linear
-    probabiltiy higher for better entities
-  * *SELECTION\_MUTATION\_TYPE\_RANDOM*: the mother is selected randomly between
-    the survival entities
-  * *SELECTION\_MUTATION\_TYPE\_BESTOF2*: the mother is the best of two randomly
-    selected between the survival entities
-  * *SELECTION\_MUTATION\_TYPE\_BESTOF3*: the mother is the best of three
-    randomly selected between the survival entities
-  * *SELECTION\_MUTATION\_TYPE\_BEST*: the mother is the best of the survival
-    entities
-* **type\_selection\_reproduction**: type of algorithm to select the parents to
-  reproduce
-* **type\_selection\_adaptation**: type of algorithm to select the mothers to
-  create sons with a adaptation. An adaption inverts a random bit between the
-  lowest significative bits. Valid values are:
-  * *SELECTION\_ADAPTATION\_TYPE\_LINEARRANK* (default value): the mother is
-    selected randomly between the survival entities assigning a linear
-    probabiltiy higher for better entities
+* **random\_seed**: semilla del algoritmo GSL generador de números aletorios (0
+  usa el valor por defecto de GSL)
+* **type\_reproduction**: tipo de algoritmo de reproducción. Son valores
+  válidos:
+  * *REPRODUCTION\_TYPE\_MIXING* (valor por defecto): el genoma hijo es una
+    mezcla aleatoria entre los genomas madre y padre en cada bit
+  * *REPRODUCTION\_TYPE\_SINGLEPOINTS*: el genoma hijo es igual al genoma madre
+    hasta un punto aleatorio y a partir de ahí igual al genoma padre
+  * *REPRODUCTION\_TYPE\_DOUBLEPOINTS*: el genoma hijo es igual al genoma padre
+    entre dos puntos aleatorios e igual al genoma madre en el resto
+* **type\_selection\_mutation**: tipo de algoritmo para seleccionar las madres
+  para generar hijos con una mutación. La mutación invierte un bit aleatorio en
+  el genoma hijo. Son valores válidos:
+  * *SELECTION\_MUTATION\_TYPE\_LINEARRANK* (valor por defecto): la madre se
+    selecciona aleatoriamente entre la población superviviente asignando una
+    probabilidad linealmente mayor para los mejores individuos
+  * *SELECTION\_MUTATION\_TYPE\_RANDOM*: la madre se selecciona aleatoriamente
+    entre los individuos supervivientes
+  * *SELECTION\_MUTATION\_TYPE\_BESTOF2*: la madre es la mejor entre dos
+    individuos seleccionados aleatoriamente
+  * *SELECTION\_MUTATION\_TYPE\_BESTOF3*: la madre es la mejor entre tres
+    individuos seleccionados aleatoriamente
+  * *SELECTION\_MUTATION\_TYPE\_BEST*: la madre es la mejor de los individuos
+    supervivientes
+* **type\_selection\_reproduction**: tipo de algoritmo para seleccionar los
+  ancestros a reproducir
+* **type\_selection\_adaptation**: tipo de algoritmo para seleccionar madres que
+  creen hijos con una adaptación. La adaptación invierte un bit aleatorio entre
+  los bits menos significativos. Son valores válidos:
+  * *SELECTION\_ADAPTATION\_TYPE\_LINEARRANK* (valor por defecto): la madre se
+    selecciona aleatoriamente entre la población superviviente asignando una
+    probabilidad linealmente mayor para los mejores individuos
   * *SELECTION\_ADAPTATION\_TYPE\_RANDOM*: the mother is selected randomly
     between the survival entities
-  * *SELECTION\_ADAPTATION\_TYPE\_BESTOF2*: the mother is the best of two
-    randomly selected between the survival entities
-  * *SELECTION\_ADAPTATION\_TYPE\_BESTOF3*: the mother is the best of three
-    randomly selected between the survival entities
-  * *SELECTION\_ADAPTATION\_TYPE\_BEST*: the mother is the best of the survival
-    entities
-* **thresold**: thresold in objective function to finish the simulations
-* **simulate\_entity**: pointer to the function to perform each simulation
-* **best\_genome**: new generated best genome
-* **best\_variables**: new generated best variables array
-* **best\_objective**: obtained best objective function value
+  * *SELECTION\_ADAPTATION\_TYPE\_RANDOM*: la madre se selecciona aleatoriamente
+    entre los individuos supervivientes
+  * *SELECTION\_ADAPTATION\_TYPE\_BESTOF2*: la madre es la mejor entre dos
+    individuos seleccionados aleatoriamente
+  * *SELECTION\_ADAPTATION\_TYPE\_BESTOF3*: la madre es la mejor entre tres
+    individuos seleccionados aleatoriamente
+  * *SELECTION\_ADAPTATION\_TYPE\_BEST*: la madre es la mejor de los individuos
+    supervivientes
+* **thresold**: umbral en la función objetivo para finalizar las simulaciones
+* **simulate\_entity**: puntero a la función para realizar cada simulación
+* **best\_genome**: mejor genoma de la nueva generación
+* **best\_variables**: vector de las mejores variables de la nueva generación
+* **best\_objective**: valor mejor obtenido de la función objetivo
 
-CONVENIENT FUNCTION USING DEFAULT ALGORITHMS
-____________________________________________
+FUNCIÓN CONVENIENTE USANDO ALGORITMOS POR DEFECTO
+_________________________________________________
 
-If using default algorithms is considered, the following convenient simplified
-function can be used:
+Si se considera usar los algoritmos por defecto, se puede usar la siguiente
+función conveniente simplificada:
 
 ```c
 int genetic_algorithm_default(

@@ -201,8 +201,8 @@ Valid algorithms are:
   * *REPRODUCTION\_TYPE\_DOUBLEPOINTS*: the son genome is equal to father genome
     between two random points and equal to the mother genome in the rest
 * **type\_selection\_mutation**: type of algorithm to select the mothers to 
-  create sons with a mutation. A mutation inverts a random bit in the genome.
-  Valid values are:
+  create sons with a mutation. The mutation inverts a random bit in the son
+  genome. Valid values are:
   * *SELECTION\_MUTATION\_TYPE\_LINEARRANK* (default value): the mother is
     selected randomly between the survival entities assigning a linear
     probabiltiy higher for better entities
