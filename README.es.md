@@ -103,7 +103,7 @@ Descárgese este repositorio y ejecute en un terminal:
 >
 > $ cd genetic/3.0.1
 >
-> $ sh build.sh
+> $ ./build.sh
 
 VERSIÓN FINAL
 _____________
