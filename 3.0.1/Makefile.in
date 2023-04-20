@@ -25,7 +25,7 @@ ifeq (@PGO@, 1)
 	genetic_pgo = $(bin)genetic.pgo
 	PGOOBJ = $(entity_pgo) $(population_pgo) $(reproduction_pgo) \
 		$(selection_pgo) $(evolution_pgo) $(genetic_pgo)
-ifeq (@CC@, clang)
+ifeq (@CLANG@, 1)
 	PGOGENERATE = -fprofile-instr-generate
 	PGOUSE = -fprofile-instr-use=default.profraw
 	ENTITYDEP = $(test_genetic_pgo) $(bin)default.profraw
@@ -99,7 +99,8 @@ $(bin)test_genetic.pgo: test_genetic.c genetic.h evolution.h selection.h \
 
 $(test_genetic_pgo): $(bin)test_genetic.pgo $(libgeneticpgo)
 	$(CC) $(CFLAGS) $(PGOGENERATE) $(bin)test_genetic.pgo \
-		-o $(test_genetic_pgo) $(LIBS) -L$(bin) -Wl,-rpath=. -lgeneticpgo
+		-o $(test_genetic_pgo) $(LIBS) -L$(bin) -Wl,@RPATH@. \
+		-lgeneticpgo
 	cd $(bin); $(TESTPREFIX) ./test_genetic_pgo; $(LLVM_PROFDATA)
 
 $(entity_o): $(ENTITYDEP)
@@ -127,12 +128,13 @@ $(bin)test_genetic.o: $(TESTDEP)
 	$(CC) -c $(CFLAGS) $(PGOUSE) test_genetic.c -o $(bin)test_genetic.o
 
 $(test_genetic): $(bin)test_genetic.o $(libgenetic)
-	$(CC) $(CFLAGS) $(PGOUSE) $(bin)test_genetic.o -o $(test_genetic) $(LIBS) \
-		-L$(bin) -Wl,-rpath=. -lgenetic
+	$(CC) $(CFLAGS) $(PGOUSE) $(bin)test_genetic.o -o $(test_genetic) \
+		$(LIBS) -L$(bin) -Wl,@RPATH@. -lgenetic
 
 clean:
 	rm *.o *pgo *.gcda *@SO@ $(test_genetic) $(test_genetic_pgo)
 
 strip:
 	@MAKE@
-	strip $(test_genetic) $(libgenetic)
+	@STRIP@ $(libgenetic)
+	strip $(test_genetic)
