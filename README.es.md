@@ -50,7 +50,7 @@ UTILIDADES Y BIBLIOTECAS OPCIONALES
 CONSTRUIR LOS FICHEROS BINARIOS
 -------------------------------
 
-En Fedora Linux 37, para usar compilación con OpenMPI, haga en un terminal (en
+En Fedora Linux 38, para usar compilación con OpenMPI, haga en un terminal (en
 la versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
 con MPICH (en la versión de 64 bits):
@@ -65,7 +65,7 @@ En NetBSD 9.3, para compilar con la última versión del compilador GCC hay que
 hacer primero en el terminal de construcción:
 > $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-En OpenBSD 7.2 hay que hacer primero en el terminal de construcción para
+En OpenBSD 7.3 hay que hacer primero en el terminal de construcción para
 seleccionar versiones adecuadas:
 > $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16
 
@@ -82,15 +82,15 @@ operativos:
 * Arch Linux
 * Debian Linux 11
 * Devuan Linux 4
-* Dragonfly BSD 6.4
-* Fedora Linux 37
-* FreeBSD 13.1
+* Dragonfly BSD 6.4.0
+* Fedora Linux 38
+* FreeBSD 13.2
 * Gentoo Linux
 * Linux Mint DE 5
 * Manjaro Linux
 * Microsoft Windows 10 + MSYS2
 * NetBSD 9.3
-* OpenBSD 7.2
+* OpenBSD 7.3
 * OpenInidiana Hipster
 * OpenSUSE Linux 15.4
 * Ubuntu Linux 22.10

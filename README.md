@@ -51,7 +51,7 @@ generate documentation
 BUILDING THE BINARY FILES
 -------------------------
 
-On Fedora Linux 37, in order to use OpenMPI compilation, do in a terminal (in 64 bits
+On Fedora Linux 38, in order to use OpenMPI compilation, do in a terminal (in 64 bits
 version):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
 with MPIC (in 64 bits version):
@@ -66,7 +66,7 @@ On NetBSD 9.3, to compile with last GCC version you have to do first on the
 building terminal:
 > $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-On OpenBSD 7.2 you have to do first on the building terminal to select
+On OpenBSD 7.3 you have to do first on the building terminal to select
 adequate versions and deactivate OpenMPI (does not link) building with CLang:
 > $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16 CC=clang
 
@@ -82,15 +82,15 @@ This software has been built and tested in the following operative systems:
 * Arch Linux
 * Debian Linux 11
 * Devuan Linux 4
-* Dragonfly BSD 6.4
-* Fedora Linux 37
-* FreeBSD 13.1
+* Dragonfly BSD 6.4.0
+* Fedora Linux 38
+* FreeBSD 13.2
 * Gentoo Linux
 * Linux Mint DE 5
 * Manjaro Linux
 * Microsoft Windows 10 + MSYS2
 * NetBSD 9.3
-* OpenBSD 7.2
+* OpenBSD 7.3
 * OpenInidiana Hipster
 * OpenSUSE Linux 15.4
 * Ubuntu Linux 22.10
