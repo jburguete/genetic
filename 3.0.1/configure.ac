@@ -8,6 +8,7 @@ AM_INIT_AUTOMAKE
 AC_MSG_NOTICE([Build: $build])
 AC_MSG_NOTICE([Host: $host])
 win=0
+mac=0
 native=1
 if test $host = "x86_64-w64-mingw32"; then
 	AC_MSG_NOTICE([Microsoft Windows 64 bits])
@@ -33,6 +34,9 @@ elif test `uname -s` = "DragonFly"; then
 elif test `uname -s` = "OpenBSD"; then
 	AC_MSG_NOTICE([OpenBSD])
 	native=0
+elif test `uname -s ` = "Darwin"; then
+	AC_MSG_NOTICE([MacOS])
+	mac=1
 fi
 if test "x$win" = "x0"; then
 	AC_SUBST(SO, [.so])
@@ -54,12 +58,22 @@ if test "`command -v gmake`"; then
 else
 	AC_SUBST(MAKE, [make])
 fi
-if test $CC = "clang"; then
+if test $CC = "clang" || test $mac = 1; then
+	AC_SUBST(RPATH, [-rpath,])
+	AC_SUBST(CLANG, [1])
 	AC_CHECK_PROGS([LLVM_PROFDATA], [llvm-profdata llvm-profdata-15], 0)
 	if test $LLVM_PROFDATA = 0; then
 	      	AC_MSG_ERROR([No llvm-profdata])
 	fi
 	AC_MSG_NOTICE([llvm-profdata: $LLVM_PROFDATA])
+else
+	AC_SUBST(RPATH, [-rpath=])
+	AC_SUBST(CLANG, [0])
+fi
+if test $mac = 1; then
+	AC_SUBST(STRIP, "strip -x")
+else
+	AC_SUBST(STRIP, [strip])
 fi
 
 # Checking MPI
