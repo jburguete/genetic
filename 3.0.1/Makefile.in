@@ -40,12 +40,12 @@ ifeq (@CLANG@, 1)
 else
 	PGOGENERATE = -fprofile-generate
 	PGOUSE = -fprofile-use -fprofile-correction
-	ENTITYDEP = $(test_genetic_pgo) $(bin)entity.gcda
-	POPULATIONDEP = $(test_genetic_pgo) $(bin)population.gcda
-	REPRODUCTIONDEP = $(test_genetic_pgo) $(bin)reproduction.gcda
-	SELECTIONDEP = $(test_genetic_pgo) $(bin)selection.gcda
-	EVOLUTIONDEP = $(test_genetic_pgo) $(bin)evolution.gcda
-	GENETICDEP = $(test_genetic_pgo) $(bin)genetic.gcda
+	ENTITYDEP = $(test_genetic_pgo)
+	POPULATIONDEP = $(test_genetic_pgo)
+	REPRODUCTIONDEP = $(test_genetic_pgo)
+	SELECTIONDEP = $(test_genetic_pgo)
+	EVOLUTIONDEP = $(test_genetic_pgo)
+	GENETICDEP = $(test_genetic_pgo)
 	TESTDEP = $(test_genetic_pgo)
 endif
 	libgeneticpgo = $(bin)libgeneticpgo@SO@
