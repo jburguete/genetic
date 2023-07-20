@@ -73,28 +73,28 @@ En OpenIndiana Hipster, para activar la compilación con OpenMPI, haga en el
 terminal de construcción:
 > $ export PATH=$PATH:/usr/lib/openmpi/gcc/bin
 
-En OpenSUSE Linux 15.4, para activar la compilación con OpenMPI, haga en el
+En OpenSUSE Linux 15.5, para activar la compilación con OpenMPI, haga en el
 terminal de construcción (en la versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
 
 Esta biblioteca ha sido construida y probada en los siguientes sistemas
 operativos:
 * Arch Linux
-* Debian Linux 11
+* Debian Linux 12
 * Devuan Linux 4
 * Dragonfly BSD 6.4.0
 * Fedora Linux 38
 * FreeBSD 13.2
 * Gentoo Linux
 * Linux Mint DE 5
-* MacOS Monterey + Homebrew
+* MacOS Ventura + Homebrew
 * Manjaro Linux
 * Microsoft Windows 10 + MSYS2
 * NetBSD 9.3
 * OpenBSD 7.3
 * OpenInidiana Hipster
-* OpenSUSE Linux 15.4
-* Ubuntu Linux 22.10
+* OpenSUSE Linux 15.5
+* Ubuntu Linux 23.04
 
 Probablemente puede construirse en otros sistemas, distribuciones o versiones
 pero no ha sido probada
