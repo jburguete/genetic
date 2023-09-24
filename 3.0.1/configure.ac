@@ -45,8 +45,21 @@ else
 	AC_SUBST(EXE, [.exe])
 fi
 
+# Checking MPI
+AC_PROG_CC([gcc-13 gcc13 gcc-12 gcc12 gcc-11 gcc11 gcc-10 gcc10 egcc gcc clang])
+AC_ARG_WITH([mpi], AS_HELP_STRING([--with-mpi], [Build with MPI]))
+if test "x$with_mpi" = "xyes"; then
+	AC_CHECK_TOOL([MPICC], [mpicc])
+	if test "x$MPICC" = "xmpicc"; then
+		AC_MSG_NOTICE([checking for MPI... yes])
+		AC_DEFINE([HAVE_MPI], [1])
+		CC=$MPICCº
+	else
+		AC_MSG_NOTICE([checking for MPI... no])
+	fi
+fi
+
 # Checks for programs.
-AC_PROG_CC([mpicc gcc-13 gcc13 gcc-12 gcc12 gcc-11 gcc11 gcc-10 gcc10 egcc gcc clang])
 AC_MSG_NOTICE([Compiler: $CC])
 $CC -v
 AC_PROG_LN_S
@@ -76,17 +89,6 @@ else
 	AC_SUBST(STRIP, [strip])
 fi
 
-# Checking MPI
-AC_ARG_WITH([mpi], AS_HELP_STRING([--with-mpi], [Build with MPI]))
-if test "x$with_mpi" = "xyes"; then
-	if test "x$CC" = "xmpicc"; then
-		AC_MSG_NOTICE([checking for MPI... yes])
-		AC_DEFINE([HAVE_MPI], [1])
-	else
-		AC_MSG_NOTICE([checking for MPI... no])
-	fi
-fi
-	
 # Checks for compiler flags
 compiler=$CC
 
