@@ -16,6 +16,15 @@ OBJ = $(entity_o) $(population_o) $(reproduction_o) $(selection_o) \
 	$(evolution_o) $(genetic_o)
 test_genetic_pgo = $(bin)test_genetic_pgo@EXE@
 test_genetic = $(bin)test_genetic@EXE@
+CLANG = 0
+ifeq (@CC@, mpicc)
+	CCBASE = `mpicc -show | grep gcc`
+	ifeq (x$(CCBASE), x)
+		CLANG = 1
+	endif
+else ifeq (@CC@, clang)
+	CLANG = 1
+endif
 ifeq (@PGO@, 1)
 entity_pgo = $(bin)entity.pgo
 population_pgo = $(bin)population.pgo

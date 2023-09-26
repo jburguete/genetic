@@ -45,8 +45,21 @@ else
 	AC_SUBST(EXE, [.exe])
 fi
 
+# Checking MPI
+AC_PROG_CC([gcc-13 gcc13 gcc-12 gcc12 gcc-11 gcc11 gcc-10 gcc10 egcc gcc clang])
+AC_ARG_WITH([mpi], AS_HELP_STRING([--with-mpi], [Build with MPI]))
+if test "x$with_mpi" = "xyes"; then
+	AC_CHECK_TOOL([MPICC], [mpicc])
+	if test "x$MPICC" = "xmpicc"; then
+		AC_MSG_NOTICE([checking for MPI... yes])
+		AC_DEFINE([HAVE_MPI], [1])
+		CC=$MPICC
+	else
+		AC_MSG_NOTICE([checking for MPI... no])
+	fi
+fi
+
 # Checks for programs.
-AC_PROG_CC([mpicc gcc-12 gcc12 gcc-11 gcc11 gcc-10 gcc10 egcc gcc clang])
 AC_MSG_NOTICE([Compiler: $CC])
 $CC -v
 AC_PROG_LN_S
@@ -58,17 +71,28 @@ if test "`command -v gmake`"; then
 else
 	AC_SUBST(MAKE, [make])
 fi
-if test $CC = "clang" || test $mac = 1; then
+CL=0
+if test "x$MPICC" = "x"; then
+	if test $CC = "clang"; then
+		CL=1
+	fi
+else
+	CCBASE=`$MPICC -show | grep gcc`
+	if test "x$CCBASE" = "x"; then
+		CL=1
+	fi
+fi
+if test $CL = 1; then
+	AC_MSG_NOTICE([Clang compiler])
 	AC_SUBST(RPATH, [-rpath,])
-	AC_SUBST(CLANG, [1])
-	AC_CHECK_PROGS([LLVM_PROFDATA], [llvm-profdata llvm-profdata-15], 0)
+	AC_CHECK_PROGS([LLVM_PROFDATA], [llvm-profdata], 0)
 	if test $LLVM_PROFDATA = 0; then
 	      	AC_MSG_ERROR([No llvm-profdata])
 	fi
 	AC_MSG_NOTICE([llvm-profdata: $LLVM_PROFDATA])
 else
+	AC_MSG_NOTICE([GCC compiler])
 	AC_SUBST(RPATH, [-rpath=])
-	AC_SUBST(CLANG, [0])
 fi
 if test $mac = 1; then
 	AC_SUBST(STRIP, "strip -x")
@@ -76,17 +100,6 @@ else
 	AC_SUBST(STRIP, [strip])
 fi
 
-# Checking MPI
-AC_ARG_WITH([mpi], AS_HELP_STRING([--with-mpi], [Build with MPI]))
-if test "x$with_mpi" = "xyes"; then
-	if test "x$CC" = "xmpicc"; then
-		AC_MSG_NOTICE([checking for MPI... yes])
-		AC_DEFINE([HAVE_MPI], [1])
-	else
-		AC_MSG_NOTICE([checking for MPI... no])
-	fi
-fi
-	
 # Checks for compiler flags
 compiler=$CC
 
@@ -133,9 +146,9 @@ if test "x$with_pgo" = "xyes"; then
 	fi
 fi
 if test $pgo = 0; then
-		AC_MSG_NOTICE("checking for PGO... no")
+		AC_MSG_NOTICE([checking for PGO... no])
 else
-		AC_MSG_NOTICE("checking for PGO... yes")
+		AC_MSG_NOTICE([checking for PGO... yes])
 fi
 AC_SUBST(PGO, [$pgo])
 
