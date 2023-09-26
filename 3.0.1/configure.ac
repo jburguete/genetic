@@ -92,7 +92,11 @@ if test $CL = 1; then
 	AC_MSG_NOTICE([llvm-profdata: $LLVM_PROFDATA])
 else
 	AC_MSG_NOTICE([GCC compiler])
-	AC_SUBST(RPATH, [-rpath=])
+	if test $mac = 1; then
+		AC_SUBST(RPATH, [-rpath,])
+	else
+		AC_SUBST(RPATH, [-rpath=])
+	fi
 fi
 if test $mac = 1; then
 	AC_SUBST(STRIP, "strip -x")
