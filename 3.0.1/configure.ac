@@ -26,7 +26,6 @@ elif test `uname -s` = "NetBSD"; then
 	AC_MSG_NOTICE([NetBSD])
 	LDFLAGS="$LDFLAGS -L/usr/pkg/lib"
 	CPPFLAGS="$CPPFLAGS -I/usr/pkg/include"
-	PATH="/usr/pkg/gcc12/bin:$PATH"
 elif test `uname -s` = "DragonFly"; then
 	AC_MSG_NOTICE([DragonFly BSD])
 	LDFLAGS="$LDFLAGS -L/usr/local/lib"
