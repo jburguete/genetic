@@ -65,7 +65,7 @@ En NetBSD 9.3, para compilar con la última versión del compilador GCC hay que
 hacer primero en el terminal de construcción:
 > $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-En OpenBSD 7.3 hay que hacer primero en el terminal de construcción para
+En OpenBSD 7.6 hay que hacer primero en el terminal de construcción para
 seleccionar versiones adecuadas:
 > $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16
 
@@ -91,7 +91,7 @@ operativos:
 * Manjaro Linux
 * Microsoft Windows 10 + MSYS2
 * NetBSD 9.3
-* OpenBSD 7.3
+* OpenBSD 7.6
 * OpenInidiana Hipster
 * OpenSUSE Linux 15.5
 * Ubuntu Linux 23.04
