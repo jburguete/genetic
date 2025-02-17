@@ -2,6 +2,7 @@ GENETIC (3.0.1 version)
 =======================
 
 :uk:[english](README.md) :es:[español](README.es.md)
+:fr:[français](README.fr.md)
 
 A simple genetic algorithm for optimization
 
