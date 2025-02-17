@@ -1,10 +1,10 @@
-GENETIC (3.0.1 version)
+GENETIC (version 3.0.1)
 =======================
 
 :uk:[english](README.md) :es:[español](README.es.md)
 :fr:[français](README.fr.md)
 
-A simple genetic algorithm for optimization
+A simple genetic algorithm for optimization purposes
 
 AUTHORS
 -------
@@ -15,9 +15,9 @@ AUTHORS
 FILES
 -----
 
-* configure.ac: configure generator
-* Makefile.in: Makefile generator
-* build.sh: simplified building shell script
+* configure.ac: configuration generator
+* Makefile.in: template for generating the Makefile
+* build.sh: simplified build shell script
 * README.md: This file
 * \*.h: Header files
 * \*.c: Source files
@@ -31,20 +31,20 @@ TOOLS AND LIBRARIES REQUIRED TO BUILD THE EXECUTABLE
 * [make](http://www.gnu.org/software/make) to build the executable file
 * [autoconf](http://www.gnu.org/software/autoconf) to generate the Makefile in
   different operative systems
-* [automake](http://www.gnu.org/software/automake) to check the operative
+* [automake](http://www.gnu.org/software/automake) to detect the operative
   system
 * [pkg-config](http://www.freedesktop.org/wiki/Software/pkg-config) to find the
   libraries to compile
 * [gsl](http://www.gnu.org/software/gsl) to generate random numbers
-* [glib](https://developer.gnome.org/glib) extended utilities of C to work with
-  data, lists, mapped files, regular expressions, using multicores in shared
-  memory machines, ...
+* [glib](https://developer.gnome.org/glib) extended C utilities for working with
+  data, lists, memory-mapped files, regular expressions, using multicore
+  processors in shared memory machines, ...
 
 OPTIONAL TOOLS AND LIBRARIES
 ----------------------------
 
-* [openmpi](http://www.open-mpi.org) or [mpich](http://www.mpich.org) to run in
-parallelized tasks on multiple computers
+* [openmpi](http://www.open-mpi.org) or [mpich](http://www.mpich.org) to execute
+  in parallelized tasks across multiple computers
 * [doxygen](http://www.stack.nl/~dimitri/doxygen) standard comments format to
 generate documentation
 * [latex](https://www.latex-project.org/) to build the PDF manuals
@@ -52,10 +52,10 @@ generate documentation
 BUILDING THE BINARY FILES
 -------------------------
 
-On Fedora Linux 40, in order to use OpenMPI compilation, do in a terminal (in 64 bits
+On Fedora Linux 40, to enable OpenMPI compilation, run in a terminal (in 64 bits
 version):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
-with MPIC (in 64 bits version):
+with MPICH (in 64 bits version):
 > $ export PATH=$PATH:/usr/lib64/mpich/bin
 
 On Microsoft Windows systems you have to install
@@ -63,19 +63,18 @@ On Microsoft Windows systems you have to install
 libraries and utilities. You can follow detailed instructions in
 [install-unix](https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
-On NetBSD 10.0, to compile with last GCC version you have to do first on the
-building terminal:
+On NetBSD 10.0, to compile with last GCC version you must first run in the
+build terminal:
 > $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-On OpenBSD 7.6 you have to do first on the building terminal to select
+On OpenBSD 7.6 you must first run in the building terminal to select
 adequate versions and deactivate OpenMPI (does not link) building with CLang:
 > $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16 CC=clang
 
-On OpenIndiana Hipster, in order to enable OpenMPI compilation, do in a
-terminal:
+On OpenIndiana Hipster, to enable OpenMPI compilation, run in a terminal:
 > $ export PATH=$PATH:/usr/lib/openmpi/gcc/bin
 
-On OpenSUSE Linux 15.5, in order to enable OpenMPI compilation, in 64 bits version do
+On OpenSUSE Linux 15.5, to enable OpenMPI compilation, in 64 bits version run
 in a terminal:
 > $ export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
 
@@ -100,7 +99,7 @@ This software has been built and tested in the following operative systems:
 Probably, it can be built in other systems, distributions, or versions but it
 has not been tested
 
-Download this repository and execute on a terminal:
+Download this repository and execute in a terminal:
 > $ git clone https://github.com/jburguete/genetic.git
 >
 > $ cd genetic/3.0.1
@@ -114,14 +113,14 @@ Optionally, a final compact version without debug information can be built doing
 on the terminal:
 > $ make strip
 
-BUILDING IN OTHER PROGRAMS
---------------------------
+INTEGRATING INTO OTHER PROGRAMS
+-------------------------------
 
 To build dynamically this algorithm in other programs:
 
 1. Build the binary code (follows the former section steps)
 
-2. Link in your source directory the latest code version i.e.
+2. Link in your source directory the latest code version, for example:
 > $ cd YOUR\_PROGRAM\_PATH
 >
 > $ ln -s PATH\_TO\_GENETIC/3.0.1 genetic
@@ -129,12 +128,13 @@ To build dynamically this algorithm in other programs:
 3. Include the genetic headers in your source code files:
 > \#include "genetic/genetic.h"
 
-4. Link the dynamic library in your source directory:
+4. Link the dynamic library in your source directory as follows:
 > $ ln -s genetic/libgenetic.so
    or in Windows systems:
 > $ ln -s genetic/libgenetic.dll
 
-5. Link the genetic library with your code to build the executable file i.e.
+5. Link the genetic library with your code to build the executable file, for
+   example:
 > $ gcc YOUR\_CODE.c -L. -Wl,-rpath=. -lgenetic \`pkg-config --libs gsl\`
 
 USING THE ALGORITHM IN OTHER PROGRAMS
@@ -167,7 +167,7 @@ int genetic_algorithm(
 ```
 
 where the parameters are:
-* **nvariables**: variables number
+* **nvariables**: number of variables
 * **genetic_variable**: array of data to define each variable. The fields of the
   data structure are:
   * *maximum*: maximum value
@@ -175,9 +175,9 @@ where the parameters are:
   * *nbits*: number of bits to encode
 * **population**: population size
 * **ngenerations**: number of generations
-* **mutation_ratio**: mutation probability
-* **reproduction_ratio**: reproduction probability
-* **adaptation_ratio**: adaptation probability
+* **mutation_ratio**: mutation rate
+* **reproduction_ratio**: reproduction rate
+* **adaptation_ratio**: adaptation rate
 * **type_random**: type of GSL random numbers generator algorithm. See the
 [GSL documentation](https://www.gnu.org/software/gsl/manual/html_node/index.html).
 Valid algorithms are:
@@ -238,8 +238,8 @@ Valid algorithms are:
 * **best\_variables**: new generated best variables array
 * **best\_objective**: obtained best objective function value
 
-CONVENIENT FUNCTION USING DEFAULT ALGORITHMS
-____________________________________________
+CONVENIENCE FUNCTION USING DEFAULT ALGORITHMS
+_____________________________________________
 
 If using default algorithms is considered, the following convenient simplified
 function can be used:
@@ -264,7 +264,7 @@ int genetic_algorithm_default(
 MAKING REFERENCE MANUAL INSTRUCTIONS (file latex/refman.pdf)
 ------------------------------------------------------------
 
-Exec on a terminal:
+Run the following commands in a terminal:
 > $ cd genetic/3.0.1
 >
 > $ doxygen
