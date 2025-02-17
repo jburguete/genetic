@@ -66,7 +66,7 @@ On NetBSD 10.0, to compile with last GCC version you have to do first on the
 building terminal:
 > $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-On OpenBSD 7.5 you have to do first on the building terminal to select
+On OpenBSD 7.6 you have to do first on the building terminal to select
 adequate versions and deactivate OpenMPI (does not link) building with CLang:
 > $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16 CC=clang
 
@@ -91,7 +91,7 @@ This software has been built and tested in the following operative systems:
 * Manjaro Linux
 * Microsoft Windows 11 + MSYS2
 * NetBSD 10.0
-* OpenBSD 7.5
+* OpenBSD 7.6
 * OpenInidiana Hipster
 * OpenSUSE Linux 15.5
 * Ubuntu Linux 

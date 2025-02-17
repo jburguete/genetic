@@ -16,50 +16,59 @@ OBJ = $(entity_o) $(population_o) $(reproduction_o) $(selection_o) \
 	$(evolution_o) $(genetic_o)
 test_genetic_pgo = $(bin)test_genetic_pgo@EXE@
 test_genetic = $(bin)test_genetic@EXE@
-ifeq (@PGO@, 1)
-	entity_pgo = $(bin)entity.pgo
-	population_pgo = $(bin)population.pgo
-	reproduction_pgo = $(bin)reproduction.pgo
-	selection_pgo = $(bin)selection.pgo
-	evolution_pgo = $(bin)evolution.pgo
-	genetic_pgo = $(bin)genetic.pgo
-	PGOOBJ = $(entity_pgo) $(population_pgo) $(reproduction_pgo) \
-		$(selection_pgo) $(evolution_pgo) $(genetic_pgo)
-ifeq (@CLANG@, 1)
-	PGOGENERATE = -fprofile-instr-generate
-	PGOUSE = -fprofile-instr-use=default.profraw
-	ENTITYDEP = $(test_genetic_pgo) $(bin)default.profraw
-	POPULATIONDEP = $(test_genetic_pgo) $(bin)default.profraw
-	REPRODUCTIONDEP = $(test_genetic_pgo) $(bin)default.profraw
-	SELECTIONDEP = $(test_genetic_pgo) $(bin)default.profraw
-	EVOLUTIONDEP = $(test_genetic_pgo) $(bin)default.profraw
-	GENETICDEP = $(test_genetic_pgo) $(bin)default.profraw
-	TESTDEP = $(test_genetic_pgo)
-	TESTPREFIX = LLVM_PROFILE_FILE="default.profdata"
-	LLVM_PROFDATA = @LLVM_PROFDATA@ merge *.profdata -output default.profraw
-else
-	PGOGENERATE = -fprofile-generate
-	PGOUSE = -fprofile-use -fprofile-correction
-	ENTITYDEP = $(test_genetic_pgo)
-	POPULATIONDEP = $(test_genetic_pgo)
-	REPRODUCTIONDEP = $(test_genetic_pgo)
-	SELECTIONDEP = $(test_genetic_pgo)
-	EVOLUTIONDEP = $(test_genetic_pgo)
-	GENETICDEP = $(test_genetic_pgo)
-	TESTDEP = $(test_genetic_pgo)
+CLANG = 0
+ifeq (@CC@, mpicc)
+CCBASE = `mpicc -show | grep gcc`
+ifeq (x$(CCBASE), x)
+CLANG = 1
 endif
-	libgeneticpgo = $(bin)libgeneticpgo@SO@
+else ifeq (@CC@, clang)
+CLANG = 1
+endif
+ifeq (@PGO@, 1)
+entity_pgo = $(bin)entity.pgo
+population_pgo = $(bin)population.pgo
+reproduction_pgo = $(bin)reproduction.pgo
+selection_pgo = $(bin)selection.pgo
+evolution_pgo = $(bin)evolution.pgo
+genetic_pgo = $(bin)genetic.pgo
+PGOOBJ = $(entity_pgo) $(population_pgo) $(reproduction_pgo) \
+	$(selection_pgo) $(evolution_pgo) $(genetic_pgo)
+ifeq (@CLANG@, 1)
+PGOGENERATE = -fprofile-instr-generate
+PGOUSE = -fprofile-instr-use=default.profraw
+ENTITYDEP = $(test_genetic_pgo) $(bin)default.profraw
+POPULATIONDEP = $(test_genetic_pgo) $(bin)default.profraw
+REPRODUCTIONDEP = $(test_genetic_pgo) $(bin)default.profraw
+SELECTIONDEP = $(test_genetic_pgo) $(bin)default.profraw
+EVOLUTIONDEP = $(test_genetic_pgo) $(bin)default.profraw
+GENETICDEP = $(test_genetic_pgo) $(bin)default.profraw
+TESTDEP = $(test_genetic_pgo)
+TESTPREFIX = LLVM_PROFILE_FILE="default.profdata"
+LLVM_PROFDATA = @LLVM_PROFDATA@ merge *.profdata -output default.profraw
 else
-	ENTITYDEP = entity.c entity.h $(DEP)
-	POPULATIONDEP = population.c population.h entity.h bits.h $(DEP)
-	REPRODUCTIONDEP = reproduction.c reproduction.h entity.h bits.h $(DEP)
-	SELECTIONDEP = selection.c selection.h entity.h bits.h $(DEP)
-	EVOLUTIONDEP = evolution.c evolution.h selection.h adaptation.h \
-		reproduction.h mutation.h population.h entity.h sort.h bits.h $(DEP)
-	GENETICDEP = genetic.c genetic.h evolution.h selection.h reproduction.h \
-		population.h entity.h bits.h $(DEP)
- 	TESTDEP = test_genetic.c genetic.h evolution.h selection.h population.h \
-		entity.h bits.h $(DEP)
+PGOGENERATE = -fprofile-generate
+PGOUSE = -fprofile-use -fprofile-correction
+ENTITYDEP = $(test_genetic_pgo)
+POPULATIONDEP = $(test_genetic_pgo)
+REPRODUCTIONDEP = $(test_genetic_pgo)
+SELECTIONDEP = $(test_genetic_pgo)
+EVOLUTIONDEP = $(test_genetic_pgo)
+GENETICDEP = $(test_genetic_pgo)
+TESTDEP = $(test_genetic_pgo)
+endif
+libgeneticpgo = $(bin)libgeneticpgo@SO@
+else
+ENTITYDEP = entity.c entity.h $(DEP)
+POPULATIONDEP = population.c population.h entity.h bits.h $(DEP)
+REPRODUCTIONDEP = reproduction.c reproduction.h entity.h bits.h $(DEP)
+SELECTIONDEP = selection.c selection.h entity.h bits.h $(DEP)
+EVOLUTIONDEP = evolution.c evolution.h selection.h adaptation.h \
+	reproduction.h mutation.h population.h entity.h sort.h bits.h $(DEP)
+GENETICDEP = genetic.c genetic.h evolution.h selection.h reproduction.h \
+	population.h entity.h bits.h $(DEP)
+TESTDEP = test_genetic.c genetic.h evolution.h selection.h population.h \
+	entity.h bits.h $(DEP)
 endif
 CGENERATE = -c -fPIC $(CFLAGS) $(PGOGENERATE)
 CUSE = -c -fPIC $(CFLAGS) $(PGOUSE)
