@@ -51,7 +51,7 @@ UTILIDADES Y BIBLIOTECAS OPCIONALES
 CONSTRUIR LOS FICHEROS BINARIOS
 -------------------------------
 
-En Fedora Linux 40, para usar compilación con OpenMPI, haga en un terminal (en
+En Fedora Linux 42, para usar compilación con OpenMPI, haga en un terminal (en
 la versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
 con MPICH (en la versión de 64 bits):
@@ -62,11 +62,11 @@ En sistemas Microsoft Windows hay que instalar
 requeridas. Puede seguir las instrucciones detalladas en
 [install-unix](https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
-En NetBSD 10.0, para compilar con la última versión del compilador GCC hay que
+En NetBSD 10.1, para compilar con la última versión del compilador GCC hay que
 hacer primero en el terminal de construcción:
 > $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-En OpenBSD 7.6 hay que hacer primero en el terminal de construcción para
+En OpenBSD 7.7 hay que hacer primero en el terminal de construcción para
 seleccionar versiones adecuadas:
 > $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16
 
@@ -74,7 +74,7 @@ En OpenIndiana Hipster, para activar la compilación con OpenMPI, haga en el
 terminal de construcción:
 > $ export PATH=$PATH:/usr/lib/openmpi/gcc/bin
 
-En OpenSUSE Linux 15.5, para activar la compilación con OpenMPI, haga en el
+En OpenSUSE Linux 15.6, para activar la compilación con OpenMPI, haga en el
 terminal de construcción (en la versión de 64 bits):
 > $ export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
 
@@ -83,19 +83,19 @@ operativos:
 * Arch Linux
 * Debian Linux 12
 * Devuan Linux 5
-* Dragonfly BSD 6.4.0
-* Fedora Linux 40
-* FreeBSD 14.1
+* Dragonfly BSD 6.4.1
+* Fedora Linux 42
+* FreeBSD 14.2
 * Gentoo Linux
 * Linux Mint DE 6
 * MacOS Ventura + Homebrew
 * Manjaro Linux
 * Microsoft Windows 11 + MSYS2
-* NetBSD 10.0
-* OpenBSD 7.6
+* NetBSD 10.1
+* OpenBSD 7.7
 * OpenInidiana Hipster
-* OpenSUSE Linux 15.5
-* Ubuntu Linux 
+* OpenSUSE Linux 15.6
+* Ubuntu Linux 25.04
 
 Probablemente puede construirse en otros sistemas, distribuciones o versiones
 pero no ha sido probada

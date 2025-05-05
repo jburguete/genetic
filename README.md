@@ -52,7 +52,7 @@ generate documentation
 BUILDING THE BINARY FILES
 -------------------------
 
-On Fedora Linux 40, to enable OpenMPI compilation, run in a terminal (in 64 bits
+On Fedora Linux 42, to enable OpenMPI compilation, run in a terminal (in 64 bits
 version):
 > $ export PATH=$PATH:/usr/lib64/openmpi/bin
 with MPICH (in 64 bits version):
@@ -63,18 +63,18 @@ On Microsoft Windows systems you have to install
 libraries and utilities. You can follow detailed instructions in
 [install-unix](https://github.com/jburguete/install-unix/blob/master/tutorial.pdf)
 
-On NetBSD 10.0, to compile with last GCC version you must first run in the
+On NetBSD 10.1, to compile with last GCC version you must first run in the
 build terminal:
 > $ export PATH=/usr/pkg/gcc9/bin:$PATH"
 
-On OpenBSD 7.6 you must first run in the building terminal to select
+On OpenBSD 7.7 you must first run in the building terminal to select
 adequate versions and deactivate OpenMPI (does not link) building with CLang:
 > $ export AUTOCONF\_VERSION=2.69 AUTOMAKE\_VERSION=1.16 CC=clang
 
 On OpenIndiana Hipster, to enable OpenMPI compilation, run in a terminal:
 > $ export PATH=$PATH:/usr/lib/openmpi/gcc/bin
 
-On OpenSUSE Linux 15.5, to enable OpenMPI compilation, in 64 bits version run
+On OpenSUSE Linux 15.6, to enable OpenMPI compilation, in 64 bits version run
 in a terminal:
 > $ export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
 
@@ -82,19 +82,19 @@ This software has been built and tested in the following operative systems:
 * Arch Linux
 * Debian Linux 12
 * Devuan Linux 5
-* Dragonfly BSD 6.4.0
-* Fedora Linux 40
-* FreeBSD 14.1
+* Dragonfly BSD 6.4.1
+* Fedora Linux 42
+* FreeBSD 14.2
 * Gentoo Linux
 * Linux Mint DE 6
 * MacOS Ventura + Homebrew
 * Manjaro Linux
 * Microsoft Windows 11 + MSYS2
-* NetBSD 10.0
-* OpenBSD 7.6
+* NetBSD 10.1
+* OpenBSD 7.7
 * OpenInidiana Hipster
-* OpenSUSE Linux 15.5
-* Ubuntu Linux 
+* OpenSUSE Linux 15.6
+* Ubuntu Linux 25.04
 
 Probably, it can be built in other systems, distributions, or versions but it
 has not been tested
